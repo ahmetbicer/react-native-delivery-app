@@ -1,16 +1,28 @@
 import * as React from 'react';
+import {useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Headline, Subheading, Title} from 'react-native-paper';
 import AppBar from '../components/app-bar';
 import FoodCategories from '../components/food-categories';
+import PopularFoods from '../components/popular-foods';
 import PopularRestaurants from '../components/popular-restaurants';
 import colors from '../constants/colors';
 
 export default function HomeScreen(props) {
+  const [showPageTitle, setShowPageTitle] = useState(false);
+
+  const handleScroll = (event) => {
+    if (event.nativeEvent.contentOffset.y > 90) {
+      setShowPageTitle(true);
+    } else {
+      setShowPageTitle(false);
+    }
+  };
+
   return (
-    <View style={{flex: 1}}>
-      <AppBar screenName={props.route.name} />
-      <ScrollView style={styles.container}>
+    <View style={{flex: 1, backgroundColor: colors.white}}>
+      <AppBar showPageTitle={showPageTitle} screenName={props.route.name} />
+      <ScrollView style={styles.container} onScroll={handleScroll}>
         <Title style={styles.title}>Let's Find</Title>
         <Headline style={styles.subtitle}>Something to Eat.</Headline>
         <FoodCategories />
@@ -23,6 +35,7 @@ export default function HomeScreen(props) {
           <Title style={styles.pf_title}>Popular Foods</Title>
           <Headline style={styles.pf_subtitle}>See All</Headline>
         </View>
+        <PopularFoods />
       </ScrollView>
     </View>
   );
