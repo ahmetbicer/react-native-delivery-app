@@ -27,8 +27,6 @@ export default function App() {
             backgroundColor: colors.black,
             borderTopWidth: 0,
             elevation: 0,
-            borderTopEndRadius: 15,
-            borderTopStartRadius: 15,
           },
         }}>
         <Tab.Screen
