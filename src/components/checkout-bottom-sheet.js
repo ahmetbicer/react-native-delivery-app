@@ -60,7 +60,6 @@ export default function CheckoutBottomSheet(props) {
 
 const styles = StyleSheet.create({
   bottom: {
-    position: 'absolute',
     width: '100%',
     height: 200,
     backgroundColor: colors.black,
