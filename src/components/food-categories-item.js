@@ -4,7 +4,8 @@ import {StyleSheet, View} from 'react-native';
 import {Title} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
-export default function FoodCategoriesItem(props) {
+
+const FoodCategoriesItem = React.memo(() => {
   const iconNames = [
     {name: 'food-drumstick-outline', title: 'Chicken'},
     {name: 'food-steak', title: 'Steak'},
@@ -13,7 +14,6 @@ export default function FoodCategoriesItem(props) {
   ];
 
   const index = getRndInteger(0, iconNames.length - 1);
-
   return (
     <View style={styles.item}>
       <Icon name={iconNames[index].name} color={colors.black} size={42} />
@@ -28,7 +28,7 @@ export default function FoodCategoriesItem(props) {
       <Title style={styles.title}>{iconNames[index].title}</Title>
     </View>
   );
-}
+});
 
 function getRndInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -53,3 +53,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default FoodCategoriesItem;
