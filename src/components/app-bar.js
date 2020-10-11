@@ -54,7 +54,16 @@ export default function AppBar(props) {
           backgroundColor: 'transparent',
           elevation: 0,
         }}>
-        <Appbar.Content title="Checkout" />
+        {props.showPageTitle ? (
+          <Appbar.Content title={'My Orders'} />
+        ) : (
+          <Appbar.Content />
+        )}
+        <Appbar.Action
+          icon="account-circle-outline"
+          onPress={_handleMore}
+          size={32}
+        />
       </Appbar.Header>
     );
   }
