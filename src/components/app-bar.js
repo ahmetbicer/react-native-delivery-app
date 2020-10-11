@@ -5,10 +5,6 @@ import {Appbar} from 'react-native-paper';
 import colors from '../constants/colors';
 
 export default function AppBar(props) {
-  useEffect(() => {
-    console.log(props.screenName);
-  });
-
   const _handleMore = () => console.log('Shown more');
   if (props.screenName == 'Home') {
     return (
@@ -17,7 +13,11 @@ export default function AppBar(props) {
           backgroundColor: 'transparent',
           elevation: 0,
         }}>
-        <Appbar.Content />
+        {props.showPageTitle ? (
+          <Appbar.Content title={"Let's Find"} subtitle={'Something to Eat.'} />
+        ) : (
+          <Appbar.Content />
+        )}
         <Appbar.Action
           icon="account-circle-outline"
           onPress={_handleMore}
