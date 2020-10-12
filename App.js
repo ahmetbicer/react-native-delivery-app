@@ -6,10 +6,10 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from './src/constants/colors';
 
-import HomeScreen from './src/screens/home';
-import SearchScreen from './src/screens/search';
-import FavoritesScreen from './src/screens/favorites';
-import CheckoutScreen from './src/screens/checkout';
+import HomeStackNavigator from './src/navigation/home-stack-navigator';
+import SearchStackNavigator from './src/navigation/search-stack-navigator';
+import FavoritesStackNavigator from './src/navigation/favorites-stack-navigator';
+import CheckoutStackNavigator from './src/navigation/checkout-stack-navigator';
 
 const Tab = createBottomTabNavigator();
 
@@ -30,40 +30,40 @@ export default function App() {
           },
         }}>
         <Tab.Screen
-          name="Home"
+          name="HomeStack"
           options={{
             tabBarIcon: ({color, size}) => (
               <Icon name="view-dashboard-outline" color={color} size={size} />
             ),
           }}
-          component={HomeScreen}
+          component={HomeStackNavigator}
         />
         <Tab.Screen
-          name="Search"
+          name="SearchStack"
           options={{
             tabBarIcon: ({color, size}) => (
               <Icon name="magnify" color={color} size={size} />
             ),
           }}
-          component={SearchScreen}
+          component={SearchStackNavigator}
         />
         <Tab.Screen
-          name="Favorites"
+          name="FavoritesStack"
           options={{
             tabBarIcon: ({color, size}) => (
               <Icon name="bookmark-outline" color={color} size={size} />
             ),
           }}
-          component={FavoritesScreen}
+          component={FavoritesStackNavigator}
         />
         <Tab.Screen
-          name="Checkout"
+          name="CheckoutStack"
           options={{
             tabBarIcon: ({color, size}) => (
               <Icon name="cart-outline" color={color} size={size} />
             ),
           }}
-          component={CheckoutScreen}
+          component={CheckoutStackNavigator}
         />
       </Tab.Navigator>
     </NavigationContainer>
