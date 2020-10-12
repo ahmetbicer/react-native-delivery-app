@@ -10,33 +10,9 @@ export default function CheckoutBottomSheet(props) {
           style={{
             flexDirection: 'row',
             width: Dimensions.get('window').width - 70,
-            alignItems: 'center',
-            marginTop: 20,
-          }}>
-          <View
-            style={{
-              width: 50,
-              height: 50,
-              backgroundColor: colors.yellow,
-              justifyContent: 'center',
-              alignItems: 'center',
-              borderRadius: 5,
-            }}>
-            <Title style={{fontWeight: 'bold'}}>4x</Title>
-          </View>
-          <View style={{marginLeft: 35}}>
-            <Title style={{color: colors.white}}>Seafood Pesto</Title>
-            <Subheading style={{color: colors.white}}>
-              Delivery Time 20 mins
-            </Subheading>
-          </View>
-        </View>
-        <View
-          style={{
-            flexDirection: 'row',
-            width: Dimensions.get('window').width - 70,
             justifyContent: 'space-between',
             marginTop: 10,
+            paddingTop: 5,
           }}>
           <Title style={{color: colors.white}}>Total</Title>
           <Title style={{color: colors.white}}>$48.00</Title>
@@ -61,7 +37,7 @@ export default function CheckoutBottomSheet(props) {
 const styles = StyleSheet.create({
   bottom: {
     width: '100%',
-    height: 200,
+    height: 130,
     backgroundColor: colors.black,
     bottom: 0,
     borderTopEndRadius: 15,
