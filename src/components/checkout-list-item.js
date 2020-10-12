@@ -5,24 +5,9 @@ import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Paragraph, Title} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
+import NumberSpinner from './number-spinner';
 
 export default function CheckoutListItem(props) {
-  const [count, setCount] = useState(0);
-
-  const countDown = () => {
-    let temp = count - 1;
-    if (temp >= 0) {
-      setCount(temp);
-    }
-  };
-
-  const countUp = () => {
-    let temp = count + 1;
-    if (temp >= 0) {
-      setCount(temp);
-    }
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.item}></View>
@@ -34,37 +19,8 @@ export default function CheckoutListItem(props) {
           </View>
         </View>
         <View style={styles.restaurant_metadata}>
-          <View
-            style={{
-              borderRadius: 5,
-              borderWidth: 2,
-              borderColor: colors.gray,
-              width: 96,
-              height: 35,
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}>
-            <TouchableOpacity
-              style={{
-                width: 32,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              onPress={countDown}>
-              <Title style={{fontSize: 20, fontWeight: 'bold'}}>-</Title>
-            </TouchableOpacity>
-            <Title style={{fontSize: 16, fontWeight: 'bold'}}>{count}</Title>
-            <TouchableOpacity
-              style={{
-                width: 32,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}
-              onPress={countUp}>
-              <Title style={{fontSize: 20, fontWeight: 'bold'}}>+</Title>
-            </TouchableOpacity>
-          </View>
+          <NumberSpinner />
+          <Icon name="delete-outline" color={colors.black} size={28} />
         </View>
       </View>
     </View>
@@ -106,7 +62,8 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
   restaurant_metadata: {
-    maxWidth: '85%',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     paddingHorizontal: 10,
     marginTop: -5,
   },
