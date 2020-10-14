@@ -1,13 +1,18 @@
 import * as React from 'react';
-import {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {Paragraph, Title} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
+import {useNavigation} from '@react-navigation/native';
 
 export default function PopularFoodsItem(props) {
+  const navigation = useNavigation();
+
   return (
-    <View style={styles.container}>
+    <Pressable
+      onPress={() => navigation.navigate('FoodDetail')}
+      android_ripple={{color: colors.gray, borderless: false}}
+      style={styles.container}>
       <View style={styles.item}></View>
       <View style={{flex: 1}}>
         <View style={styles.metadata_container}>
@@ -23,7 +28,7 @@ export default function PopularFoodsItem(props) {
           </Paragraph>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
 }
 

@@ -1,22 +1,18 @@
 import * as React from 'react';
-import {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import {Title} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
+import {useNavigation} from '@react-navigation/native';
 
 export default function PopularRestaurantsItem(props) {
-  const iconNames = [
-    {name: 'food-drumstick-outline', title: 'Chicken'},
-    {name: 'food-steak', title: 'Steak'},
-    {name: 'food-apple-outline', title: 'Fruits'},
-    {name: 'coffee-outline', title: 'Coffee'},
-  ];
-
-  const index = getRndInteger(0, iconNames.length - 1);
+  const navigation = useNavigation();
 
   return (
-    <View style={styles.item}>
+    <Pressable
+      onPress={() => navigation.navigate('RestaurantDetail')}
+      android_ripple={{color: colors.gray, borderless: false}}
+      style={styles.item}>
       <View style={styles.metadata_container}>
         <View style={styles.metadata}>
           <Title style={styles.title}>Seafood Pesto</Title>
@@ -41,12 +37,8 @@ export default function PopularRestaurantsItem(props) {
           </View>
         </View>
       </View>
-    </View>
+    </Pressable>
   );
-}
-
-function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 const styles = StyleSheet.create({

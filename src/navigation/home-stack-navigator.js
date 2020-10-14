@@ -5,6 +5,7 @@ import {
 } from '@react-navigation/stack';
 import HomeScreen from '../screens/home/home';
 import RestaurantDetailScreen from '../screens/home/restaurant-detail';
+import FoodDetailScreen from '../screens/home/food-detail';
 
 const HomeStack = createStackNavigator();
 
@@ -23,6 +24,11 @@ export default function HomeStackNavigator() {
         options={{headerShown: false}}
         name="RestaurantDetail"
         component={RestaurantDetailScreen}
+      />
+      <HomeStack.Screen
+        options={{headerShown: false}}
+        name="FoodDetail"
+        component={FoodDetailScreen}
       />
     </HomeStack.Navigator>
   );
