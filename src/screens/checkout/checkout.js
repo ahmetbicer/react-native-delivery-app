@@ -2,9 +2,9 @@ import * as React from 'react';
 import {useState} from 'react';
 import {StyleSheet, ScrollView, View} from 'react-native';
 import {Headline, Title} from 'react-native-paper';
-import AppBar from '../components/app-bar';
-import CheckoutBottomSheet from '../components/checkout-bottom-sheet';
-import CheckoutList from '../components/checkout-list';
+import AppBar from '../../components/app-bar';
+import CheckoutBottomSheet from '../../components/checkout-bottom-sheet';
+import CheckoutList from '../../components/checkout-list';
 
 export default function CheckoutScreen(props) {
   const [showPageTitle, setShowPageTitle] = useState(false);

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import {Text, View} from 'react-native';
-import AppBar from '../components/app-bar';
+import AppBar from '../../components/app-bar';
 
-export default function SearchScreen(props) {
+export default function FavoritesScreen(props) {
   return (
     <View>
       <AppBar screenName={props.route.name} />
-      <Text>Search</Text>
+      <Text>Home!</Text>
     </View>
   );
 }

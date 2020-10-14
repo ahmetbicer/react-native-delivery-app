@@ -2,11 +2,11 @@ import * as React from 'react';
 import {useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import {Headline, Subheading, Title} from 'react-native-paper';
-import AppBar from '../components/app-bar';
-import FoodCategories from '../components/food-categories';
-import PopularFoods from '../components/popular-foods';
-import PopularRestaurants from '../components/popular-restaurants';
-import colors from '../constants/colors';
+import AppBar from '../../components/app-bar';
+import FoodCategories from '../../components/food-categories';
+import PopularFoods from '../../components/popular-foods';
+import PopularRestaurants from '../../components/popular-restaurants';
+import colors from '../../constants/colors';
 
 export default function HomeScreen(props) {
   const [showPageTitle, setShowPageTitle] = useState(false);
