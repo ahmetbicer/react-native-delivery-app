@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {Pressable, StyleSheet, View} from 'react-native';
+import {Image, Pressable, StyleSheet, View} from 'react-native';
 import {Paragraph, Title} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
@@ -13,7 +13,12 @@ export default function PopularFoodsItem(props) {
       onPress={() => navigation.navigate('FoodDetail')}
       android_ripple={{color: colors.gray, borderless: false}}
       style={styles.container}>
-      <View style={styles.item}></View>
+      <Image
+        source={{
+          uri:
+            'https://image.freepik.com/free-photo/crispy-french-fries-with-ketchup-mayonnaise_1150-26588.jpg',
+        }}
+        style={styles.item}></Image>
       <View style={{flex: 1}}>
         <View style={styles.metadata_container}>
           <Title style={styles.title}>Bbq Grilling</Title>

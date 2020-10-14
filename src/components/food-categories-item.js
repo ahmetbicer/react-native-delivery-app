@@ -5,7 +5,7 @@ import {Title} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
 
-const FoodCategoriesItem = React.memo(() => {
+const FoodCategoriesItem = React.memo((props) => {
   const iconNames = [
     {name: 'food-drumstick-outline', title: 'Chicken'},
     {name: 'food-steak', title: 'Steak'},
@@ -13,7 +13,7 @@ const FoodCategoriesItem = React.memo(() => {
     {name: 'coffee-outline', title: 'Coffee'},
   ];
 
-  const index = getRndInteger(0, iconNames.length - 1);
+  const index = props.index;
   return (
     <View style={styles.item}>
       <Icon name={iconNames[index].name} color={colors.black} size={42} />
