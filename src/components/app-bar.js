@@ -3,8 +3,11 @@ import {useEffect} from 'react';
 import {Dimensions, Text, View} from 'react-native';
 import {Appbar} from 'react-native-paper';
 import colors from '../constants/colors';
+import {useNavigation} from '@react-navigation/native';
 
 export default function AppBar(props) {
+  const navigation = useNavigation();
+
   const _handleMore = () => console.log('Shown more');
   if (props.screenName == 'Home') {
     return (
@@ -64,6 +67,27 @@ export default function AppBar(props) {
           onPress={_handleMore}
           size={32}
         />
+      </Appbar.Header>
+    );
+  } else if (props.screenName == 'RestaurantDetail') {
+    return (
+      <Appbar.Header
+        style={{
+          backgroundColor: 'transparent',
+          elevation: 0,
+        }}>
+        <Appbar.Action
+          icon="chevron-left"
+          onPress={() => navigation.goBack()}
+          size={32}
+        />
+        <Appbar.Content />
+        <Appbar.Action
+          icon="bookmark-outline"
+          onPress={_handleMore}
+          size={32}
+        />
+        <Appbar.Action icon="dots-vertical" onPress={_handleMore} size={32} />
       </Appbar.Header>
     );
   }
