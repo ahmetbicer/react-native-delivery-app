@@ -4,7 +4,7 @@ import AppBar from '../../components/app-bar';
 import Foods from '../../components/foods';
 import colors from '../../constants/colors';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import PopularRestaurantsItem from '../../components/popular-restaurants-item';
+import RestaurantItem from '../../components/restaurant-item';
 const Tab = createMaterialTopTabNavigator();
 
 export default function RestaurantDetailScreen(props) {
@@ -34,7 +34,7 @@ export default function RestaurantDetailScreen(props) {
   return (
     <View style={styles.container}>
       <AppBar screenName={props.route.name} />
-      <PopularRestaurantsItem image="https://image.freepik.com/free-photo/interior-modern-upmarket-restaurant_126745-1239.jpg" />
+      <RestaurantItem image="https://image.freepik.com/free-photo/interior-modern-upmarket-restaurant_126745-1239.jpg" />
       <Tab.Navigator
         backBehavior={'none'}
         sceneContainerStyle={{

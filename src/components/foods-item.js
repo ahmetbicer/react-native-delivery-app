@@ -40,15 +40,14 @@ export default function FoodsItem(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    height: 85,
-    marginBottom: 15,
+    height: 75,
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: colors.white,
   },
   item: {
     width: 85,
-    height: 65,
+    height: 55,
     backgroundColor: 'black',
     borderRadius: 10,
   },

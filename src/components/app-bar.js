@@ -60,11 +60,6 @@ export default function AppBar(props) {
           size={32}
         />
         <Appbar.Content />
-        <Appbar.Action
-          icon="bookmark-outline"
-          onPress={_handleMore}
-          size={32}
-        />
         <Appbar.Action icon="dots-vertical" onPress={_handleMore} size={32} />
       </Appbar.Header>
     );
