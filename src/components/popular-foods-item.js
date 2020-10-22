@@ -7,6 +7,7 @@ import {useNavigation} from '@react-navigation/native';
 
 export default function PopularFoodsItem(props) {
   const navigation = useNavigation();
+  const DATA = props.item;
 
   return (
     <Pressable
@@ -18,10 +19,11 @@ export default function PopularFoodsItem(props) {
           uri:
             'https://image.freepik.com/free-photo/crispy-french-fries-with-ketchup-mayonnaise_1150-26588.jpg',
         }}
-        style={styles.item}></Image>
+        style={styles.item}
+      />
       <View style={{flex: 1}}>
         <View style={styles.metadata_container}>
-          <Title style={styles.title}>Bbq Grilling</Title>
+          <Title style={styles.title}>{DATA}</Title>
           <View style={styles.rate}>
             <Icon name="star" color={colors.black} size={18} />
             <Title style={styles.rate_title}>4.5</Title>
@@ -44,6 +46,7 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     flexDirection: 'row',
     alignItems: 'center',
+    backgroundColor: colors.white,
   },
   item: {
     width: 85,
