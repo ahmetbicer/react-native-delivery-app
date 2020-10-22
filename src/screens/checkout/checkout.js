@@ -23,7 +23,7 @@ export default function CheckoutScreen(props) {
       <ScrollView style={styles.container} onScroll={handleScroll}>
         <Title style={styles.title}>
           My
-          <Headline style={styles.subtitle}> Orders</Headline>
+          <Headline style={styles.subtitle}> Cart</Headline>
         </Title>
         <CheckoutList />
       </ScrollView>

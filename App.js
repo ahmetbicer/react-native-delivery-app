@@ -8,7 +8,7 @@ import colors from './src/constants/colors';
 
 import HomeStackNavigator from './src/navigation/home-stack-navigator';
 import SearchStackNavigator from './src/navigation/search-stack-navigator';
-import FavoritesStackNavigator from './src/navigation/favorites-stack-navigator';
+import OrdersStackNavigator from './src/navigation/orders-stack-navigator';
 import CheckoutStackNavigator from './src/navigation/checkout-stack-navigator';
 
 const Tab = createBottomTabNavigator();
@@ -48,13 +48,13 @@ export default function App() {
           component={SearchStackNavigator}
         />
         <Tab.Screen
-          name="FavoritesStack"
+          name="OrdersStack"
           options={{
             tabBarIcon: ({color, size}) => (
-              <Icon name="bookmark-outline" color={color} size={size} />
+              <Icon name="menu" color={color} size={size} />
             ),
           }}
-          component={FavoritesStackNavigator}
+          component={OrdersStackNavigator}
         />
         <Tab.Screen
           name="CheckoutStack"
