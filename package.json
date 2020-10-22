@@ -15,7 +15,7 @@
     "@react-navigation/material-top-tabs": "^5.2.19",
     "@react-navigation/native": "^5.7.6",
     "@react-navigation/stack": "^5.9.3",
-    "react": "16.13.1",
+    "react": "^16.14.0",
     "react-native": "0.63.3",
     "react-native-gesture-handler": "^1.8.0",
     "react-native-paper": "^4.2.0",
@@ -26,14 +26,14 @@
     "react-native-vector-icons": "^7.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "@babel/runtime": "^7.8.4",
-    "@react-native-community/eslint-config": "^1.1.0",
-    "babel-jest": "^25.1.0",
-    "eslint": "^6.5.1",
-    "jest": "^25.1.0",
-    "metro-react-native-babel-preset": "^0.59.0",
-    "react-test-renderer": "16.13.1"
+    "@babel/core": "^7.12.1",
+    "@babel/runtime": "^7.12.1",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "babel-jest": "^26.5.2",
+    "eslint": "^7.11.0",
+    "jest": "^26.5.3",
+    "metro-react-native-babel-preset": "^0.63.0",
+    "react-test-renderer": "^16.14.0"
   },
   "jest": {
     "preset": "react-native"
