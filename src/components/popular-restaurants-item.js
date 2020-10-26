@@ -1,102 +1,110 @@
+import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
-import {
-  Image,
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
-import { useNavigation } from '@react-navigation/native';
 
 export default function PopularRestaurantsItem(props) {
   const navigation = useNavigation();
-
   return (
-    <ImageBackground
-      source={{
-        uri: props.image,
-      }}
-      style={styles.item}
-      imageStyle={{ borderRadius: 10 }}>
-      <Pressable
-        onPress={() => navigation.navigate('RestaurantDetail', { image: props.image })}
-        android_ripple={{ color: colors.gray, borderless: false }}
-        style={styles.item}>
-        <View style={styles.metadata_container}>
-          <View style={styles.metadata}>
-            <Title style={styles.title}>Seafood Pesto</Title>
-            <View style={styles.rate}>
-              <Icon name="star" color={colors.yellow} size={18} />
-              <Icon name="star" color={colors.yellow} size={18} />
-              <Icon name="star" color={colors.yellow} size={18} />
-              <Icon name="star" color={colors.yellow} size={18} />
-              <Icon name="star" color={colors.gray} size={18} />
-              <Title style={styles.rate_title}>4.5</Title>
-            </View>
-            <View style={styles.restaurant_metadata}>
-              <Icon name="silverware-variant" color={colors.gray} size={18} />
-              <Title style={styles.rm_title}>Mexican</Title>
-              <Icon
-                name="alarm"
-                style={{ marginLeft: 5 }}
-                color={colors.gray}
-                size={18}
-              />
-              <Title style={styles.rm_title}>20 mins</Title>
-            </View>
-          </View>
+    <Pressable
+      onPress={() => navigation.navigate('RestaurantDetail', {
+        image: props.image
+      })}
+      android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.item}>
+      <View style={styles.image_row}>
+        <Image source={{ uri: props.image }} style={styles.image_row_image} />
+        <View style={styles.image_row_title_container}>
+          <Title style={styles.image_row_title}>Seafood Pesto</Title>
+          <Title style={styles.image_row_subtitle}>Breakfast, Salads, Pastas, +2</Title>
         </View>
-      </Pressable>
-    </ImageBackground>
+      </View>
+      <View style={styles.metadata_container}>
+        <View style={styles.metadata_rate_container}>
+          <Icon name="star" color={colors.yellow} size={18} />
+          <Title style={styles.metadata_rate_title}>4.5 (1,862)</Title>
+        </View>
+        <View style={styles.metadata_time_container}>
+          <Icon name="clock" color={colors.gray} size={18} />
+          <Title style={styles.metadata_time_title}>20 mins</Title>
+        </View>
+        <View style={styles.metadata_money_container}>
+          <Icon name="currency-usd" color={colors.gray} size={18} />
+          <Icon name="currency-usd" color={colors.gray} size={18} />
+          <Icon name="currency-usd" color={colors.gray} size={18} />
+        </View>
+      </View>
+    </Pressable>
   );
 }
 
 const styles = StyleSheet.create({
   item: {
-    width: 200,
-    height: 225,
-    marginRight: 15,
-    borderRadius: 10,
+    height: 165,
+    marginBottom: 15,
+    borderRadius: 15,
+    backgroundColor: "white"
   },
-  metadata_container: {
-    position: 'absolute',
-    bottom: 15,
-    left: 10,
-    height: 100,
-    width: 180,
-    borderRadius: 5,
-    backgroundColor: 'white',
+  image_row: {
+    padding: 20,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    borderBottomWidth: 2,
+    borderBottomColor: colors.lightgray
   },
-  metadata: {
-    marginTop: 10,
+  image_row_image: {
+    width: 60,
+    height: 60,
+    borderRadius: 10
+  },
+  image_row_title_container: {
+    flex: 1,
+    height: 60,
     marginLeft: 10,
+    justifyContent: "space-around",
   },
-  title: {
-    fontSize: 20,
-    lineHeight: 20,
+  image_row_title: {
+    fontSize: 25,
+    lineHeight: 25,
     fontWeight: 'bold',
     letterSpacing: 0.75,
   },
-  rate: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  rate_title: {
-    marginLeft: 5,
+  image_row_subtitle: {
     fontSize: 14,
-    fontWeight: 'bold',
-  },
-  restaurant_metadata: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: -5,
-  },
-  rm_title: {
-    marginLeft: 5,
-    fontSize: 14,
+    lineHeight: 14,
     color: colors.gray,
+  },
+  metadata_container: {
+    flexDirection: "row",
+    paddingTop: 10,
+    paddingHorizontal: 20,
+    justifyContent: "space-between"
+  },
+  metadata_rate_container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  metadata_rate_title: {
+    fontSize: 14,
+    marginLeft: 5,
+    color: colors.gray
+  },
+  metadata_time_container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  metadata_time_title: {
+    fontSize: 14,
+    marginLeft: 5,
+    color: colors.gray
+  },
+  metadata_money_container: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });

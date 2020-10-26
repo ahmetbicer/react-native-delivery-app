@@ -1,42 +1,68 @@
 import * as React from 'react';
-import {useState} from 'react';
-import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {Headline, Subheading, Title} from 'react-native-paper';
+import { useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Headline, Subheading, Title } from 'react-native-paper';
 import AppBar from '../../components/app-bar';
 import FoodCategories from '../../components/food-categories';
 import PopularFoods from '../../components/popular-foods';
 import PopularRestaurants from '../../components/popular-restaurants';
 import colors from '../../constants/colors';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+const Tab = createMaterialTopTabNavigator();
 
 export default function HomeScreen(props) {
-  const [showPageTitle, setShowPageTitle] = useState(false);
-
-  const handleScroll = (event) => {
-    if (event.nativeEvent.contentOffset.y > 90) {
-      setShowPageTitle(true);
-    } else {
-      setShowPageTitle(false);
-    }
-  };
-
   return (
-    <View style={{flex: 1, backgroundColor: colors.white}}>
-      <AppBar showPageTitle={showPageTitle} screenName={props.route.name} />
-      <ScrollView style={styles.container} onScroll={handleScroll}>
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
+      <AppBar screenName={props.route.name} />
+      <View style={styles.container}>
         <Title style={styles.title}>Let's Find</Title>
         <Headline style={styles.subtitle}>Something to Eat.</Headline>
-        <FoodCategories />
-        <View style={styles.popularRestaurants}>
-          <Title style={styles.pr_title}>Popular Restaurants</Title>
-          <Headline style={styles.pr_subtitle}>See All</Headline>
-        </View>
-        <PopularRestaurants />
-        <View style={styles.popularFoods}>
-          <Title style={styles.pf_title}>Popular Foods</Title>
-          <Headline style={styles.pf_subtitle}>See All</Headline>
-        </View>
-        <PopularFoods />
-      </ScrollView>
+        <Tab.Navigator
+          backBehavior={'none'}
+          style={{ flex: 3 }}
+          sceneContainerStyle={{
+            paddingHorizontal: 20,
+            backgroundColor: colors.lightgray
+          }}
+          tabBarOptions={{
+            showIcon: true,
+            tabStyle: {
+              flexDirection: "row",
+            },
+            style: {
+              elevation: 0,
+            },
+            labelStyle: {
+              fontSize: 19,
+              fontWeight: 'bold',
+              textTransform: 'none',
+            },
+            indicatorStyle: {
+              height: 3,
+              backgroundColor: colors.yellow
+            },
+          }}>
+          <Tab.Screen
+            name={"Restaurants"}
+            component={PopularRestaurants}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="store" color={color} size={25} />
+              ),
+            }}
+          />
+          <Tab.Screen
+            name={"Foods"}
+            component={PopularFoods}
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Icon name="hamburger" color={color} size={25} />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+      </View>
     </View>
   );
 }
@@ -44,15 +70,16 @@ export default function HomeScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
   },
   title: {
+    paddingHorizontal: 20,
     fontSize: 32,
     lineHeight: 32,
     fontWeight: 'bold',
     letterSpacing: 0.75,
   },
   subtitle: {
+    paddingHorizontal: 20,
     fontSize: 32,
     lineHeight: 36,
     marginVertical: 0,

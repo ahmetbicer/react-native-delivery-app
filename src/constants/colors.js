@@ -1,7 +1,8 @@
 export default colors = {
   black: 'black',
   white: 'white',
-  gray: '#c6c7c9',
+  gray: '#aeaeae',
+  lightgray: '#f7f7f7',
   yellow: '#ffd000',
   lightyellow: '#fffefc'
 };
