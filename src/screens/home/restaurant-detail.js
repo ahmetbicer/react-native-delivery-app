@@ -1,9 +1,8 @@
 import * as React from 'react';
-import {StyleSheet, View} from 'react-native';
-import AppBar from '../../components/app-bar';
+import { StyleSheet, View } from 'react-native';
 import Foods from '../../components/foods';
 import colors from '../../constants/colors';
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import RestaurantItem from '../../components/restaurant-item';
 const Tab = createMaterialTopTabNavigator();
 
@@ -11,7 +10,7 @@ export default function RestaurantDetailScreen(props) {
   const DATA = [
     {
       title: 'Main dishes',
-      data: ['Pizza', 'Burger', 'Risotto'],
+      data: ['Pizza', 'Burger', 'Risotto', 'Pizza', 'Burger', 'Risotto'],
     },
     {
       title: 'Sides',
@@ -33,12 +32,12 @@ export default function RestaurantDetailScreen(props) {
 
   return (
     <View style={styles.container}>
-      <AppBar screenName={props.route.name} />
-      <RestaurantItem image="https://image.freepik.com/free-photo/interior-modern-upmarket-restaurant_126745-1239.jpg" />
+      <RestaurantItem image={props.route.params.image} />
       <Tab.Navigator
         backBehavior={'none'}
+        style={{ flex: 3 }}
         sceneContainerStyle={{
-          backgroundColor: colors.white,
+          backgroundColor: colors.lightyellow
         }}
         tabBarOptions={{
           scrollEnabled: true,
@@ -46,13 +45,13 @@ export default function RestaurantDetailScreen(props) {
             elevation: 0,
           },
           labelStyle: {
-            fontSize: 22,
+            fontSize: 19,
             fontWeight: 'bold',
             textTransform: 'none',
           },
           indicatorStyle: {
-            height: 0,
-            backgroundColor: colors.white,
+            height: 3,
+            backgroundColor: colors.yellow
           },
         }}>
         {DATA.map((item) => (
@@ -60,7 +59,7 @@ export default function RestaurantDetailScreen(props) {
             name={item.title}
             key={item.title}
             component={Foods}
-            initialParams={{item: item}}
+            initialParams={{ item: item }}
           />
         ))}
       </Tab.Navigator>
@@ -69,5 +68,5 @@ export default function RestaurantDetailScreen(props) {
 }
 
 const styles = StyleSheet.create({
-  container: {flex: 1, backgroundColor: colors.white},
+  container: { flex: 1, backgroundColor: colors.white },
 });

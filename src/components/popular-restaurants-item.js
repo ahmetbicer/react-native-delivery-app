@@ -6,10 +6,10 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {Title} from 'react-native-paper';
+import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function PopularRestaurantsItem(props) {
   const navigation = useNavigation();
@@ -20,10 +20,10 @@ export default function PopularRestaurantsItem(props) {
         uri: props.image,
       }}
       style={styles.item}
-      imageStyle={{borderRadius: 10}}>
+      imageStyle={{ borderRadius: 10 }}>
       <Pressable
-        onPress={() => navigation.navigate('RestaurantDetail')}
-        android_ripple={{color: colors.gray, borderless: false}}
+        onPress={() => navigation.navigate('RestaurantDetail', { image: props.image })}
+        android_ripple={{ color: colors.gray, borderless: false }}
         style={styles.item}>
         <View style={styles.metadata_container}>
           <View style={styles.metadata}>
@@ -41,7 +41,7 @@ export default function PopularRestaurantsItem(props) {
               <Title style={styles.rm_title}>Mexican</Title>
               <Icon
                 name="alarm"
-                style={{marginLeft: 5}}
+                style={{ marginLeft: 5 }}
                 color={colors.gray}
                 size={18}
               />

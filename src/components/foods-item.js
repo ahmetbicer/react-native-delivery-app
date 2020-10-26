@@ -1,9 +1,9 @@
 import * as React from 'react';
-import {Image, Pressable, StyleSheet, View} from 'react-native';
-import {Title} from 'react-native-paper';
+import { Image, Pressable, StyleSheet, View } from 'react-native';
+import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function FoodsItem(props) {
   const navigation = useNavigation();
@@ -12,7 +12,7 @@ export default function FoodsItem(props) {
   return (
     <Pressable
       onPress={() => navigation.navigate('FoodDetail')}
-      android_ripple={{color: colors.gray, borderless: false}}
+      android_ripple={{ color: colors.gray, borderless: false }}
       style={styles.container}>
       <Image
         source={{
@@ -21,11 +21,11 @@ export default function FoodsItem(props) {
         }}
         style={styles.item}
       />
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <View style={styles.metadata_container}>
           <Title style={styles.title}>{DATA}</Title>
           <View style={styles.rate}>
-            <Title style={[styles.rate_title, {fontWeight: 'bold'}]}>$12</Title>
+            <Title style={[styles.rate_title, { fontWeight: 'bold' }]}>$12</Title>
           </View>
         </View>
         <View style={styles.restaurant_metadata}>
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     height: 75,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: colors.white,
+    backgroundColor: colors.lightyellow
   },
   item: {
     width: 85,

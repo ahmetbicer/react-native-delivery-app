@@ -1,7 +1,8 @@
 import * as React from 'react';
-import {Appbar} from 'react-native-paper';
-import {useNavigation} from '@react-navigation/native';
-import {StyleSheet} from 'react-native';
+import { Appbar } from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { StyleSheet } from 'react-native';
+import colors from '../constants/colors';
 
 export default function AppBar(props) {
   const navigation = useNavigation();
@@ -13,8 +14,8 @@ export default function AppBar(props) {
         {props.showPageTitle ? (
           <Appbar.Content title={"Let's Find"} subtitle={'Something to Eat.'} />
         ) : (
-          <Appbar.Content />
-        )}
+            <Appbar.Content />
+          )}
         <Appbar.Action
           icon="account-circle-outline"
           onPress={_handleMore}
@@ -42,8 +43,8 @@ export default function AppBar(props) {
         {props.showPageTitle ? (
           <Appbar.Content title={'My Orders'} />
         ) : (
-          <Appbar.Content />
-        )}
+            <Appbar.Content />
+          )}
         <Appbar.Action
           icon="account-circle-outline"
           onPress={_handleMore}
@@ -58,9 +59,27 @@ export default function AppBar(props) {
           icon="chevron-left"
           onPress={() => navigation.goBack()}
           size={32}
+          color={colors.white}
+          style={{
+            width: 40,
+            height: 40,
+            backgroundColor: 'rgba(220, 220, 220, 0.3)',
+            borderRadius: 15
+          }}
         />
-        <Appbar.Content />
-        <Appbar.Action icon="dots-vertical" onPress={_handleMore} size={32} />
+        <Appbar.Content color={colors.white} />
+        <Appbar.Action
+          icon="heart"
+          onPress={_handleMore}
+          size={18}
+          color={colors.white}
+          style={{
+            width: 40,
+            height: 40,
+            backgroundColor: 'rgba(220, 220, 220, 0.3)',
+            borderRadius: 15
+          }}
+        />
       </Appbar.Header>
     );
   }
@@ -68,6 +87,7 @@ export default function AppBar(props) {
 
 const styles = StyleSheet.create({
   bar: {
+    marginTop: 10,
     backgroundColor: 'transparent',
     elevation: 0,
   },

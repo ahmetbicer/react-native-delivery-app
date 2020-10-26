@@ -6,69 +6,52 @@ import {
   StyleSheet,
   View,
 } from 'react-native';
-import {Paragraph, Title} from 'react-native-paper';
+import { Appbar, Paragraph, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import AppBar from './app-bar';
 
 export default function RestaurantItem(props) {
   const navigation = useNavigation();
+  const route = useRoute();
 
   return (
-    <Pressable
-      onPress={() => navigation.navigate('RestaurantDetail')}
-      android_ripple={{color: colors.gray, borderless: false}}
-      style={[styles.item, {marginHorizontal: 15}]}>
-      <ImageBackground
-        source={{
-          uri: props.image,
-        }}
-        style={styles.item}
-        imageStyle={{borderRadius: 10}}>
-        <View style={styles.time_metadata}>
-          <Paragraph
-            style={[styles.title, {color: colors.gray, fontWeight: '900'}]}>
-            Delivery Time
+    <ImageBackground
+      source={{
+        uri: props.image,
+      }}
+      blurRadius={3}
+      style={styles.item}>
+      <View>
+        <AppBar screenName={route.name} />
+        <View style={{ marginHorizontal: 10 }}>
+          <Paragraph numberOfLines={1} style={{ fontSize: 14, color: "lightgray", maxWidth: '75%', overflow: 'hidden' }}>
+            5678 Extra Rd. #123 San Francisco, CA 96120.
           </Paragraph>
-          <Paragraph
-            style={[
-              styles.title,
-              {color: colors.black, fontWeight: 'bold', marginTop: 3},
-            ]}>
-            20 mins
-          </Paragraph>
-        </View>
-      </ImageBackground>
-      <View style={{marginBottom: -7}}>
-        <Title style={{lineHeight: 19, fontSize: 19, fontWeight: 'bold'}}>
-          Seafood Pesto
-        </Title>
-        <Paragraph style={{fontSize: 14}}>
-          5678 Extra Rd. #123 San Francisco, CA 96120.
-        </Paragraph>
-        <View style={styles.metadata}>
-          <View style={styles.rate}>
-            <Icon name="star" color={colors.yellow} size={16} />
-            <Icon name="star" color={colors.yellow} size={16} />
-            <Icon name="star" color={colors.yellow} size={16} />
-            <Icon name="star" color={colors.yellow} size={16} />
-            <Icon name="star" color={colors.gray} size={16} />
-            <Title style={styles.rate_title}>4.5</Title>
-          </View>
-          <View style={[styles.rate, {marginLeft: 15}]}>
-            <Icon name="silverware-variant" color={colors.black} size={18} />
-            <Title style={styles.rm_title}>French, Chinese, Mexican</Title>
+          <Title style={{ marginTop: 5, fontSize: 24, fontWeight: 'bold', color: colors.white }}>
+            Seafood Pesto
+          </Title>
+          <View style={styles.metadata}>
+            <View style={styles.rate}>
+              <Icon name="star" color={colors.yellow} size={18} />
+              <Title style={styles.rate_title}>4.5 (1,852)</Title>
+            </View>
+            <View style={[styles.rate, { marginLeft: 15 }]}>
+              <Icon name="clock" color={colors.gray} size={18} />
+              <Title style={styles.rm_title}>20 mins</Title>
+            </View>
           </View>
         </View>
       </View>
-    </Pressable>
+    </ImageBackground>
   );
 }
 
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    height: 225,
+    // height: 215,
   },
   time_metadata: {
     backgroundColor: 'white',
@@ -92,11 +75,11 @@ const styles = StyleSheet.create({
   rate_title: {
     marginLeft: 5,
     fontSize: 14,
-    fontWeight: 'bold',
+    color: colors.white
   },
   rm_title: {
     marginLeft: 5,
     fontSize: 14,
-    color: colors.black,
+    color: colors.white
   },
 });
