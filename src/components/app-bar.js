@@ -11,11 +11,8 @@ export default function AppBar(props) {
   if (props.screenName == 'Home') {
     return (
       <Appbar.Header style={styles.bar}>
-        {props.showPageTitle ? (
-          <Appbar.Content title={"Let's Find"} subtitle={'Something to Eat.'} />
-        ) : (
-            <Appbar.Content />
-          )}
+        {/* <Appbar.Content title={"Let's Find Something to Eat."} /> */}
+        <Appbar.Content />
         <Appbar.Action
           icon="account-circle-outline"
           onPress={_handleMore}
