@@ -1,7 +1,7 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
-import {NavigationContainer} from '@react-navigation/native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from './src/constants/colors';
@@ -32,8 +32,8 @@ export default function App() {
         <Tab.Screen
           name="HomeStack"
           options={{
-            tabBarIcon: ({color, size}) => (
-              <Icon name="view-dashboard-outline" color={color} size={size} />
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="silverware-fork-knife" color={color} size={size} />
             ),
           }}
           component={HomeStackNavigator}
@@ -41,7 +41,7 @@ export default function App() {
         <Tab.Screen
           name="SearchStack"
           options={{
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Icon name="magnify" color={color} size={size} />
             ),
           }}
@@ -50,7 +50,7 @@ export default function App() {
         <Tab.Screen
           name="OrdersStack"
           options={{
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Icon name="menu" color={color} size={size} />
             ),
           }}
@@ -59,7 +59,7 @@ export default function App() {
         <Tab.Screen
           name="CheckoutStack"
           options={{
-            tabBarIcon: ({color, size}) => (
+            tabBarIcon: ({ color, size }) => (
               <Icon name="cart-outline" color={color} size={size} />
             ),
           }}
