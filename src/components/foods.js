@@ -1,15 +1,14 @@
 import * as React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
 import colors from '../constants/colors';
-import FoodsItem from './foods-item';
+import FoodItem from './food-item';
 
 export default function Foods(props) {
-  const DATA = props.route?.params?.item?.data;
-
+  let DATA = ['French Fries', 'Onion Rings', 'Fried Shrimps', 'Fried Tacos'];
   return (
     <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
       {DATA?.map((item) => (
-        <FoodsItem item={item} />
+        <FoodItem item={item} />
       ))}
     </ScrollView>
   );
@@ -18,8 +17,7 @@ export default function Foods(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginHorizontal: 15,
-    backgroundColor: colors.lightyellow
-    // backgroundColor: colors.white,
+    marginTop: 15,
+    backgroundColor: colors.lightgray,
   },
 });

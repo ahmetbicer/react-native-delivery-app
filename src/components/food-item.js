@@ -1,24 +1,23 @@
-import { useNavigation } from '@react-navigation/native';
 import * as React from 'react';
 import { Image, Pressable, StyleSheet, View } from 'react-native';
-import { Title } from 'react-native-paper';
+import { Paragraph, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
-export default function PopularRestaurantsItem(props) {
+export default function FoodItem(props) {
   const navigation = useNavigation();
+  const DATA = props.item;
   return (
     <Pressable
-      onPress={() => navigation.navigate('RestaurantDetail', {
-        image: props.image
-      })}
+      onPress={() => navigation.navigate('FoodDetail')}
       android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.item}>
       <View style={styles.image_row}>
-        <Image source={{ uri: props.image }} style={styles.image_row_image} />
         <View style={styles.image_row_title_container}>
-          <Title style={styles.image_row_title}>Seafood Pesto</Title>
-          <Title style={styles.image_row_subtitle}>Breakfast, Salads, Pastas, +2</Title>
+          <Title style={styles.image_row_title}>{DATA}</Title>
+          <Title numberOfLines={2} style={styles.image_row_subtitle}>Ham, cheese, fresh vegetables, cottage cheese, egg pasta, salad, bread, butter</Title>
         </View>
+        <Image source={{ uri: 'https://image.freepik.com/free-photo/crispy-french-fries-with-ketchup-mayonnaise_1150-26588.jpg' }} style={styles.image_row_image} />
       </View>
       <View style={styles.metadata_container}>
         <View style={styles.metadata_rate_container}>
@@ -26,13 +25,10 @@ export default function PopularRestaurantsItem(props) {
           <Title style={styles.metadata_rate_title}>4.5 (1,862)</Title>
         </View>
         <View style={styles.metadata_time_container}>
-          <Icon name="clock" color={colors.gray} size={18} />
-          <Title style={styles.metadata_time_title}>20 mins</Title>
+          <Title style={styles.metadata_time_title}>560 cal.</Title>
         </View>
         <View style={styles.metadata_money_container}>
-          <Icon name="currency-usd" color={colors.gray} size={18} />
-          <Icon name="currency-usd" color={colors.gray} size={18} />
-          <Icon name="currency-usd" color={colors.gray} size={18} />
+          <Title style={styles.metadata_time_title}>$20</Title>
         </View>
       </View>
     </Pressable>
@@ -44,7 +40,7 @@ const styles = StyleSheet.create({
     height: 165,
     marginBottom: 15,
     borderRadius: 15,
-    backgroundColor: "white"
+    backgroundColor: "white",
   },
   image_row: {
     padding: 20,
@@ -75,6 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 14,
     color: colors.gray,
+    overflow: 'hidden'
   },
   metadata_container: {
     flexDirection: "row",

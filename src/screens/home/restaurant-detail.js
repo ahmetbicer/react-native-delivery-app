@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import Foods from '../../components/foods';
 import colors from '../../constants/colors';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import RestaurantItem from '../../components/restaurant-item';
+import RestaurantHeaderItem from '../../components/restaurant-header-item';
 const Tab = createMaterialTopTabNavigator();
 
 export default function RestaurantDetailScreen(props) {
@@ -32,12 +32,13 @@ export default function RestaurantDetailScreen(props) {
 
   return (
     <View style={styles.container}>
-      <RestaurantItem image={props.route.params.image} />
+      <RestaurantHeaderItem image={props.route.params.image} />
       <Tab.Navigator
         backBehavior={'none'}
         style={{ flex: 3 }}
         sceneContainerStyle={{
-          backgroundColor: colors.lightyellow
+          paddingHorizontal: 20,
+          backgroundColor: colors.lightgray
         }}
         tabBarOptions={{
           scrollEnabled: true,

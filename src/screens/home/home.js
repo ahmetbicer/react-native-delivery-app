@@ -1,11 +1,9 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Headline, Subheading, Title } from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Headline, Title } from 'react-native-paper';
 import AppBar from '../../components/app-bar';
-import FoodCategories from '../../components/food-categories';
-import PopularFoods from '../../components/popular-foods';
-import PopularRestaurants from '../../components/popular-restaurants';
+import Foods from '../../components/foods';
+import Restaurants from '../../components/restaurants';
 import colors from '../../constants/colors';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -45,7 +43,7 @@ export default function HomeScreen(props) {
           }}>
           <Tab.Screen
             name={"Restaurants"}
-            component={PopularRestaurants}
+            component={Restaurants}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Icon name="store" color={color} size={25} />
@@ -54,7 +52,7 @@ export default function HomeScreen(props) {
           />
           <Tab.Screen
             name={"Foods"}
-            component={PopularFoods}
+            component={Foods}
             options={{
               tabBarIcon: ({ color, size }) => (
                 <Icon name="hamburger" color={color} size={25} />
