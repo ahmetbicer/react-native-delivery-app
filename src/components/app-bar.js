@@ -39,11 +39,7 @@ export default function AppBar(props) {
   } else if (props.screenName == 'Checkout') {
     return (
       <Appbar.Header style={styles.bar}>
-        {props.showPageTitle ? (
-          <Appbar.Content title={'My Orders'} />
-        ) : (
-            <Appbar.Content />
-          )}
+        <Appbar.Content />
         <Appbar.Action
           icon="account-circle-outline"
           onPress={_handleMore}
@@ -86,6 +82,7 @@ export default function AppBar(props) {
 
 const styles = StyleSheet.create({
   bar: {
+    height: 40,
     marginTop: 10,
     backgroundColor: 'transparent',
     elevation: 0,

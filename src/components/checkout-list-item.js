@@ -1,27 +1,25 @@
 import * as React from 'react';
-import {useState} from 'react';
-import {useEffect} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
-import {Paragraph, Title} from 'react-native-paper';
+import { useState } from 'react';
+import { useEffect } from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Paragraph, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../constants/colors';
 import NumberSpinner from './number-spinner';
 
 export default function CheckoutListItem(props) {
   return (
-    <View style={styles.container}>
+    <View key={props.item.key} style={styles.container}>
       <View style={styles.item}></View>
-      <View style={{flex: 1}}>
-        <View style={styles.metadata_container}>
-          <Title style={styles.title}>Serve Eggs</Title>
-          <View style={styles.rate}>
-            <Title style={styles.rate_title}>$12</Title>
-          </View>
+      <View style={styles.metadata_container}>
+        <View style={{ marginLeft: 10 }}>
+          <Title style={styles.title}>{props.item.name}</Title>
+          <Title style={styles.rate_title}>${props.item.cost}</Title>
         </View>
-        <View style={styles.restaurant_metadata}>
-          <NumberSpinner />
-          <Icon name="delete-outline" color={colors.black} size={28} />
-        </View>
+        <NumberSpinner
+          deleteItem={props.deleteItem}
+          changeItemCount={props.changeItemCount}
+          item={props.item} />
       </View>
     </View>
   );
@@ -31,21 +29,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     height: 85,
-    marginBottom: 15,
     flexDirection: 'row',
     alignItems: 'center',
   },
   item: {
-    width: 85,
+    width: 65,
     height: 65,
     backgroundColor: 'black',
     borderRadius: 10,
   },
   metadata_container: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 10,
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
   },
   title: {
     fontSize: 16,
@@ -53,23 +50,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.75,
   },
-  rate: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   rate_title: {
-    marginLeft: 5,
     fontSize: 14,
-  },
-  restaurant_metadata: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    paddingHorizontal: 10,
-    marginTop: -5,
-  },
-  rm_title: {
-    marginLeft: 5,
-    fontSize: 14,
-    color: colors.gray,
   },
 });

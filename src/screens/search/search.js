@@ -82,6 +82,7 @@ const styles = StyleSheet.create({
   autocomplete_text: {
     fontSize: 17,
     fontWeight: "100",
+    maxWidth: "90%",
     overflow: 'hidden',
     marginLeft: 5,
   }

@@ -1,11 +1,11 @@
 import * as React from 'react';
-import {Dimensions, StyleSheet, View} from 'react-native';
-import {Button, Subheading, Title} from 'react-native-paper';
+import { Dimensions, StyleSheet, View } from 'react-native';
+import { Button, Subheading, Title } from 'react-native-paper';
 
 export default function CheckoutBottomSheet(props) {
   return (
     <View style={styles.bottom}>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         <View
           style={{
             flexDirection: 'row',
@@ -14,8 +14,8 @@ export default function CheckoutBottomSheet(props) {
             marginTop: 10,
             paddingTop: 5,
           }}>
-          <Title style={{color: colors.white}}>Total</Title>
-          <Title style={{color: colors.white}}>$48.00</Title>
+          <Title style={{ color: colors.white }}>Total</Title>
+          <Title style={{ color: colors.white }}>${props.total}</Title>
         </View>
       </View>
       <Button
@@ -25,7 +25,7 @@ export default function CheckoutBottomSheet(props) {
           width: Dimensions.get('window').width - 70,
           height: 50,
         }}
-        style={{marginBottom: 10}}
+        style={{ marginBottom: 10 }}
         color={colors.yellow}
         onPress={() => console.log('Pressed')}>
         CHECKOUT
