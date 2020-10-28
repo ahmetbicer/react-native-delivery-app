@@ -4,5 +4,6 @@ export default colors = {
   gray: '#aeaeae',
   lightgray: '#efefef',
   yellow: '#ffd000',
-  lightyellow: '#fffefc'
+  lightyellow: '#fffefc',
+  red: "red"
 };

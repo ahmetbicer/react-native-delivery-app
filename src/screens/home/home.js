@@ -1,12 +1,15 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Headline, Title } from 'react-native-paper';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+//components
 import AppBar from '../../components/app-bar';
 import Foods from '../../components/foods';
 import Restaurants from '../../components/restaurants';
+//constants
 import colors from '../../constants/colors';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 const Tab = createMaterialTopTabNavigator();
 
 export default function HomeScreen(props) {
@@ -45,7 +48,7 @@ export default function HomeScreen(props) {
             name={"Restaurants"}
             component={Restaurants}
             options={{
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: ({ color }) => (
                 <Icon name="store" color={color} size={25} />
               ),
             }}
@@ -54,7 +57,7 @@ export default function HomeScreen(props) {
             name={"Foods"}
             component={Foods}
             options={{
-              tabBarIcon: ({ color, size }) => (
+              tabBarIcon: ({ color }) => (
                 <Icon name="hamburger" color={color} size={25} />
               ),
             }}
@@ -79,48 +82,6 @@ const styles = StyleSheet.create({
   subtitle: {
     paddingHorizontal: 20,
     fontSize: 32,
-    lineHeight: 36,
-    marginVertical: 0,
-    letterSpacing: 0.6,
-  },
-  popularRestaurants: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  pr_title: {
-    fontSize: 21,
-    color: colors.black,
-    lineHeight: 32,
-    fontWeight: 'bold',
-    letterSpacing: 0.75,
-  },
-  pr_subtitle: {
-    fontSize: 15,
-    color: colors.black,
-    fontWeight: 'bold',
-    lineHeight: 36,
-    marginVertical: 0,
-    letterSpacing: 0.6,
-  },
-  popularFoods: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginTop: 10,
-  },
-  pf_title: {
-    fontSize: 21,
-    color: colors.black,
-    lineHeight: 32,
-    fontWeight: 'bold',
-    letterSpacing: 0.75,
-  },
-  pf_subtitle: {
-    fontSize: 15,
-    color: colors.black,
-    fontWeight: 'bold',
     lineHeight: 36,
     marginVertical: 0,
     letterSpacing: 0.6,

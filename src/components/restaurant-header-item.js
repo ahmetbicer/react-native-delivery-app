@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { useState } from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Paragraph, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -7,6 +8,7 @@ import { useRoute } from '@react-navigation/native';
 import AppBar from './app-bar';
 
 export default function RestaurantHeaderItem(props) {
+  const [favorite, setFavorite] = useState(false)
   const route = useRoute();
 
   return (
@@ -17,7 +19,7 @@ export default function RestaurantHeaderItem(props) {
       blurRadius={3}
       style={styles.item}>
       <View>
-        <AppBar screenName={route.name} />
+        <AppBar favorite={favorite} setFavorite={setFavorite} screenName={route.name} />
         <View style={{ marginHorizontal: 10 }}>
           <Paragraph numberOfLines={1} style={{ fontSize: 14, color: "lightgray", maxWidth: '75%', overflow: 'hidden' }}>
             5678 Extra Rd. #123 San Francisco, CA 96120.
