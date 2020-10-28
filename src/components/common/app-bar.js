@@ -1,8 +1,10 @@
 import * as React from 'react';
-import { Appbar } from 'react-native-paper';
+import { Appbar, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import colors from '../../constants/colors';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 
 export default function AppBar(props) {
   const navigation = useNavigation();
@@ -47,6 +49,17 @@ export default function AppBar(props) {
         />
       </Appbar.Header>
     );
+  } else if (props.screenName == 'Checkout') {
+    return (
+      <Appbar.Header style={styles.bar}>
+        <Appbar.Content />
+        <Appbar.Action
+          icon="account-circle-outline"
+          onPress={_handleMore}
+          size={32}
+        />
+      </Appbar.Header>
+    );
   } else if (props.screenName == 'RestaurantDetail') {
     return (
       <Appbar.Header style={styles.bar}>
@@ -77,6 +90,22 @@ export default function AppBar(props) {
         />
       </Appbar.Header>
     );
+  } else if (props.screenName == 'Delivery') {
+    return (
+      <View style={styles.delivery}>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          android_ripple={{ color: colors.gray, borderless: false }} style={styles.item}>
+          <Icon name="chevron-left" color={colors.black} size={32} />
+        </Pressable>
+        <Title>Delivery Info</Title>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          android_ripple={{ color: colors.gray, borderless: false }} style={styles.item}>
+          <Icon name="dots-vertical" color={colors.black} size={32} />
+        </Pressable>
+      </View>
+    );
   }
 }
 
@@ -87,4 +116,20 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     elevation: 0,
   },
+  delivery: {
+    height: 40,
+    marginTop: 15,
+    marginHorizontal: 15,
+    backgroundColor: 'transparent',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: "center"
+  },
+  item: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: 45,
+    height: 45,
+    borderRadius: 15
+  }
 });

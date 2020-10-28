@@ -27,7 +27,7 @@ export default function CartBottomSheet(props) {
         }}
         style={{ marginBottom: 10 }}
         color={colors.yellow}
-        onPress={() => console.log('Pressed')}>
+        onPress={props.goToCheckout}>
         CHECKOUT
       </Button>
     </View>

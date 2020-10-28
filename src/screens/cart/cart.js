@@ -6,12 +6,14 @@ import AppBar from '../../components/common/app-bar';
 import CartBottomSheet from '../../components/cart/cart-bottom-sheet';
 import CartList from '../../components/cart/cart-list';
 import colors from '../../constants/colors';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CartScreen(props) {
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [totalCost, setTotalCost] = useState(0);
   const [showCartBottomSheet, setShowCartBottomSheet] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     let dummyData = [
@@ -47,6 +49,14 @@ export default function CartScreen(props) {
     }
   }
 
+  function goToCheckout() {
+    navigation.navigate("Checkout", {
+      items: data
+    })
+    // setData([])
+    // setShowCartBottomSheet(false)
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <AppBar screenName={props.route.name} />
@@ -67,7 +77,7 @@ export default function CartScreen(props) {
             changeItemCount={changeItemCount} />
         </View>}
       {showCartBottomSheet &&
-        <CartBottomSheet total={totalCost} />
+        <CartBottomSheet goToCheckout={goToCheckout} total={totalCost} />
       }
     </View>
   );

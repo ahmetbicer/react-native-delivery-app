@@ -8,7 +8,7 @@ export default function CartListItem(props) {
     <View key={props.item.key} style={styles.container}>
       <View style={styles.item}></View>
       <View style={styles.metadata_container}>
-        <View style={{ marginLeft: 10 }}>
+        <View style={styles.metadata_titles}>
           <Title style={styles.name_title}>{props.item.name}</Title>
           <Title style={styles.cost_title}>${props.item.cost}</Title>
         </View>
@@ -36,9 +36,16 @@ const styles = StyleSheet.create({
   },
   metadata_container: {
     flex: 1,
+    height: 65,
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    alignItems: "center",
+  },
+  metadata_titles: {
+    flex: 1,
+    height: 65,
+    justifyContent: "space-around",
+    marginLeft: 10,
   },
   name_title: {
     fontSize: 16,
@@ -48,5 +55,6 @@ const styles = StyleSheet.create({
   },
   cost_title: {
     fontSize: 14,
+    lineHeight: 14,
   },
 });
