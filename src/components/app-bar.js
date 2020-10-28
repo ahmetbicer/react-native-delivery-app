@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Appbar } from 'react-native-paper';
+import { Appbar, Searchbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import colors from '../constants/colors';
@@ -11,7 +11,6 @@ export default function AppBar(props) {
   if (props.screenName == 'Home') {
     return (
       <Appbar.Header style={styles.bar}>
-        {/* <Appbar.Content title={"Let's Find Something to Eat."} /> */}
         <Appbar.Content />
         <Appbar.Action
           icon="account-circle-outline"
@@ -23,9 +22,12 @@ export default function AppBar(props) {
   } else if (props.screenName == 'Search') {
     return (
       <Appbar.Header style={styles.bar}>
-        <Appbar.Action icon="text-short" onPress={_handleMore} size={32} />
         <Appbar.Content />
-        <Appbar.Action icon="delete-outline" onPress={_handleMore} size={32} />
+        <Appbar.Action
+          icon="account-circle-outline"
+          onPress={_handleMore}
+          size={32}
+        />
       </Appbar.Header>
     );
   } else if (props.screenName == 'Orders') {
@@ -67,9 +69,9 @@ export default function AppBar(props) {
         <Appbar.Content color={colors.white} />
         <Appbar.Action
           icon="heart"
-          onPress={_handleMore}
+          onPress={() => props.setFavorite(!props.favorite)}
           size={18}
-          color={colors.white}
+          color={props.favorite ? colors.red : colors.white}
           style={{
             width: 40,
             height: 40,
