@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Dimensions, StyleSheet, View } from 'react-native';
-import { Button, Subheading, Title } from 'react-native-paper';
+import { Button, Title } from 'react-native-paper';
 
-export default function CheckoutBottomSheet(props) {
+export default function CartBottomSheet(props) {
   return (
     <View style={styles.bottom}>
       <View style={{ flex: 1 }}>

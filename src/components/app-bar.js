@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Appbar, Searchbar } from 'react-native-paper';
+import { Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
 import colors from '../constants/colors';
@@ -36,7 +36,7 @@ export default function AppBar(props) {
         <Appbar.Content title="Orders" />
       </Appbar.Header>
     );
-  } else if (props.screenName == 'Checkout') {
+  } else if (props.screenName == 'Cart') {
     return (
       <Appbar.Header style={styles.bar}>
         <Appbar.Content />

@@ -1,20 +1,16 @@
 import * as React from 'react';
-import { useState } from 'react';
-import { useEffect } from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
-import { Paragraph, Title } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../constants/colors';
+import { StyleSheet, View } from 'react-native';
+import { Title } from 'react-native-paper';
 import NumberSpinner from './number-spinner';
 
-export default function CheckoutListItem(props) {
+export default function CartListItem(props) {
   return (
     <View key={props.item.key} style={styles.container}>
       <View style={styles.item}></View>
       <View style={styles.metadata_container}>
         <View style={{ marginLeft: 10 }}>
-          <Title style={styles.title}>{props.item.name}</Title>
-          <Title style={styles.rate_title}>${props.item.cost}</Title>
+          <Title style={styles.name_title}>{props.item.name}</Title>
+          <Title style={styles.cost_title}>${props.item.cost}</Title>
         </View>
         <NumberSpinner
           deleteItem={props.deleteItem}
@@ -44,13 +40,13 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center"
   },
-  title: {
+  name_title: {
     fontSize: 16,
     lineHeight: 16,
     fontWeight: 'bold',
     letterSpacing: 0.75,
   },
-  rate_title: {
+  cost_title: {
     fontSize: 14,
   },
 });

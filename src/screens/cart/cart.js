@@ -1,15 +1,17 @@
 import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { Headline, Title } from 'react-native-paper';
+import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import AppBar from '../../components/app-bar';
-import CheckoutBottomSheet from '../../components/checkout-bottom-sheet';
-import CheckoutList from '../../components/checkout-list';
+import CartBottomSheet from '../../components/cart-bottom-sheet';
+import CartList from '../../components/cart-list';
+import colors from '../../constants/colors';
 
-export default function CheckoutScreen(props) {
+export default function CartScreen(props) {
+  const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [totalCost, setTotalCost] = useState(0);
-  const [showCheckoutBottomSheet, setShowCheckoutBottomSheet] = useState(false);
+  const [showCartBottomSheet, setShowCartBottomSheet] = useState(false);
 
   useEffect(() => {
     let dummyData = [
@@ -19,7 +21,8 @@ export default function CheckoutScreen(props) {
       { name: "Hamburgers", cost: 14, count: 1, key: 4 }];
 
     setData(dummyData)
-    setShowCheckoutBottomSheet(true)
+    setShowCartBottomSheet(true)
+    setLoading(false)
   }, [])
 
   useEffect(() => {
@@ -40,26 +43,31 @@ export default function CheckoutScreen(props) {
     let newData = data.filter(function (e) { return e !== item })
     setData(newData)
     if (newData.length == 0) {
-      setShowCheckoutBottomSheet(false);
+      setShowCartBottomSheet(false);
     }
   }
 
   return (
     <View style={{ flex: 1 }}>
       <AppBar screenName={props.route.name} />
-      <View style={styles.container}>
-        <Title style={styles.title}>
-          My
+      {loading ?
+        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+          <ActivityIndicator color={colors.yellow} size="large" />
+        </View>
+        :
+        <View style={styles.container}>
+          <Title style={styles.title}>
+            My
           <Headline style={styles.subtitle}> Cart</Headline>
-        </Title>
-        <CheckoutList
-          data={data}
-          showCheckoutBottomSheet={showCheckoutBottomSheet}
-          deleteItem={deleteItem}
-          changeItemCount={changeItemCount} />
-      </View>
-      {showCheckoutBottomSheet &&
-        <CheckoutBottomSheet total={totalCost} />
+          </Title>
+          <CartList
+            data={data}
+            showCartBottomSheet={showCartBottomSheet}
+            deleteItem={deleteItem}
+            changeItemCount={changeItemCount} />
+        </View>}
+      {showCartBottomSheet &&
+        <CartBottomSheet total={totalCost} />
       }
     </View>
   );
