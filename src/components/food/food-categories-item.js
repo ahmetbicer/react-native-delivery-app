@@ -1,16 +1,15 @@
 import * as React from 'react';
-import {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Title} from 'react-native-paper';
+import { StyleSheet, View } from 'react-native';
+import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 const FoodCategoriesItem = React.memo((props) => {
   const iconNames = [
-    {name: 'food-drumstick-outline', title: 'Chicken'},
-    {name: 'food-steak', title: 'Steak'},
-    {name: 'food-apple-outline', title: 'Fruits'},
-    {name: 'coffee-outline', title: 'Coffee'},
+    { name: 'food-drumstick-outline', title: 'Chicken' },
+    { name: 'food-steak', title: 'Steak' },
+    { name: 'food-apple-outline', title: 'Fruits' },
+    { name: 'coffee-outline', title: 'Coffee' },
   ];
 
   const index = props.index;

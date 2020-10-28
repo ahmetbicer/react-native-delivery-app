@@ -3,9 +3,9 @@ import { useState } from 'react';
 import { ImageBackground, StyleSheet, View } from 'react-native';
 import { Paragraph, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 import { useRoute } from '@react-navigation/native';
-import AppBar from './app-bar';
+import AppBar from '../common/app-bar';
 
 export default function RestaurantHeaderItem(props) {
   const [favorite, setFavorite] = useState(false)

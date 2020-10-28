@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Appbar } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet } from 'react-native';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 export default function AppBar(props) {
   const navigation = useNavigation();

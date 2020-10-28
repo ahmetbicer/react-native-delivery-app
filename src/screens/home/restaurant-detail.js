@@ -1,9 +1,10 @@
 import * as React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Foods from '../../components/foods';
-import colors from '../../constants/colors';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
-import RestaurantHeaderItem from '../../components/restaurant-header-item';
+import RestaurantHeaderItem from '../../components/restaurant/restaurant-header-item';
+import Foods from '../../components/food/foods';
+import colors from '../../constants/colors';
+
 const Tab = createMaterialTopTabNavigator();
 
 export default function RestaurantDetailScreen(props) {

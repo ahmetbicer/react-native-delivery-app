@@ -2,9 +2,9 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import AppBar from '../../components/app-bar';
-import CartBottomSheet from '../../components/cart-bottom-sheet';
-import CartList from '../../components/cart-list';
+import AppBar from '../../components/common/app-bar';
+import CartBottomSheet from '../../components/cart/cart-bottom-sheet';
+import CartList from '../../components/cart/cart-list';
 import colors from '../../constants/colors';
 
 export default function CartScreen(props) {

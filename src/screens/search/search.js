@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Divider, Headline, Searchbar, Text, Title } from 'react-native-paper';
-import AppBar from '../../components/app-bar';
+import AppBar from '../../components/common/app-bar';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 

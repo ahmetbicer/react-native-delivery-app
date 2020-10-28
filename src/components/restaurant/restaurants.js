@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { ScrollView, StyleSheet } from 'react-native';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 import RestaurantItem from './restaurant-item';
 
 export default function Restaurants(props) {

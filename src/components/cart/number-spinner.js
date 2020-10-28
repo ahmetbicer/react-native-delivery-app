@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Alert, StyleSheet, TouchableOpacity, View } from 'react-native';
 import { Title } from 'react-native-paper';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 export default function NumberSpinner(props) {
   const [count, setCount] = useState(props.item.count);

@@ -3,7 +3,7 @@ import { FlatList, View, StyleSheet } from 'react-native';
 import { Title } from 'react-native-paper';
 import CartListItem from './cart-list-item';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 export default function CartList(props) {
   return (
