@@ -10,46 +10,7 @@ export default function AppBar(props) {
   const navigation = useNavigation();
 
   const _handleMore = () => console.log('Shown more');
-  if (props.screenName == 'Home') {
-    return (
-      <Appbar.Header style={styles.bar}>
-        <Appbar.Content />
-        <Appbar.Action
-          icon="account-circle-outline"
-          onPress={_handleMore}
-          size={32}
-        />
-      </Appbar.Header>
-    );
-  } else if (props.screenName == 'Search') {
-    return (
-      <Appbar.Header style={styles.bar}>
-        <Appbar.Content />
-        <Appbar.Action
-          icon="account-circle-outline"
-          onPress={_handleMore}
-          size={32}
-        />
-      </Appbar.Header>
-    );
-  } else if (props.screenName == 'Orders') {
-    return (
-      <Appbar.Header style={styles.bar}>
-        <Appbar.Content title="Orders" />
-      </Appbar.Header>
-    );
-  } else if (props.screenName == 'Cart') {
-    return (
-      <Appbar.Header style={styles.bar}>
-        <Appbar.Content />
-        <Appbar.Action
-          icon="account-circle-outline"
-          onPress={_handleMore}
-          size={32}
-        />
-      </Appbar.Header>
-    );
-  } else if (props.screenName == 'Checkout') {
+  if (props.screenName == 'Checkout') {
     return (
       <Appbar.Header style={styles.bar}>
         <Appbar.Content />

@@ -3,7 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import { Headline, Title } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import AppBar from '../../components/common/app-bar';
 import Foods from '../../components/food/foods';
 import Restaurants from '../../components/restaurant/restaurants';
 import colors from '../../constants/colors';
@@ -13,7 +12,6 @@ const Tab = createMaterialTopTabNavigator();
 export default function HomeScreen(props) {
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      <AppBar screenName={props.route.name} />
       <View style={styles.container}>
         <Title style={styles.title}>Let's Find</Title>
         <Headline style={styles.subtitle}>Something to Eat.</Headline>
@@ -69,6 +67,7 @@ export default function HomeScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 40
   },
   title: {
     paddingHorizontal: 20,

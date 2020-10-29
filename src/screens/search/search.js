@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import { Divider, Headline, Searchbar, Text, Title } from 'react-native-paper';
-import AppBar from '../../components/common/app-bar';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -22,7 +21,6 @@ export default function SearchScreen(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      <AppBar screenName={props.route.name} />
       <View style={styles.container}>
         <Title style={styles.title}>Search</Title>
         <Headline style={styles.subtitle}>For Best Foods</Headline>
@@ -54,6 +52,7 @@ export default function SearchScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop: 40,
     paddingHorizontal: 20,
   },
   title: {

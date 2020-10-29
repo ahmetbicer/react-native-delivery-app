@@ -8,7 +8,7 @@ import colors from './src/constants/colors';
 
 import HomeStackNavigator from './src/navigation/home-stack-navigator';
 import SearchStackNavigator from './src/navigation/search-stack-navigator';
-import OrdersStackNavigator from './src/navigation/orders-stack-navigator';
+import ProfileStackNavigator from './src/navigation/profile-stack-navigator';
 import CartStackNavigator from './src/navigation/cart-stack-navigator';
 
 const Tab = createBottomTabNavigator();
@@ -48,22 +48,22 @@ export default function App() {
           component={SearchStackNavigator}
         />
         <Tab.Screen
-          name="OrdersStack"
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Icon name="menu" color={color} size={size} />
-            ),
-          }}
-          component={OrdersStackNavigator}
-        />
-        <Tab.Screen
           name="CartStack"
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="cart-outline" color={color} size={size} />
+              <Icon name="cart" color={color} size={size} />
             ),
           }}
           component={CartStackNavigator}
+        />
+        <Tab.Screen
+          name="ProfileStack"
+          options={{
+            tabBarIcon: ({ color, size }) => (
+              <Icon name="account" color={color} size={size} />
+            ),
+          }}
+          component={ProfileStackNavigator}
         />
       </Tab.Navigator>
     </NavigationContainer>

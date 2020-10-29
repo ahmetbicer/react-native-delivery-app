@@ -2,7 +2,6 @@ import * as React from 'react';
 import { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import AppBar from '../../components/common/app-bar';
 import CartBottomSheet from '../../components/cart/cart-bottom-sheet';
 import CartList from '../../components/cart/cart-list';
 import colors from '../../constants/colors';
@@ -58,8 +57,7 @@ export default function CartScreen(props) {
   }
 
   return (
-    <View style={{ flex: 1 }}>
-      <AppBar screenName={props.route.name} />
+    <View style={{ flex: 1, backgroundColor: colors.white }}>
       {loading ?
         <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
           <ActivityIndicator color={colors.yellow} size="large" />
@@ -85,7 +83,8 @@ export default function CartScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 40,
+    paddingHorizontal: 20,
   },
   title: {
     fontSize: 32,
