@@ -7,11 +7,15 @@ import colors from '../../constants/colors';
 
 export default function ProfileListItem(props) {
     const navigation = useNavigation();
+    // navigation.dangerouslyGetParent().setOptions({ tabBarBadge: 3 })
     return (
         <Pressable
             onPress={() => navigation.navigate(props.page)}
             android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.list_item}>
-            <Icon style={styles.list_item_left_icon} name={props.icon} color={"gray"} size={25} />
+            <View>
+                <Icon style={styles.list_item_left_icon} name={props.icon} color={"gray"} size={25} />
+                {props.badge && <View style={styles.badge}></View>}
+            </View>
             <View style={styles.list_right_item}>
                 <Title style={styles.list_right_item_title}>
                     {props.title}
@@ -50,5 +54,14 @@ const styles = StyleSheet.create({
         lineHeight: 19,
         fontWeight: '100',
         letterSpacing: 0.75,
+    },
+    badge: {
+        position: "absolute",
+        top: 7,
+        right: 7,
+        width: 7,
+        height: 7,
+        borderRadius: 99,
+        backgroundColor: "red"
     }
 });

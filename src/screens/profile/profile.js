@@ -4,7 +4,7 @@ import { View, StyleSheet, Image } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import colors from '../../constants/colors';
 import ProfileList from '../../components/profile/profile_list';
-import AppBar from '../../components/common/app-bar';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function ProfileScreen(props) {
     const [loading, setLoading] = useState(false);
@@ -21,11 +21,12 @@ export default function ProfileScreen(props) {
                         My
                         <Headline style={styles.subtitle}> Profile</Headline>
                     </Title>
-                    {/* <View style={styles.image_container}>
-                        <Image style={styles.image} source={{ uri: "https://image.freepik.com/free-photo/happy-joyful-woman-with-arms-folded-looking_74855-3505.jpg" }} />
-                        <Title style={styles.image_title}>Darlene Robertson</Title>
-                    </View> */}
                     <ProfileList />
+                    <View style={styles.attribution}>
+                        <Title style={styles.attribution_title}>Made with </Title>
+                        <Icon name={"heart"} color={colors.red} size={18} />
+                        <Title style={styles.attribution_title}> Delivr</Title>
+                    </View>
                 </View>
             }
         </View>
@@ -37,24 +38,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 5,
         paddingTop: 40,
-    },
-    image_container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    image: {
-        width: 115,
-        height: 115,
-        borderRadius: 250,
-        borderColor: colors.gray,
-        borderWidth: 2
-    },
-    image_title: {
-        fontSize: 21,
-        lineHeight: 21,
-        paddingVertical: 15,
-        letterSpacing: 0.75,
     },
     title: {
         paddingHorizontal: 15,
@@ -69,4 +52,15 @@ const styles = StyleSheet.create({
         marginVertical: 0,
         letterSpacing: 0.6,
     },
+    attribution: {
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    attribution_title: {
+        fontSize: 15,
+        lineHeight: 15,
+        color: colors.gray
+    }
 });

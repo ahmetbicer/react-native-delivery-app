@@ -10,6 +10,7 @@ import HomeStackNavigator from './src/navigation/home-stack-navigator';
 import SearchStackNavigator from './src/navigation/search-stack-navigator';
 import ProfileStackNavigator from './src/navigation/profile-stack-navigator';
 import CartStackNavigator from './src/navigation/cart-stack-navigator';
+import { View, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -60,7 +61,10 @@ export default function App() {
           name="ProfileStack"
           options={{
             tabBarIcon: ({ color, size }) => (
-              <Icon name="account" color={color} size={size} />
+              <View>
+                <Icon name="account" color={color} size={size} />
+                {/* <View style={styles.badge}></View> */}
+              </View>
             ),
           }}
           component={ProfileStackNavigator}
@@ -69,3 +73,15 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  badge: {
+    position: "absolute",
+    top: 0,
+    right: 0,
+    width: 7,
+    height: 7,
+    borderRadius: 99,
+    backgroundColor: "red"
+  }
+})
