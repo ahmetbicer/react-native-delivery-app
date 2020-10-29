@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Appbar, Title } from 'react-native-paper';
+import { Appbar, Headline, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View } from 'react-native';
 import colors from '../../constants/colors';
@@ -67,6 +67,17 @@ export default function AppBar(props) {
         </Pressable>
       </View>
     );
+  } else if (props.screenName == 'Profile') {
+    return (
+      <View style={styles.delivery}>
+        <Title style={styles.title}></Title>
+        <Pressable
+          onPress={() => navigation.goBack()}
+          android_ripple={{ color: colors.gray, borderless: false }} style={styles.logout}>
+          <Icon name="logout" color={"gray"} size={25} />
+        </Pressable>
+      </View>
+    );
   }
 }
 
@@ -92,5 +103,22 @@ const styles = StyleSheet.create({
     width: 45,
     height: 45,
     borderRadius: 15
+  },
+  title: {
+    fontSize: 24,
+    lineHeight: 24,
+    fontWeight: 'bold',
+    letterSpacing: 0.75,
+  },
+  subtitle: {
+    fontSize: 24,
+    lineHeight: 24,
+    marginVertical: 0,
+    letterSpacing: 0.6,
+  },
+  logout: {
+    padding: 8,
+    borderRadius: 10,
+    backgroundColor: colors.lightgray
   }
 });
