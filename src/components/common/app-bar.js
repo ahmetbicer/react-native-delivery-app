@@ -78,6 +78,17 @@ export default function AppBar(props) {
         </Pressable>
       </View>
     );
+  } else if (props.screenName == 'Payment') {
+    return (
+      <Appbar.Header style={styles.bar}>
+        <Appbar.Action
+          icon="chevron-left"
+          onPress={() => navigation.goBack()}
+          size={32}
+        />
+        <Appbar.Content color={colors.white} />
+      </Appbar.Header>
+    );
   }
 }
 

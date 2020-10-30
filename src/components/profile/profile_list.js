@@ -9,7 +9,7 @@ export default function ProfileList(props) {
             <ProfileListItem icon="moped" title={"My Orders"} badge page={"Orders"} />
             <ProfileListItem icon="account-edit" title={"Profile Settings"} page={""} />
             <ProfileListItem icon="map-marker" title={"Shopping Address"} page={""} />
-            <ProfileListItem icon="credit-card-outline" title={"Payment"} page={""} />
+            <ProfileListItem icon="credit-card-outline" title={"Payment"} page={"Payment"} />
             <ProfileListItem icon="logout" title={"Logout"} page={""} />
         </View>
     );
