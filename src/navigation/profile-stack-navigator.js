@@ -4,6 +4,8 @@ import OrdersScreen from '../screens/profile/orders';
 import DeliveryScreen from '../screens/profile/delivery';
 import ProfileScreen from '../screens/profile/profile';
 import PaymentScreen from '../screens/profile/payment';
+import AddressScreen from '../screens/profile/address';
+import GetAddressScreen from '../screens/profile/get-address';
 
 const ProfileStack = createStackNavigator();
 
@@ -19,6 +21,16 @@ export default function ProfileStackNavigator() {
         options={{ headerShown: false }}
         name="Orders"
         component={OrdersScreen}
+      />
+      <ProfileStack.Screen
+        options={{ headerShown: false }}
+        name="Address"
+        component={AddressScreen}
+      />
+      <ProfileStack.Screen
+        options={{ headerShown: false }}
+        name="GetAddress"
+        component={GetAddressScreen}
       />
       <ProfileStack.Screen
         options={{ headerShown: false }}
