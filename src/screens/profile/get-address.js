@@ -80,7 +80,7 @@ export default function GetAddressScreen(props) {
                     style={{ marginHorizontal: 15 }}
                     color={colors.yellow}>
                     Save Address
-            </Button>
+                </Button>
             </View>
         </View>
     );

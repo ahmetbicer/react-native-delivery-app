@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import AppBar from '../../components/common/app-bar';
 import AddAddress from '../../components/profile/address/add-address';
+import SavedAddresses from '../../components/profile/address/saved-addresses';
 import colors from '../../constants/colors';
 
 export default function AddressScreen(props) {
@@ -23,6 +24,7 @@ export default function AddressScreen(props) {
                             My
                             <Headline style={styles.subtitle}> Addresses</Headline>
                         </Title>
+                        <SavedAddresses />
                         <AddAddress />
                     </View>
                 </>
