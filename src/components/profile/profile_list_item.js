@@ -1,16 +1,26 @@
-import { useNavigation } from '@react-navigation/native';
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
-import { Divider, Title } from 'react-native-paper';
+import { Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import colors from '../../constants/colors';
 
+import { useNavigation } from '@react-navigation/native';
+import { AuthContext } from '../../providers/AuthContext';
+
 export default function ProfileListItem(props) {
     const navigation = useNavigation();
+    const { logout } = useContext(AuthContext);
+
     // navigation.dangerouslyGetParent().setOptions({ tabBarBadge: 3 })
     return (
         <Pressable
-            onPress={() => navigation.navigate(props.page)}
+            onPress={() => {
+                if (props.logout) {
+                    logout();
+                } else {
+                    navigation.navigate(props.page)
+                }
+            }}
             android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.list_item}>
             <View>
                 <Icon style={styles.list_item_left_icon} name={props.icon} color={"gray"} size={25} />
