@@ -78,7 +78,11 @@ export default function AppBar(props) {
         </Pressable>
       </View>
     );
-  } else if (props.screenName == 'Payment' || props.screenName == 'Address' || props.screenName == 'GetAddress') {
+  } else if (
+    props.screenName == 'Payment' ||
+    props.screenName == 'Address' ||
+    props.screenName == 'GetAddress' ||
+    props.screenName == 'Orders') {
     return (
       <Appbar.Header style={styles.bar}>
         <Appbar.Action

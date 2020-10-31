@@ -1,7 +1,9 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { ScrollView, View, StyleSheet, RefreshControl } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
+import AppBar from '../../components/common/app-bar';
+import Orders from '../../components/profile/orders/orders';
 import colors from '../../constants/colors';
 
 export default function OrdersScreen(props) {
@@ -14,12 +16,16 @@ export default function OrdersScreen(props) {
         </View>
         :
         <>
-          <View style={styles.container}>
+          <AppBar screenName={props.route.name} />
+          <ScrollView refreshControl={
+            <RefreshControl />
+          } style={styles.container}>
             <Title style={styles.title}>
               My
               <Headline style={styles.subtitle}> Orders</Headline>
             </Title>
-          </View>
+            <Orders />
+          </ScrollView>
         </>
       }
     </View>
@@ -29,7 +35,7 @@ export default function OrdersScreen(props) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 40,
+    marginTop: 25,
     paddingHorizontal: 20,
   },
   title: {
@@ -38,8 +44,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     letterSpacing: 0.75,
     paddingBottom: 15,
-    borderColor: colors.gray,
-    borderBottomWidth: 1
   },
   subtitle: {
     fontSize: 32,
