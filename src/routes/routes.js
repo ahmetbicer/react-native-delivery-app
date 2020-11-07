@@ -10,15 +10,15 @@ import AppTabNavigator from '../navigation/app-tab-navigator';
 import AuthStackNavigator from '../navigation/auth-stack-navigator';
 
 export default function Routes() {
-    const { user, setToken } = useContext(AuthContext);
+    const { user, setAuthenticatedUser } = useContext(AuthContext);
 
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function checkUser() {
-            let data = await AsyncStorage.getItem("token");
+            let data = await AsyncStorage.getItem("user");
             if (data) {
-                await setToken(data.token)
+                await setAuthenticatedUser(data)
                 setLoading(false)
             }
             else {

@@ -4,12 +4,14 @@ import { ActivityIndicator, Button, TextInput, Title } from 'react-native-paper'
 import colors from '../../constants/colors';
 import { AuthContext } from '../../providers/AuthContext';
 import LottieView from 'lottie-react-native';
+import { useNavigation } from '@react-navigation/native';
 
 export default function LoginScreen(props) {
   const { login } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const navigation = useNavigation();
 
   if (loading) {
     return (
@@ -70,11 +72,19 @@ export default function LoginScreen(props) {
           contentStyle={{ height: 50 }}
           style={{ marginTop: 10 }}
           color={colors.yellow}>
-          Login
-      </Button>
+          LOGIN
+        </Button>
       </View>
       <View style={styles.register}>
-        <Title style={styles.register_title}>Don't have an account?</Title>
+        <Button
+          compact={true}
+          mode="outlined"
+          onPress={() => navigation.navigate("Register")}
+          contentStyle={{ height: 40 }}
+          style={{ marginTop: 10, width: "100%" }}
+          color={colors.black}>
+          Don't have an account yet?
+        </Button>
       </View>
     </View>
   );

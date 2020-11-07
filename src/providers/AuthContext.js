@@ -6,7 +6,7 @@ export const AuthContext = React.createContext({
     user: undefined,
     login: (email, password) => { },
     logout: () => { },
-    setToken: () => { }
+    setAuthenticatedUser: (data) => { }
 });
 
 export const AuthProvider = ({ children }) => {
@@ -30,8 +30,8 @@ export const AuthProvider = ({ children }) => {
 
                 if (response.status == 200) {
                     let data = await response.json()
-                    let user = { token: data.token };
-                    await AsyncStorage.setItem("token", JSON.stringify(user));
+                    let user = { email: data.email, name: data.name, token: data.token };
+                    await AsyncStorage.setItem("user", JSON.stringify(user));
                     setUser(user);
                     return true;
                 }
@@ -40,12 +40,12 @@ export const AuthProvider = ({ children }) => {
                 }
             },
             logout: async () => {
-                await AsyncStorage.removeItem("token")
+                await AsyncStorage.removeItem("user")
                 setUser(undefined);
             },
-            setToken: async (token) => {
-                let user = { token: token };
-                await AsyncStorage.setItem("token", JSON.stringify(user));
+            setAuthenticatedUser: async (data) => {
+                let user = JSON.parse(data);
+                await AsyncStorage.setItem("user", JSON.stringify(user));
                 setUser(user);
             }
         }}>
