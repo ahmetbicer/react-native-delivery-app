@@ -1,7 +1,6 @@
 from django.shortcuts import render
 
-# Create your views here.
+# authentication
 
-def get_users(request):
-    print(request)
+def register(request):
     pass
