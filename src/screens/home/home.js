@@ -16,6 +16,7 @@ export default function HomeScreen(props) {
         <Title style={styles.title}>Let's Find</Title>
         <Headline style={styles.subtitle}>Something to Eat.</Headline>
         <Tab.Navigator
+          lazy={true}
           backBehavior={'none'}
           style={{ flex: 3 }}
           sceneContainerStyle={{

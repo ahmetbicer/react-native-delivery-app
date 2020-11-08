@@ -7,32 +7,63 @@ import colors from '../../constants/colors';
 
 export default function RestaurantItem(props) {
   const navigation = useNavigation();
+  const { item } = props.data;
   return (
     <Pressable
       onPress={() => navigation.navigate('RestaurantDetail', {
-        image: props.image
+        image: item.image
       })}
       android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.item}>
       <View style={styles.image_row}>
-        <Image source={{ uri: props.image }} style={styles.image_row_image} />
+        <Image source={{ uri: item.image }} style={styles.image_row_image} />
         <View style={styles.image_row_title_container}>
-          <Title style={styles.image_row_title}>Seafood Pesto</Title>
-          <Title style={styles.image_row_subtitle}>Breakfast, Salads, Pastas, +2</Title>
+          <Title style={styles.image_row_title}>{item.name}</Title>
+          <Title style={styles.image_row_subtitle}>
+            {item.categories.map((category, index) => {
+              if (index != item.categories.length - 1) {
+                return (
+                  `${category.name}, `
+                )
+              } else {
+                return (
+                  `${category.name} `
+                )
+              }
+            })}
+          </Title>
         </View>
       </View>
       <View style={styles.metadata_container}>
         <View style={styles.metadata_rate_container}>
           <Icon name="star" color={colors.yellow} size={18} />
-          <Title style={styles.metadata_rate_title}>4.5 (1,862)</Title>
+          <Title style={styles.metadata_rate_title}>{item.star} (1,862)</Title>
         </View>
         <View style={styles.metadata_time_container}>
           <Icon name="clock" color={colors.gray} size={18} />
-          <Title style={styles.metadata_time_title}>20 mins</Title>
+          <Title style={styles.metadata_time_title}>{item.delivery_time} mins</Title>
         </View>
         <View style={styles.metadata_money_container}>
-          <Icon name="currency-usd" color={colors.gray} size={18} />
-          <Icon name="currency-usd" color={colors.gray} size={18} />
-          <Icon name="currency-usd" color={colors.gray} size={18} />
+          {item.cost.length == 1 ?
+            <>
+              <Icon name="currency-usd" color={colors.transparent} size={18} />
+              <Icon name="currency-usd" color={colors.transparent} size={18} />
+              <Icon name="currency-usd" color={colors.gray} size={18} />
+            </>
+            :
+            item.cost.length == 2 ?
+              <>
+                <Icon name="currency-usd" color={colors.transparent} size={18} />
+                <Icon name="currency-usd" color={colors.gray} size={18} />
+                <Icon name="currency-usd" color={colors.gray} size={18} />
+              </>
+              :
+              <>
+                <Icon name="currency-usd" color={colors.gray} size={18} />
+                <Icon name="currency-usd" color={colors.gray} size={18} />
+                <Icon name="currency-usd" color={colors.gray} size={18} />
+              </>
+
+          }
         </View>
       </View>
     </Pressable>

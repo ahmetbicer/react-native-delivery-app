@@ -7,28 +7,29 @@ import { useNavigation } from '@react-navigation/native';
 
 export default function FoodItem(props) {
   const navigation = useNavigation();
-  const DATA = props.item;
+  const { item } = props.data;
+
   return (
     <Pressable
       onPress={() => navigation.navigate('FoodDetail')}
       android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.item}>
       <View style={styles.image_row}>
         <View style={styles.image_row_title_container}>
-          <Title style={styles.image_row_title}>{DATA}</Title>
-          <Title numberOfLines={2} style={styles.image_row_subtitle}>Ham, cheese, fresh vegetables, cottage cheese, egg pasta, salad, bread, butter</Title>
+          <Title style={styles.image_row_title}>{item.name}</Title>
+          <Title numberOfLines={2} style={styles.image_row_subtitle}>{item.description}</Title>
         </View>
-        <Image source={{ uri: 'https://image.freepik.com/free-photo/crispy-french-fries-with-ketchup-mayonnaise_1150-26588.jpg' }} style={styles.image_row_image} />
+        <Image source={{ uri: item.image }} style={styles.image_row_image} />
       </View>
       <View style={styles.metadata_container}>
         <View style={styles.metadata_rate_container}>
           <Icon name="star" color={colors.yellow} size={18} />
-          <Title style={styles.metadata_rate_title}>4.5 (1,862)</Title>
+          <Title style={styles.metadata_rate_title}>{item.star} (1,862)</Title>
         </View>
         <View style={styles.metadata_time_container}>
-          <Title style={styles.metadata_time_title}>560 cal.</Title>
+          <Title style={styles.metadata_time_title}>{item.calories} cal.</Title>
         </View>
         <View style={styles.metadata_money_container}>
-          <Title style={styles.metadata_time_title}>$20</Title>
+          <Title style={styles.metadata_time_title}>${item.cost}</Title>
         </View>
       </View>
     </Pressable>

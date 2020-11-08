@@ -53,6 +53,7 @@ export default function LoginScreen(props) {
         <TextInput
           mode={"outlined"}
           label={"Email"}
+          keyboardType={"email-address"}
           value={email}
           onChangeText={(value) => setEmail(value)}
           theme={{ colors: { primary: colors.black } }}

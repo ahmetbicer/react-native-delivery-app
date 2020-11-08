@@ -1,23 +1,62 @@
-import * as React from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useState, useEffect } from 'react';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import { ActivityIndicator } from 'react-native-paper';
 import colors from '../../constants/colors';
 import RestaurantItem from './restaurant-item';
 
 export default function Restaurants(props) {
+  const [restaurants, setRestaurants] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    async function getRestaurants() {
+      setLoading(true);
+      let data = await AsyncStorage.getItem("user");
+      let { token } = await JSON.parse(data);
+
+      let response = await fetch("http://10.0.2.2:8000/api/restaurants", {
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': `Token ${token}`
+        }
+      })
+
+      if (response.status == 200) {
+        let data = await response.json()
+        setRestaurants(data);
+        setRefreshing(false);
+      }
+
+      setLoading(false);
+    }
+
+    getRestaurants();
+  }, [refreshing])
+
+  if (loading) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator color={colors.yellow} size={"large"} />
+      </View>
+    )
+  }
+
   return (
-    <ScrollView
+    <FlatList
+      data={restaurants}
       showsVerticalScrollIndicator={false}
-      style={styles.container}>
-      <RestaurantItem image="https://image.freepik.com/free-photo/interior-modern-upmarket-restaurant_126745-1239.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/cozy-restaurant-with-people-waiter_175935-230.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/luxury-tableware-beautiful-table-setting-restaurant_73492-239.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/luxury-tableware-beautiful-table-setting-restaurant_73492-239.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/luxury-tableware-beautiful-table-setting-restaurant_73492-239.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/luxury-tableware-beautiful-table-setting-restaurant_73492-239.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/luxury-tableware-beautiful-table-setting-restaurant_73492-239.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/luxury-tableware-beautiful-table-setting-restaurant_73492-239.jpg" />
-      <RestaurantItem image="https://image.freepik.com/free-photo/luxury-tableware-beautiful-table-setting-restaurant_73492-239.jpg" />
-    </ScrollView>
+      style={styles.container}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={() => setRefreshing(true)} />
+      }
+      keyExtractor={item => item.id.toString()}
+      renderItem={item => (
+        <RestaurantItem data={item} />
+      )}
+    />
   );
 }
 
