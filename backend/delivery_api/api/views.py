@@ -4,10 +4,10 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 
-# from api.models import User
 from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
-from api.serializers import UserSerializer
+from api.models import *
+from api.serializers import *
 
 # authentication
 @api_view(["GET"])
@@ -51,3 +51,27 @@ def login(request):
     else:
         context["error"] = "Wrong Credentials"
         return Response(context, status.HTTP_401_UNAUTHORIZED)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def restaurants(request):
+    try:
+        restaurants = Restaurant.objects.all()
+    except Restaurant.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = RestaurantSerializer(restaurants, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def foods(request):
+    try:
+        foods = Food.objects.all()
+    except Food.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = FoodSerializer(foods, many=True)
+    return Response(serializer.data)

@@ -1,6 +1,6 @@
 from rest_framework import serializers 
 from django.contrib.auth.models import User
-from api.models import Profile
+from api.models import *
 
 
 class ProfileSerializer(serializers.ModelSerializer):
@@ -22,3 +22,22 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         return user
+
+
+class CategorySerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Categories
+        fields = ('name',)
+
+class RestaurantSerializer(serializers.ModelSerializer):
+    categories = CategorySerializer(read_only=True, many=True)
+    class Meta:
+        model = Restaurant
+        fields = ('id','name','image','categories','star','delivery_time','cost','address')
+
+
+class FoodSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Food
+        fields = ('id', 'name', 'image', 'description', 'star', 'calories', 'cost')
