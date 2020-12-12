@@ -42,3 +42,15 @@ def get_restaurant_foods(request, pk):
 
     serializer = FoodSerializer(foods, many=True)
     return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def search_restaurants(request, name):
+    try:
+        restaurants = Restaurant.objects.filter(name__icontains=name)[:5]
+    except Restaurant.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = RestaurantSerializer(restaurants, many=True)
+    return Response(serializer.data)

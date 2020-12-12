@@ -28,3 +28,15 @@ def get_food(request, pk):
 
     serializer = FoodSerializer(food)
     return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def search_foods(request, name):
+    try:
+        foods = Food.objects.filter(name__icontains=name)[:5]
+    except Food.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = FoodSerializer(foods, many=True)
+    return Response(serializer.data)
