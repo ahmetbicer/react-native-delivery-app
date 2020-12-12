@@ -25,3 +25,4 @@ class Food(models.Model):
     star = models.FloatField()
     calories = models.IntegerField()
     cost = models.FloatField()    
+    restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
