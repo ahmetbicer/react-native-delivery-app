@@ -13,20 +13,18 @@ export default function HomeStackNavigator() {
   return (
     <HomeStack.Navigator
       screenOptions={{
+        headerShown: false,
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
       }}>
       <HomeStack.Screen
-        options={{headerShown: false}}
         name="Home"
         component={HomeScreen}
       />
       <HomeStack.Screen
-        options={{headerShown: false}}
         name="RestaurantDetail"
         component={RestaurantDetailScreen}
       />
       <HomeStack.Screen
-        options={{headerShown: false}}
         name="FoodDetail"
         component={FoodDetailScreen}
       />

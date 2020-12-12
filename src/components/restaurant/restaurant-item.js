@@ -8,11 +8,10 @@ import colors from '../../constants/colors';
 export default function RestaurantItem(props) {
   const navigation = useNavigation();
   const { item } = props.data;
+
   return (
     <Pressable
-      onPress={() => navigation.navigate('RestaurantDetail', {
-        image: item.image
-      })}
+      onPress={() => navigation.navigate('RestaurantDetail', { item: item })}
       android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.item}>
       <View style={styles.image_row}>
         <Image source={{ uri: item.image }} style={styles.image_row_image} />
