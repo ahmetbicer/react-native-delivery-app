@@ -1,10 +1,12 @@
-from django.conf.urls import url
+from django.urls import path
 from api import views
 
 urlpatterns = [
-    url(r'login', views.login, name="login"),
-    url(r'register', views.register, name="register"),
-    url(r'users', views.users, name="users"),
-    url(r'restaurants', views.restaurants, name="restaurants"),
-    url(r'foods', views.foods, name="foods"),
+    path('login', views.login, name="login"),
+    path('register', views.register, name="register"),
+    path('restaurants', views.restaurants, name="restaurants"),
+    path('restaurants/<str:pk>', views.get_restaurant, name="get-restaurant"),
+    path('restaurants/<str:pk>/foods', views.get_restaurant_foods, name="get-restaurant-foods"),
+    path('foods', views.foods, name="foods"),
+    path('foods/<str:pk>', views.get_food, name="get-food")
 ]

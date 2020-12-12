@@ -10,18 +10,6 @@ from api.models import *
 from api.serializers import *
 
 # authentication
-@api_view(["GET"])
-@permission_classes([IsAuthenticated])
-def users(request):
-    try:
-        users = User.objects.all()
-    except User.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
-
-    serializer = UserSerializer(users, many=True)
-    return Response(serializer.data)
-
-
 @api_view(["POST"])
 @permission_classes([])
 def register(request):
@@ -67,6 +55,32 @@ def restaurants(request):
 
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
+def get_restaurant(request, pk):
+    try:
+        restaurant = Restaurant.objects.get(id=pk)
+    except Restaurant.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = RestaurantSerializer(restaurant)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_restaurant_foods(request, pk):
+    try:
+        restaurant = Restaurant.objects.get(id=pk)
+        foods = Food.objects.filter(restaurant=restaurant)
+
+    except Food.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = FoodSerializer(foods, many=True)
+    return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
 def foods(request):
     try:
         foods = Food.objects.all()
@@ -75,3 +89,16 @@ def foods(request):
 
     serializer = FoodSerializer(foods, many=True)
     return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_food(request, pk):
+    try:
+        food = Food.objects.get(id=pk)
+    except Food.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = FoodSerializer(food)
+    return Response(serializer.data)
+
