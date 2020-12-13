@@ -46,4 +46,16 @@ class FoodSerializer(serializers.ModelSerializer):
 class CardSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('id', 'number', 'expiry', 'cvv', 'user')
+        fields = ('id', 'number', 'expiry', 'cvv')
+
+    def create(self, validated_data):
+        
+        card = Card(
+            number=validated_data["number"],
+            expiry=validated_data["expiry"],
+            cvv=validated_data["cvv"],
+            user=validated_data["user"]
+        )
+        
+        card.save()
+        return card

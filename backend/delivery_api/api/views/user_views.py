@@ -6,13 +6,22 @@ from rest_framework.permissions import IsAuthenticated
 from api.models import *
 from api.serializers import *
 
-@api_view(["GET"])
+@api_view(["GET","POST"])
 @permission_classes([IsAuthenticated])
-def get_cards(request):
-    try:
-        cards = Card.objects.filter(user=request.user)
-    except Card.DoesNotExist:
-        return Response(status=status.HTTP_404_NOT_FOUND)
+def cards(request):
+    if(request.method == "GET"):
+        try:
+            cards = Card.objects.filter(user=request.user)
+        except Card.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-    serializer = CardSerializer(cards, many=True)
-    return Response(serializer.data)
+        serializer = CardSerializer(cards, many=True)
+        return Response(serializer.data)
+
+    elif(request.method == "POST"):
+        serializer = CardSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

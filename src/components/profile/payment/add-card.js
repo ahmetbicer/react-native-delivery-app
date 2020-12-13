@@ -3,8 +3,27 @@ import { View } from 'react-native';
 import { Button, TextInput, Title } from 'react-native-paper';
 import colors from '../../../constants/colors';
 import { TextInputMask } from 'react-native-masked-text'
+import { useState } from 'react';
+import apiFetch from '../../../hooks/api-fetch';
 
 export default function AddCard(props) {
+    const [number, setNumber] = useState("");
+    const [expiry, setExpiry] = useState("");
+    const [cvv, setCvv] = useState("");
+
+    async function addCard() {
+        const params = {
+            endpoint: "cards",
+            method: "POST",
+            body: {
+                number: number,
+                expiry: expiry,
+                cvv: cvv
+            }
+        }
+        await apiFetch(params)
+    }
+
     return (
         <View style={{ marginTop: 20 }}>
             <Title style={{ fontSize: 15 }}>Add New Card</Title>
@@ -12,6 +31,7 @@ export default function AddCard(props) {
                 mode={"outlined"}
                 label={"Card Number"}
                 right={<TextInput.Icon name="credit-card-outline" />}
+                onChangeText={text => setNumber(text)}
                 render={props =>
                     <TextInputMask
                         {...props}
@@ -25,6 +45,7 @@ export default function AddCard(props) {
                     mode={"outlined"}
                     label={"Expiry"}
                     right={<TextInput.Icon size={21} name="calendar-month" />}
+                    onChangeText={text => setExpiry(text)}
                     render={props =>
                         <TextInputMask
                             {...props}
@@ -42,6 +63,7 @@ export default function AddCard(props) {
                     label={"CVV / CVC"}
                     right={<TextInput.Icon size={21} name="lock-outline" />}
                     keyboardType={"numeric"}
+                    onChangeText={text => setCvv(text)}
                     render={props =>
                         <TextInputMask
                             {...props}
@@ -58,7 +80,7 @@ export default function AddCard(props) {
             <Button
                 compact={true}
                 mode="contained"
-                onPress={() => { }}
+                onPress={addCard}
                 contentStyle={{ height: 50 }}
                 style={{ marginTop: 10 }}
                 color={colors.yellow}>
