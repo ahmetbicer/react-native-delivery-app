@@ -26,3 +26,9 @@ class Food(models.Model):
     calories = models.IntegerField()
     cost = models.FloatField()    
     restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
+
+class Card(models.Model):
+    number = models.CharField(max_length=16)
+    expiry = models.CharField(max_length=5)
+    cvv = models.CharField(max_length=3)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)

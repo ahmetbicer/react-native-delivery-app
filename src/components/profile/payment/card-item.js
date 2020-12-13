@@ -4,6 +4,8 @@ import { Title } from 'react-native-paper';
 import colors from '../../../constants/colors';
 
 export default function Cards(props) {
+    const item = props.data.item;
+    console.log(props)
     return (
         <View style={{ borderRadius: 15, marginRight: 10, overflow: 'hidden' }}>
             <Pressable
@@ -34,9 +36,9 @@ export default function Cards(props) {
                     <View style={styles.dot} />
                     <View style={styles.dot} />
                     <View style={styles.dot} />
-                    <Title style={styles.dot_title}>0125</Title>
+                    <Title style={styles.dot_title}>{item.number.slice(8, 12)}</Title>
                 </View>
-                <Title style={styles.date_title}>07/19</Title>
+                <Title style={styles.date_title}>{item.expiry}</Title>
             </Pressable>
         </View>
     );

@@ -12,4 +12,5 @@ urlpatterns = [
     path('foods', food_views.foods, name="foods"),
     path('foods/<str:pk>', food_views.get_food, name="get-food"),
     path('foods/search/<str:name>', food_views.search_foods, name="search-foods"),
+    path('cards', user_views.get_cards, name="get-cards"),
 ]

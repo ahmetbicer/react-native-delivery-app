@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { View } from 'react-native';
 import { Button, TextInput, Title } from 'react-native-paper';
-import TextInputMask from 'react-native-text-input-mask';
 import colors from '../../../constants/colors';
+import { TextInputMask } from 'react-native-masked-text'
 
 export default function AddCard(props) {
     return (
@@ -15,7 +15,7 @@ export default function AddCard(props) {
                 render={props =>
                     <TextInputMask
                         {...props}
-                        mask="[0000] [0000] [0000] [0000]"
+                        type={"credit-card"}
                     />
                 }
                 theme={{ colors: { primary: colors.black } }}
@@ -28,7 +28,10 @@ export default function AddCard(props) {
                     render={props =>
                         <TextInputMask
                             {...props}
-                            mask="[00]{/}[00]"
+                            type={'datetime'}
+                            options={{
+                                format: 'MM/YY'
+                            }}
                         />
                     }
                     theme={{ colors: { primary: colors.black } }}
@@ -38,10 +41,14 @@ export default function AddCard(props) {
                     mode={"outlined"}
                     label={"CVV / CVC"}
                     right={<TextInput.Icon size={21} name="lock-outline" />}
+                    keyboardType={"numeric"}
                     render={props =>
                         <TextInputMask
                             {...props}
-                            mask="[000]"
+                            type={'custom'}
+                            options={{
+                                mask: '999'
+                            }}
                         />
                     }
                     theme={{ colors: { primary: colors.black } }}

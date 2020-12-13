@@ -41,3 +41,9 @@ class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
         fields = ('id', 'name', 'image', 'description', 'star', 'calories', 'cost', 'restaurant')
+
+
+class CardSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = ('id', 'number', 'expiry', 'cvv', 'user')
