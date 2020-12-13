@@ -12,16 +12,18 @@ export default function AddCard(props) {
     const [cvv, setCvv] = useState("");
 
     async function addCard() {
+        props.setLoading(true);
         const params = {
             endpoint: "cards",
             method: "POST",
             body: {
-                number: number,
+                number: number.replace(/ /g, ''),
                 expiry: expiry,
                 cvv: cvv
             }
         }
         await apiFetch(params)
+        props.setLoading(false);
     }
 
     return (

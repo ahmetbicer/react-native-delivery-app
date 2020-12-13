@@ -11,25 +11,25 @@ import colors from '../../constants/colors';
 export default function PaymentScreen(props) {
     const [loading, setLoading] = useState(false)
 
+    if (loading) {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator color={colors.yellow} size="large" />
+            </View>
+        )
+    }
+
     return (
         <View style={{ flex: 1, backgroundColor: colors.white }}>
-            {loading ?
-                <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-                    <ActivityIndicator color={colors.yellow} size="large" />
-                </View>
-                :
-                <>
-                    <AppBar screenName={props.route.name} />
-                    <View style={styles.container}>
-                        <Title style={styles.title}>
-                            My
+            <AppBar screenName={props.route.name} />
+            <View style={styles.container}>
+                <Title style={styles.title}>
+                    My
                             <Headline style={styles.subtitle}> Cards</Headline>
-                        </Title>
-                        <Cards />
-                        <AddCard />
-                    </View>
-                </>
-            }
+                </Title>
+                <Cards setLoading={setLoading} />
+                <AddCard setLoading={setLoading} />
+            </View>
         </View>
     );
 }

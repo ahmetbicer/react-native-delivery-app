@@ -17,9 +17,12 @@ const apiFetch = async (params) => {
         ...(params.method == "POST" && { body: JSON.stringify(params.body) })
     })
 
-    const data = await response.json();
-
-    return data;
+    try {
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.log(error)
+    }
 };
 
 export default apiFetch;

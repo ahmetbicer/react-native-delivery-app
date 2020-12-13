@@ -25,17 +25,21 @@ export default function Cards(props) {
 
     return (
         <>
-            <Title style={{ fontSize: 15 }}>Current Cards</Title>
-            <FlatList
-                data={data}
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                style={styles.container}
-                keyExtractor={item => item.id.toString()}
-                renderItem={item => (
-                    <CardItem visa data={item} />
-                )}
-            />
+            {data.length != 0 &&
+                <>
+                    <Title style={{ fontSize: 15 }}>Current Cards</Title>
+                    <FlatList
+                        data={data}
+                        horizontal={true}
+                        showsHorizontalScrollIndicator={false}
+                        style={styles.container}
+                        keyExtractor={item => item.id.toString()}
+                        renderItem={item => (
+                            <CardItem visa setLoading={props.setLoading} data={item} />
+                        )}
+                    />
+                </>
+            }
         </>
     );
 }

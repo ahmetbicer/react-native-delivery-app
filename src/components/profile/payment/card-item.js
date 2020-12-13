@@ -2,10 +2,22 @@ import * as React from 'react';
 import { Image, StyleSheet, View, Pressable, Alert } from 'react-native';
 import { Title } from 'react-native-paper';
 import colors from '../../../constants/colors';
+import apiFetch from '../../../hooks/api-fetch';
 
 export default function Cards(props) {
     const item = props.data.item;
-    console.log(props)
+
+    async function deleteCard() {
+        props.setLoading(true);
+        const params = {
+            endpoint: `cards/${item.id}`,
+            method: "DELETE",
+        }
+
+        await apiFetch(params)
+        props.setLoading(false);
+    }
+
     return (
         <View style={{ borderRadius: 15, marginRight: 10, overflow: 'hidden' }}>
             <Pressable
@@ -13,12 +25,12 @@ export default function Cards(props) {
                     Alert.alert("", "Do you want to delete the card?", [
                         {
                             text: 'Cancel',
-                            onPress: () => console.log('Cancel Pressed'),
+                            onPress: () => { },
                             style: 'cancel'
                         },
                         {
-                            text: 'OK', onPress: () => {
-                            }
+                            text: 'OK',
+                            onPress: deleteCard
                         }
                     ],
                         { cancelable: false })
@@ -36,7 +48,7 @@ export default function Cards(props) {
                     <View style={styles.dot} />
                     <View style={styles.dot} />
                     <View style={styles.dot} />
-                    <Title style={styles.dot_title}>{item.number.slice(8, 12)}</Title>
+                    <Title style={styles.dot_title}>{item.number.slice(12, 16)}</Title>
                 </View>
                 <Title style={styles.date_title}>{item.expiry}</Title>
             </Pressable>

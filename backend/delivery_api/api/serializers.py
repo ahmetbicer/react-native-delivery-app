@@ -49,7 +49,6 @@ class CardSerializer(serializers.ModelSerializer):
         fields = ('id', 'number', 'expiry', 'cvv')
 
     def create(self, validated_data):
-        
         card = Card(
             number=validated_data["number"],
             expiry=validated_data["expiry"],
