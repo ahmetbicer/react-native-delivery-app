@@ -1,13 +1,48 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { Keyboard, LayoutAnimation, Platform, Pressable, StyleSheet, UIManager, View } from 'react-native';
 import { Divider, Headline, Searchbar, Text, Title } from 'react-native-paper';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import apiFetch from '../../hooks/api-fetch';
+import RestaurantItem from '../../components/restaurant/restaurant-item';
+import FoodItem from '../../components/food/food-item';
+import { FlatList } from 'react-native-gesture-handler';
+
+if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
+  UIManager.setLayoutAnimationEnabledExperimental(true);
+}
 
 export default function SearchScreen(props) {
-  const [searchText, setSearchText] = useState("")
-  const [showAutoComplete, setShowAutoComplete] = useState(false)
+  const [searchText, setSearchText] = useState("");
+  const [showAutoComplete, setShowAutoComplete] = useState(false);
+  const [showRestaurantSearchResults, setShowRestaurantSearchResults] = useState(false);
+  const [restaurantSearchResults, setRestaurantSearchResults] = useState([]);
+  const [showFoodSearchResults, setShowFoodSearchResults] = useState(false);
+  const [foodSearchResults, setFoodSearchResults] = useState([]);
+  const [isKeyboardShowing, setIsKeyboardShowing] = useState(false);
+
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", () => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setIsKeyboardShowing(true)
+    });
+    Keyboard.addListener("keyboardDidHide", () => {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+      setIsKeyboardShowing(false)
+    });
+
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setIsKeyboardShowing(true)
+      });
+      Keyboard.removeListener("keyboardDidHide", () => {
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+        setIsKeyboardShowing(false)
+      });
+    };
+  }, []);
 
   function search(value) {
     if (value.length > 0) {
@@ -19,11 +54,47 @@ export default function SearchScreen(props) {
     }
   }
 
+  async function searchRestaurant() {
+    const params = {
+      endpoint: `restaurants/search/${searchText}`,
+      method: "get"
+    }
+    let data = await apiFetch(params)
+
+    setRestaurantSearchResults(data);
+    setShowRestaurantSearchResults(true);
+    setShowFoodSearchResults(false);
+    setFoodSearchResults([]);
+
+    setShowAutoComplete(false);
+    Keyboard.dismiss();
+  }
+
+  async function searchFood() {
+    const params = {
+      endpoint: `foods/search/${searchText}`,
+      method: "get"
+    }
+    let data = await apiFetch(params)
+
+    setFoodSearchResults(data);
+    setShowFoodSearchResults(true);
+    setShowRestaurantSearchResults(false);
+    setRestaurantSearchResults([]);
+
+    setShowAutoComplete(false);
+    Keyboard.dismiss();
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={styles.container}>
-        <Title style={styles.title}>Search</Title>
-        <Headline style={styles.subtitle}>For Best Foods</Headline>
+        {!isKeyboardShowing &&
+          <>
+            <Title style={styles.title}>Search</Title>
+            <Headline style={styles.subtitle}>For Best Foods</Headline>
+          </>
+        }
         <Searchbar
           style={{ marginTop: 20 }}
           placeholder="Search"
@@ -33,16 +104,40 @@ export default function SearchScreen(props) {
         />
         {showAutoComplete &&
           <View style={styles.autocomplete_container}>
-            <Pressable onPress={() => { }} style={styles.autocomplete_item} android_ripple={{ color: colors.lightgray, borderless: false }}>
+            <Pressable onPress={searchRestaurant} style={styles.autocomplete_item} android_ripple={{ color: colors.lightgray, borderless: false }}>
               <Icon name="store" color={colors.gray} size={24} />
               <Text numberOfLines={1} style={styles.autocomplete_text}>Restaurants with <Title style={styles.autocomplete_text}>"{searchText}"</Title></Text>
             </Pressable>
             <Divider />
-            <Pressable onPress={() => { }} style={styles.autocomplete_item} android_ripple={{ color: colors.lightgray, borderless: false }}>
+            <Pressable onPress={searchFood} style={styles.autocomplete_item} android_ripple={{ color: colors.lightgray, borderless: false }}>
               <Icon name="hamburger" color={colors.gray} size={24} />
               <Text numberOfLines={1} style={styles.autocomplete_text}>Foods with <Title style={styles.autocomplete_text}>"{searchText}"</Title></Text>
             </Pressable>
           </View>
+        }
+      </View>
+      <View style={styles.list_container}>
+        {showRestaurantSearchResults &&
+          <FlatList
+            data={restaurantSearchResults}
+            showsVerticalScrollIndicator={false}
+            style={styles.list}
+            keyExtractor={item => item.id.toString()}
+            renderItem={item => (
+              <RestaurantItem data={item} />
+            )}
+          />
+        }
+        {showFoodSearchResults &&
+          <FlatList
+            data={foodSearchResults}
+            showsVerticalScrollIndicator={false}
+            style={styles.list}
+            keyExtractor={item => item.id.toString()}
+            renderItem={item => (
+              <FoodItem data={item} />
+            )}
+          />
         }
       </View>
     </View>
@@ -84,5 +179,16 @@ const styles = StyleSheet.create({
     maxWidth: "90%",
     overflow: 'hidden',
     marginLeft: 5,
+  },
+  list_container: {
+    flex: 3,
+    marginTop: 15,
+    backgroundColor: colors.lightgray,
+    borderTopColor: "gray",
+    borderTopWidth: 1
+  },
+  list: {
+    paddingTop: 15,
+    paddingHorizontal: 20
   }
 })

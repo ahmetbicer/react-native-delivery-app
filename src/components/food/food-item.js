@@ -11,7 +11,7 @@ export default function FoodItem(props) {
 
   return (
     <Pressable
-      onPress={() => navigation.navigate('FoodDetail')}
+      onPress={() => navigation.navigate('FoodDetail', { item: item })}
       android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.item}>
       <View style={styles.image_row}>
         <View style={styles.image_row_title_container}>
