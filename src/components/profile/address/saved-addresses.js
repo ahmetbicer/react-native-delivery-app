@@ -22,12 +22,11 @@ export default function AddAddress(props) {
     }
 
     return (
-        <View style={{ marginTop: 20 }}>
+        <View style={{ flex: 1 }}>
             <Title style={{ fontSize: 15 }}>Saved Addresses</Title>
             <FlatList
                 data={data}
                 showsHorizontalScrollIndicator={false}
-                style={styles.container}
                 keyExtractor={item => item.id.toString()}
                 renderItem={item => (
                     <SavedAddressListItem data={item.item} setLoading={props.setLoading} />
@@ -36,10 +35,4 @@ export default function AddAddress(props) {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-
-    }
-})
 
