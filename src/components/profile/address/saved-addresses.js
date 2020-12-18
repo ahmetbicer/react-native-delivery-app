@@ -30,7 +30,7 @@ export default function AddAddress(props) {
                 style={styles.container}
                 keyExtractor={item => item.id.toString()}
                 renderItem={item => (
-                    <SavedAddressListItem data={item.item} />
+                    <SavedAddressListItem data={item.item} setLoading={props.setLoading} />
                 )}
             />
         </View>

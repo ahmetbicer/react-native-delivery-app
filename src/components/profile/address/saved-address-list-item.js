@@ -3,10 +3,10 @@ import { View, Pressable, StyleSheet, Alert } from 'react-native';
 import { Title } from 'react-native-paper';
 import colors from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import apiFetch from '../../../hooks/api-fetch';
 
 export default function SavedAddressListItem(props) {
     const [icon, setIcon] = useState("home-variant");
-
 
     useEffect(() => {
         console.log(props.data.address_type)
@@ -26,6 +26,17 @@ export default function SavedAddressListItem(props) {
         }
     }, [])
 
+    async function deleteAddress() {
+        props.setLoading(true);
+        const params = {
+            endpoint: `address/${props.data.id}`,
+            method: "DELETE",
+        }
+
+        await apiFetch(params)
+        props.setLoading(false);
+    }
+
     return (
         <View style={styles.list_item}>
             <Icon style={styles.list_item_left_icon} name={icon} color={"gray"} size={21} />
@@ -44,8 +55,7 @@ export default function SavedAddressListItem(props) {
                             style: 'cancel'
                         },
                         {
-                            text: 'OK', onPress: () => {
-                            }
+                            text: 'OK', onPress: deleteAddress
                         }
                     ],
                         { cancelable: false })
