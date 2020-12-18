@@ -58,3 +58,21 @@ class CardSerializer(serializers.ModelSerializer):
         
         card.save()
         return card
+
+
+class AddressSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ('id', 'address', 'lat', 'lon', 'address_type')
+
+    def create(self, validated_data):
+        address = Address(
+            address=validated_data["address"],
+            lat=validated_data["lat"],
+            lon=validated_data["lon"],
+            address_type=validated_data["address_type"],
+            user=validated_data["user"]
+        )
+
+        address.save()
+        return address

@@ -7,11 +7,16 @@ import { useState } from 'react';
 import colors from '../../constants/colors';
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
+import apiFetch from '../../hooks/api-fetch';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function GetAddressScreen(props) {
     const navigation = useNavigation();
+    const route = useRoute();
+    const routeParams = route.params;
+    const [addressName, setAddressName] = useState("");
+    const [coordinates, setCoordinates] = useState([]);
     const [address, setAddress] = useState(false);
 
     useEffect(() => {
@@ -29,16 +34,31 @@ export default function GetAddressScreen(props) {
         });
     }, [])
 
-    function onUserLocationUpdate(loc) {
-        // if (!address) {
-        //     fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${loc.coords.longitude},${loc.coords.latitude}.json?access_token=pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw`)
-        //         .then((res) => res.json())
-        //         .then((r) => {
-        //             console.log(r.features[0].geometry.coordinates)
-        //             console.log(r.features[0].place_name)
-        //             setAddress(true)
-        //         })
-        // }
+    async function onUserLocationUpdate(loc) {
+        if (!address) {
+            let response = await fetch(`https://api.mapbox.com/geocoding/v5/mapbox.places/${loc.coords.longitude},${loc.coords.latitude}.json?access_token=pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw`);
+            let res = await response.json();
+            setCoordinates(res.features[0].geometry.coordinates)
+            setAddressName(res.features[0].place_name)
+            setAddress(true)
+        }
+    }
+
+    async function saveAddress() {
+        if (address) {
+            const params = {
+                endpoint: "address",
+                method: "POST",
+                body: {
+                    address: addressName,
+                    lat: coordinates[1],
+                    lon: coordinates[0],
+                    address_type: routeParams.type
+                }
+            }
+
+            await apiFetch(params)
+        }
     }
 
     return (
@@ -75,7 +95,7 @@ export default function GetAddressScreen(props) {
                 <Button
                     compact={true}
                     mode="contained"
-                    onPress={() => { navigation.goBack() }}
+                    onPress={saveAddress}
                     contentStyle={{ height: 50 }}
                     style={{ marginHorizontal: 15 }}
                     color={colors.yellow}>

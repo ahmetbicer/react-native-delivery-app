@@ -1,45 +1,59 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Pressable, StyleSheet, Alert } from 'react-native';
 import { Title } from 'react-native-paper';
 import colors from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useNavigation } from '@react-navigation/native';
 
 export default function SavedAddressListItem(props) {
-    const navigation = useNavigation();
+    const [icon, setIcon] = useState("home-variant");
+
+
+    useEffect(() => {
+        console.log(props.data.address_type)
+        switch (props.data.address_type) {
+            case "HOME":
+                setIcon("home-variant")
+                break;
+            case "BUSINESS":
+                setIcon("home-city")
+                break;
+            case "OTHER":
+                setIcon("city-variant")
+                break;
+            default:
+                setIcon("city-variant")
+                break;
+        }
+    }, [])
+
     return (
         <View style={styles.list_item}>
-            <View>
-                <Icon style={styles.list_item_left_icon} name={props.icon} color={"gray"} size={21} />
-            </View>
-            <View style={styles.list_right_item}>
-                <Title style={styles.list_right_item_subtitle}>
-                    <Title style={styles.list_right_item_title}>
-                        {props.type}
-                    </Title>
-                    {props.title}
-                </Title>
-                <Pressable
-                    onPress={() => {
-                        Alert.alert("", "Do you want to delete the address?", [
-                            {
-                                text: 'Cancel',
-                                onPress: () => console.log('Cancel Pressed'),
-                                style: 'cancel'
-                            },
-                            {
-                                text: 'OK', onPress: () => {
-                                }
+            <Icon style={styles.list_item_left_icon} name={icon} color={"gray"} size={21} />
+            <Title style={styles.list_right_item_title}>
+                {props.data.address_type}
+            </Title>
+            <Title numberOfLines={1} style={styles.list_right_item_subtitle}>
+                {props.data.address}
+            </Title>
+            <Pressable
+                onPress={() => {
+                    Alert.alert("", "Do you want to delete the address?", [
+                        {
+                            text: 'Cancel',
+                            onPress: () => console.log('Cancel Pressed'),
+                            style: 'cancel'
+                        },
+                        {
+                            text: 'OK', onPress: () => {
                             }
-                        ],
-                            { cancelable: false })
-                    }}
-                    style={{ width: 40, height: 40, justifyContent: "center", alignItems: "center" }}
-                    android_ripple={{ color: colors.lightgray, borderless: false }}>
-                    <Icon name="trash-can-outline" color={colors.black} size={24} />
-                </Pressable>
-
-            </View>
+                        }
+                    ],
+                        { cancelable: false })
+                }}
+                style={{ width: 40, height: 40, justifyContent: "center", alignItems: "center" }}
+                android_ripple={{ color: colors.lightgray, borderless: false }}>
+                <Icon name="trash-can-outline" color={colors.black} size={24} />
+            </Pressable>
         </View>
     );
 }
@@ -48,6 +62,7 @@ export default function SavedAddressListItem(props) {
 const styles = StyleSheet.create({
     list_item: {
         height: 50,
+        flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 10,
@@ -55,28 +70,26 @@ const styles = StyleSheet.create({
     list_item_left_icon: {
         padding: 8,
         borderRadius: 10,
-        backgroundColor: colors.lightgray
-    },
-    list_right_item: {
-        flex: 1,
-        height: 60,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginHorizontal: 15,
+        backgroundColor: colors.lightgray,
+        marginRight: 10
     },
     list_right_item_title: {
+        flex: 1,
         fontSize: 17,
         lineHeight: 17,
         fontWeight: '100',
         letterSpacing: 0.75,
+        textTransform: "capitalize",
+        marginRight: 5
     },
     list_right_item_subtitle: {
+        flex: 2,
         fontSize: 14,
         lineHeight: 14,
         fontWeight: '100',
         letterSpacing: 0.75,
-        color: "gray"
+        color: "gray",
+        overflow: "hidden",
     },
 });
 

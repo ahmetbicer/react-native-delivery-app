@@ -32,3 +32,10 @@ class Card(models.Model):
     expiry = models.CharField(max_length=5)
     cvv = models.CharField(max_length=3)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+class Address(models.Model):
+    address = models.CharField(max_length=100)
+    lat = models.FloatField()
+    lon = models.FloatField()
+    address_type = models.CharField(max_length=10, choices=(('HOME','HOME'),('BUSINESS','BUSINESS'),('OTHER','OTHER')))    
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)

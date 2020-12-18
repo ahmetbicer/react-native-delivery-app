@@ -1,18 +1,45 @@
 import * as React from 'react';
-import { View } from 'react-native';
-import { Title } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, View } from 'react-native';
+import { FlatList } from 'react-native-gesture-handler';
+import { ActivityIndicator, Title } from 'react-native-paper';
+import useFetch from '../../../hooks/use-fetch';
 import SavedAddressListItem from './saved-address-list-item';
 
 export default function AddAddress(props) {
-    const navigation = useNavigation();
+    const params = {
+        endpoint: "address",
+        method: "GET"
+    }
+
+    const { status, data } = useFetch(params);
+
+    if (status == "loading") {
+        return (
+            <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+                <ActivityIndicator color={colors.yellow} size="large" />
+            </View>
+        )
+    }
+
     return (
         <View style={{ marginTop: 20 }}>
             <Title style={{ fontSize: 15 }}>Saved Addresses</Title>
-            <SavedAddressListItem icon="home-variant" title={" 3289. Sok., No:12"} type={"Home"} />
-            <SavedAddressListItem icon="home-city" title={" 1417. Sok., No:16"} type={"Business"} />
+            <FlatList
+                data={data}
+                showsHorizontalScrollIndicator={false}
+                style={styles.container}
+                keyExtractor={item => item.id.toString()}
+                renderItem={item => (
+                    <SavedAddressListItem data={item.item} />
+                )}
+            />
         </View>
     );
 }
 
+const styles = StyleSheet.create({
+    container: {
+
+    }
+})
 
