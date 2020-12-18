@@ -21,29 +21,6 @@ export default function SearchScreen(props) {
   const [foodSearchResults, setFoodSearchResults] = useState([]);
   const [isKeyboardShowing, setIsKeyboardShowing] = useState(false);
 
-
-  useEffect(() => {
-    Keyboard.addListener("keyboardDidShow", () => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-      setIsKeyboardShowing(true)
-    });
-    Keyboard.addListener("keyboardDidHide", () => {
-      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-      setIsKeyboardShowing(false)
-    });
-
-    return () => {
-      Keyboard.removeListener("keyboardDidShow", () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setIsKeyboardShowing(true)
-      });
-      Keyboard.removeListener("keyboardDidHide", () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        setIsKeyboardShowing(false)
-      });
-    };
-  }, []);
-
   function search(value) {
     if (value.length > 0) {
       setSearchText(value)
@@ -86,6 +63,16 @@ export default function SearchScreen(props) {
     Keyboard.dismiss();
   }
 
+  function searchFocus() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setIsKeyboardShowing(true)
+  }
+
+  function searchBlur() {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    setIsKeyboardShowing(false)
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={styles.container}>
@@ -100,6 +87,8 @@ export default function SearchScreen(props) {
           placeholder="Search"
           value={searchText}
           onChangeText={search}
+          onFocus={searchFocus}
+          onBlur={searchBlur}
           theme={{ colors: { primary: colors.gray } }}
         />
         {showAutoComplete &&
