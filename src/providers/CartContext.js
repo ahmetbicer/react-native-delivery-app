@@ -4,6 +4,7 @@ import useToast from '../hooks/use-toast';
 export const CartContext = React.createContext({
     orders: [],
     addToCart: (item) => { },
+    changeQuantity: (item, count) => { },
     removeFromCart: (item) => { },
 });
 
@@ -25,8 +26,17 @@ export const CartProvider = ({ children }) => {
                     useToast("This item is already in cart.");
                 }
             },
+            changeQuantity: async (item, count) => {
+                let orders_ = orders;
+                let index = orders_.indexOf(item);
+                orders_[index].count = count;
+                setOrders(orders_);
+            },
             removeFromCart: async (item) => {
-                console.log("cartcontext-r", item);
+                let orders_ = orders;
+                let index = orders_.indexOf(item);
+                orders_.splice(index, 1);
+                setOrders(orders_);
             }
         }}>
             {children}

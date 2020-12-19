@@ -9,7 +9,7 @@ import CartBottomSheet from '../../components/cart/cart-bottom-sheet';
 import colors from '../../constants/colors';
 
 export default function CartScreen(props) {
-  const { orders, removeFromCart } = useContext(CartContext);
+  const { orders, changeQuantity, removeFromCart } = useContext(CartContext);
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [totalCost, setTotalCost] = useState(0);
@@ -30,28 +30,30 @@ export default function CartScreen(props) {
     let total = data.reduce(function (prev, cur) {
       return prev + (cur.cost * cur.count);
     }, 0);
-    setTotalCost(total)
+    setTotalCost(total);
   }, [data])
 
   function changeItemCount(item, count) {
+    changeQuantity(item, count);
+
     let tempData = [...data];
     var foundIndex = tempData.findIndex(x => x.key == item.key);
     tempData[foundIndex].count = count;
-    setData(tempData)
+    setData(tempData);
   }
 
   function deleteItem(item) {
-    let newData = data.filter(function (e) { return e !== item })
-    setData(newData)
-    if (newData.length == 0) {
+    removeFromCart(item);
+
+    let tempData = data.filter(function (e) { return e !== item });
+    setData(tempData);
+    if (tempData.length == 0) {
       setShowCartBottomSheet(false);
     }
   }
 
   function goToCheckout() {
-    navigation.navigate("Checkout", {
-      items: data
-    })
+    navigation.navigate("Checkout")
     // setData([])
     // setShowCartBottomSheet(false)
   }
