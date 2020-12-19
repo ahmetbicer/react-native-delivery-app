@@ -51,7 +51,27 @@ export default function AppBar(props) {
         />
       </Appbar.Header>
     );
-  } else if (props.screenName == 'Delivery') {
+  }
+  else if (props.screenName == 'FoodDetail') {
+    return (
+      <Appbar.Header style={styles.bar}>
+        <Appbar.Action
+          icon="chevron-left"
+          onPress={() => navigation.goBack()}
+          size={32}
+          color={colors.white}
+          style={{
+            width: 40,
+            height: 40,
+            backgroundColor: 'rgba(220, 220, 220, 0.3)',
+            borderRadius: 15
+          }}
+        />
+        <Appbar.Content color={colors.white} title={props.title} />
+      </Appbar.Header>
+    );
+  }
+  else if (props.screenName == 'Delivery') {
     return (
       <View style={styles.delivery}>
         <Pressable
