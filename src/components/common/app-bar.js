@@ -5,18 +5,30 @@ import { StyleSheet, View } from 'react-native';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
+import { useContext } from 'react';
+import { CartContext } from '../../providers/CartContext';
 
 export default function AppBar(props) {
   const navigation = useNavigation();
+  const { deleteOrder } = useContext(CartContext);
 
   const _handleMore = () => console.log('Shown more');
+
   if (props.screenName == 'Checkout') {
     return (
       <Appbar.Header style={styles.bar}>
-        <Appbar.Content />
         <Appbar.Action
-          icon="account-circle-outline"
-          onPress={_handleMore}
+          icon="chevron-left"
+          onPress={() => navigation.goBack()}
+          size={32}
+        />
+        <Appbar.Content title="Checkout" />
+        <Appbar.Action
+          icon="delete-outline"
+          onPress={() => {
+            deleteOrder();
+            navigation.navigate("HomeStack");
+          }}
           size={32}
         />
       </Appbar.Header>

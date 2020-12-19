@@ -20,7 +20,7 @@ export default function CartScreen(props) {
     navigation.addListener("focus", () => {
       if (orders.length != 0) {
         setData([...orders]);
-        setShowCartBottomSheet(true)
+        setShowCartBottomSheet(true);
       }
       setLoading(false)
     })

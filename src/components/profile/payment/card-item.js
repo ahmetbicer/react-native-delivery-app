@@ -4,7 +4,7 @@ import { Title } from 'react-native-paper';
 import colors from '../../../constants/colors';
 import apiFetch from '../../../hooks/api-fetch';
 
-export default function Cards(props) {
+export default function CardItem(props) {
     const item = props.data.item;
 
     async function deleteCard() {
