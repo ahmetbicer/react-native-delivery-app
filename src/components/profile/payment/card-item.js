@@ -12,6 +12,7 @@ export default function Cards(props) {
         const params = {
             endpoint: `cards/${item.id}`,
             method: "DELETE",
+            auth: true
         }
 
         await apiFetch(params)

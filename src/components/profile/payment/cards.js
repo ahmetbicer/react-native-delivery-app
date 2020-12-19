@@ -10,7 +10,8 @@ export default function Cards(props) {
 
     const params = {
         endpoint: "cards",
-        method: "get"
+        method: "get",
+        auth: true
     }
 
     const { status, data } = useFetch(params);

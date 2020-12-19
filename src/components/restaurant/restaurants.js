@@ -8,7 +8,8 @@ import RestaurantItem from './restaurant-item';
 export default function Restaurants() {
   const params = {
     endpoint: "restaurants",
-    method: "GET"
+    method: "GET",
+    auth: false
   }
 
   const { status, data } = useFetch(params);

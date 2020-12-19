@@ -7,7 +7,7 @@ from api.models import *
 from api.serializers import *
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def foods(request):
     try:
         foods = Food.objects.all()
@@ -19,7 +19,7 @@ def foods(request):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def get_food(request, pk):
     try:
         food = Food.objects.get(id=pk)
@@ -31,7 +31,7 @@ def get_food(request, pk):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def search_foods(request, name):
     try:
         foods = Food.objects.filter(name__icontains=name)[:5]

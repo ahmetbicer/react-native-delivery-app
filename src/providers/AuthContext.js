@@ -16,7 +16,8 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{
             user,
             login: async (email, password) => {
-                let response = await fetch("http://10.0.2.2:8000/api/login", {
+                const url = "http://10.0.2.2:8000/api/";
+                let response = await fetch(url + "login", {
                     headers: {
                         'Accept': 'application/json',
                         'Content-Type': 'application/json'

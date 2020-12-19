@@ -8,7 +8,8 @@ import SavedAddressListItem from './saved-address-list-item';
 export default function AddAddress(props) {
     const params = {
         endpoint: "address",
-        method: "GET"
+        method: "GET",
+        auth: true
     }
 
     const { status, data } = useFetch(params);

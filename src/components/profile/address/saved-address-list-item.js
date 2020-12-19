@@ -31,6 +31,7 @@ export default function SavedAddressListItem(props) {
         const params = {
             endpoint: `address/${props.data.id}`,
             method: "DELETE",
+            auth: true
         }
 
         await apiFetch(params)

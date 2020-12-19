@@ -7,7 +7,7 @@ from api.models import *
 from api.serializers import *
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def restaurants(request):
     try:
         restaurants = Restaurant.objects.all()
@@ -19,7 +19,7 @@ def restaurants(request):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def get_restaurant(request, pk):
     try:
         restaurant = Restaurant.objects.get(id=pk)
@@ -31,7 +31,7 @@ def get_restaurant(request, pk):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def get_restaurant_foods(request, pk):
     try:
         restaurant = Restaurant.objects.get(id=pk)
@@ -45,7 +45,7 @@ def get_restaurant_foods(request, pk):
 
 
 @api_view(["GET"])
-@permission_classes([IsAuthenticated])
+@permission_classes([])
 def search_restaurants(request, name):
     try:
         restaurants = Restaurant.objects.filter(name__icontains=name)[:5]

@@ -4,15 +4,27 @@ const apiFetch = async (params) => {
     const url = "http://10.0.2.2:8000/api/";
     if (!params) return;
 
-    let user = await AsyncStorage.getItem("user");
-    let { token } = await JSON.parse(user);
+    let headers = undefined;
 
-    const response = await fetch(url + params.endpoint, {
-        headers: {
+    if (params.auth) {
+        let user = await AsyncStorage.getItem("user");
+        let { token } = await JSON.parse(user);
+
+        headers = {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': `Token ${token}`
-        },
+        }
+    }
+    else {
+        headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+        }
+    }
+
+    const response = await fetch(url + params.endpoint, {
+        headers: headers,
         method: params.method,
         ...(params.method == "POST" && { body: JSON.stringify(params.body) })
     })

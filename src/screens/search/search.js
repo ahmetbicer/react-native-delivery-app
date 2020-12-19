@@ -34,7 +34,8 @@ export default function SearchScreen(props) {
   async function searchRestaurant() {
     const params = {
       endpoint: `restaurants/search/${searchText}`,
-      method: "get"
+      method: "get",
+      auth: false
     }
     let data = await apiFetch(params)
 
@@ -50,7 +51,8 @@ export default function SearchScreen(props) {
   async function searchFood() {
     const params = {
       endpoint: `foods/search/${searchText}`,
-      method: "get"
+      method: "get",
+      auth: false
     }
     let data = await apiFetch(params)
 

@@ -20,7 +20,8 @@ export default function AddCard(props) {
                 number: number.replace(/ /g, ''),
                 expiry: expiry,
                 cvv: cvv
-            }
+            },
+            auth: true
         }
         await apiFetch(params)
         props.setLoading(false);

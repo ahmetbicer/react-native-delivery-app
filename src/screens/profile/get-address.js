@@ -54,7 +54,8 @@ export default function GetAddressScreen(props) {
                     lat: coordinates[1],
                     lon: coordinates[0],
                     address_type: routeParams.type
-                }
+                },
+                auth: true
             }
 
             await apiFetch(params)

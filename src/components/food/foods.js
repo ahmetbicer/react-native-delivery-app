@@ -9,7 +9,8 @@ export default function Foods() {
 
   const params = {
     endpoint: "foods",
-    method: "GET"
+    method: "GET",
+    auth: false
   }
   const { status, data } = useFetch(params);
 
