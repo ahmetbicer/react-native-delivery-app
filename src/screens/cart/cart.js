@@ -1,13 +1,15 @@
-import * as React from 'react';
-import { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import React, { useState, useEffect, useContext } from 'react';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import CartBottomSheet from '../../components/cart/cart-bottom-sheet';
-import CartList from '../../components/cart/cart-list';
-import colors from '../../constants/colors';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
+import { CartContext } from '../../providers/CartContext';
+import CartListItem from '../../components/cart/cart-list-item';
+import CartBottomSheet from '../../components/cart/cart-bottom-sheet';
+import colors from '../../constants/colors';
 
 export default function CartScreen(props) {
+  const { orders, removeFromCart } = useContext(CartContext);
   const [loading, setLoading] = useState(true)
   const [data, setData] = useState([])
   const [totalCost, setTotalCost] = useState(0);
@@ -15,15 +17,13 @@ export default function CartScreen(props) {
   const navigation = useNavigation();
 
   useEffect(() => {
-    let dummyData = [
-      { name: "Serve eggs", cost: 12, count: 1, key: 1 },
-      { name: "Fries", cost: 15, count: 3, key: 2 },
-      { name: "Onion Rings", cost: 16, count: 1, key: 3 },
-      { name: "Hamburgers", cost: 14, count: 1, key: 4 }];
-
-    setData(dummyData)
-    setShowCartBottomSheet(true)
-    setLoading(false)
+    navigation.addListener("focus", () => {
+      if (orders.length != 0) {
+        setData([...orders]);
+        setShowCartBottomSheet(true)
+      }
+      setLoading(false)
+    })
   }, [])
 
   useEffect(() => {
@@ -68,11 +68,21 @@ export default function CartScreen(props) {
             My
           <Headline style={styles.subtitle}> Cart</Headline>
           </Title>
-          <CartList
-            data={data}
-            showCartBottomSheet={showCartBottomSheet}
-            deleteItem={deleteItem}
-            changeItemCount={changeItemCount} />
+          {showCartBottomSheet ?
+            <FlatList
+              style={{ marginTop: 10 }}
+              data={data}
+              renderItem={({ item }) => (
+                <CartListItem deleteItem={deleteItem} changeItemCount={changeItemCount} item={item} />
+              )}
+              keyExtractor={item => item.id.toString()}
+            />
+            :
+            <View style={styles.bottom_sheet_container}>
+              <Icon name="emoticon-sad-outline" color={colors.gray} size={28} />
+              <Title style={{ fontWeight: "100", color: colors.gray }}>Your cart is empty.</Title>
+            </View>
+          }
         </View>}
       {showCartBottomSheet &&
         <CartBottomSheet goToCheckout={goToCheckout} total={totalCost} />
@@ -97,5 +107,10 @@ const styles = StyleSheet.create({
     lineHeight: 36,
     marginVertical: 0,
     letterSpacing: 0.6,
+  },
+  bottom_sheet_container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
   },
 });

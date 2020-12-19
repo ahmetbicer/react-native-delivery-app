@@ -1,12 +1,12 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { Image, StyleSheet, View } from 'react-native';
 import { Title } from 'react-native-paper';
 import NumberSpinner from './number-spinner';
 
 export default function CartListItem(props) {
   return (
     <View key={props.item.key} style={styles.container}>
-      <View style={styles.item}></View>
+      <Image source={{ uri: props.item.image }} style={styles.item} />
       <View style={styles.metadata_container}>
         <View style={styles.metadata_titles}>
           <Title style={styles.name_title}>{props.item.name}</Title>
