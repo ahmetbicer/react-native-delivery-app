@@ -1,13 +1,13 @@
-const { ToastAndroid } = require("react-native");
+import Toast from 'react-native-toast-message';
 
-export default function useToast(text) {
+export default function useToast(params) {
     return (
-        ToastAndroid.showWithGravityAndOffset(
-            text,
-            ToastAndroid.SHORT,
-            ToastAndroid.BOTTOM,
-            0,
-            300
-        )
+        Toast.show({
+            type: params.type,
+            text1: params.text1,
+            text2: params.text2,
+            visibilityTime: 2000,
+            topOffset: 60
+        })
     );
 }
