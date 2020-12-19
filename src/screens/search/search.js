@@ -157,6 +157,7 @@ const styles = StyleSheet.create({
     marginTop: 1,
     backgroundColor: "white",
     elevation: 4,
+    zIndex: 999
   },
   autocomplete_item: {
     paddingVertical: 10,
