@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Pressable, StyleSheet, Alert } from 'react-native';
-import { Title } from 'react-native-paper';
+import { Checkbox, Title, RadioButton } from 'react-native-paper';
 import colors from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import apiFetch from '../../../hooks/api-fetch';
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     list_right_item_subtitle: {
-        flex: 2,
+        flex: 3,
         fontSize: 14,
         lineHeight: 14,
         fontWeight: '100',
