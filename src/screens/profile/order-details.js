@@ -1,15 +1,18 @@
-import { useRoute } from '@react-navigation/native';
-import * as React from 'react';
-import { useState } from 'react';
-import { ScrollView, View, StyleSheet, RefreshControl } from 'react-native';
+
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import AppBar from '../../components/common/app-bar';
 import OrderDetailListItem from '../../components/order-detail/order-detail-list-item';
-import Orders from '../../components/profile/orders/orders';
 import colors from '../../constants/colors';
+import apiFetch from '../../hooks/api-fetch';
 import useFetch from "../../hooks/use-fetch";
+import { useRoute } from '@react-navigation/native';
+import MapboxGL from "@react-native-mapbox-gl/maps";
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function OrderDetailsScreen(props) {
   const route = useRoute()
   const routeParams = route.params;
@@ -21,6 +24,29 @@ export default function OrderDetailsScreen(props) {
   }
 
   const { status, data } = useFetch(params);
+  const [coordinates, setCoordinates] = useState([29.030472, 41.087084]);
+
+  useEffect(() => {
+    if (routeParams.status == "IN DELIVERY") {
+      getCustomerAddress();
+    }
+  }, [status])
+
+  async function getCustomerAddress() {
+    if (data.length > 0) {
+      let address_pk = data[0]?.order.address;
+
+      const params = {
+        endpoint: `address/get/${address_pk}`,
+        method: "get",
+        auth: true
+      }
+
+      const { lat, lon } = await apiFetch(params)
+      console.log(lat, lon)
+      setCoordinates([lon, lat])
+    }
+  }
 
   if (status == "loading") {
     return (
@@ -30,7 +56,32 @@ export default function OrderDetailsScreen(props) {
     )
   }
 
-  console.log(data)
+  const route_ = {
+    type: 'FeatureCollection',
+    features: [
+      {
+        type: 'Feature',
+        properties: {},
+        geometry: {
+          type: 'LineString',
+          coordinates: [
+            coordinates, //point A "current" ~ From
+            [36.268405, 41.2331], //Point B ~ to
+          ],
+        },
+        style: {
+          fill: 'red',
+          strokeWidth: '10',
+          fillOpacity: 0.6,
+        },
+        paint: {
+          'fill-color': '#088',
+          'fill-opacity': 0.8,
+        },
+      },
+    ],
+  };
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <AppBar screenName={props.route.name} />
@@ -39,8 +90,41 @@ export default function OrderDetailsScreen(props) {
           Order
               <Headline style={styles.subtitle}> Detail</Headline>
         </Title>
+        {routeParams.status == "IN DELIVERY" &&
+          <MapboxGL.MapView
+            zoomLevel={6}
+            compassEnabled={true}
+            zoomEnabled={true}
+            pitchEnabled={false}
+            style={styles.map_container}
+            styleURL={"mapbox://styles/ahmetb/ckgm0ug5b0ium19mqep82qlka"}
+          >
+            <MapboxGL.Camera
+              defaultSettings={{
+                centerCoordinate: [36.248405, 41.3331],
+              }}
+              zoomLevel={8}
+            />
+            <MapboxGL.ShapeSource id="line1" shape={route_}>
+              <MapboxGL.LineLayer
+                id="linelayer1"
+                style={{
+                  lineColor: 'red',
+                  lineWidth: 3,
+                }}
+              />
+            </MapboxGL.ShapeSource>
+            <MapboxGL.PointAnnotation id="house" coordinate={coordinates} >
+              <Icon name="home" size={25} color={colors.black} />
+            </MapboxGL.PointAnnotation>
+            <MapboxGL.PointAnnotation id="driver" coordinate={[36.268405, 41.2331]} >
+              <Icon name="moped" size={25} color={colors.black} />
+            </MapboxGL.PointAnnotation>
+          </MapboxGL.MapView>
+        }
         <FlatList
           data={data}
+          style={styles.food_container}
           keyExtractor={item => item.id.toString()}
           renderItem={item_ => {
             const { item } = item_;
@@ -73,4 +157,11 @@ const styles = StyleSheet.create({
     marginVertical: 0,
     letterSpacing: 0.6,
   },
+  food_container: {
+    marginTop: 15,
+    flex: 1,
+  },
+  map_container: {
+    flex: 1
+  }
 });

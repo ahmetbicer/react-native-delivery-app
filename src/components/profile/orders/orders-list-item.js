@@ -30,7 +30,7 @@ export default function OrdersListItem(props) {
                 <Button
                     compact={true}
                     mode="contained"
-                    onPress={() => { navigation.navigate("OrderDetails", { id: props.id }) }}
+                    onPress={() => { navigation.navigate("OrderDetails", { id: props.id, status: props.status }) }}
                     color={colors.yellow}>
                     Details
                 </Button>

@@ -15,6 +15,7 @@ urlpatterns = [
     path('cards', user_views.cards, name="cards"),
     path('cards/<str:pk>', user_views.delete_card, name="delete-card"),
     path('address', user_views.address, name="address"),
+    path('address/get/<str:pk>', user_views.get_address, name="get-address"),
     path('address/<str:pk>', user_views.delete_address, name="delete-address"),
     path('orders', user_views.orders, name="orders"),
     path('order-details/<str:pk>', user_views.get_order_details, name="get-order-details"),

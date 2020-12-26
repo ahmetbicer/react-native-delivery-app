@@ -59,6 +59,20 @@ def address(request):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def get_address(request, pk):
+    print("heyyyo")
+    if(request.method == "GET"):
+        try:
+            address = Address.objects.get(id=pk)
+        except Address.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = AddressSerializer(address)
+        
+        return Response(serializer.data)
+
 @api_view(["DELETE"])
 @permission_classes([IsAuthenticated])
 def delete_address(request, pk):
