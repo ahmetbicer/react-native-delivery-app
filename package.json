@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@gorhom/bottom-sheet": "^2.0.0",
+    "@gorhom/bottom-sheet": "^3.0.1",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
     "@react-native-mapbox-gl/maps": "^8.1.0-rc10",
@@ -24,7 +24,7 @@
     "react-native-gesture-handler": "^1.9.0",
     "react-native-masked-text": "^1.13.0",
     "react-native-paper": "^4.5.0",
-    "react-native-reanimated": "^1.13.2",
+    "react-native-reanimated": "^2.0.0-rc.1",
     "react-native-safe-area-context": "^3.1.9",
     "react-native-screens": "^2.16.1",
     "react-native-tab-view": "^2.15.2",
