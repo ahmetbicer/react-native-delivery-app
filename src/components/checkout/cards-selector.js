@@ -1,25 +1,40 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { Title } from 'react-native-paper';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function CardsSelector(props) {
+    const [icon, setIcon] = useState("credit-card-outline");
+    const [cardNumber, setCardNumber] = useState("Select Card");
+    const [cardExpiry, setCardExpiry] = useState(undefined);
+    const [color, setColor] = useState("gray");
+
+    useEffect(() => {
+        if (props.item) {
+            setIcon("credit-card")
+            let number = props.item.number.slice(12, 16);
+            setCardExpiry(props.item.expiry);
+            setCardNumber("**** " + number + ",");
+            setColor(colors.yellow);
+        }
+    })
+
     return (
         <View>
             <Title style={{ fontSize: 15, marginTop: 10 }}>Payment Method</Title>
             <Pressable
                 onPress={() => {
-                    props.addressRef.current?.close();
-                    props.cardsRef.current?.expand();
+                    props.addressRef.current?.dismiss();
+                    props.cardsRef.current?.present();
                 }}
                 android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.list_item}>
                 <View style={styles.list_item_left_icon} >
-                    <Icon name={"credit-card-outline"} color={"gray"} size={25} />
+                    <Icon name={icon} color={color} size={25} />
                 </View>
                 <View style={styles.list_right_item}>
                     <Title style={styles.list_right_item_title}>
-                        Select Payment
+                        {cardNumber} {cardExpiry}
                     </Title>
                     <Icon name="chevron-right" color={colors.black} size={28} />
                 </View>

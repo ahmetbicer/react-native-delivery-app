@@ -3,23 +3,50 @@ import { Pressable, View, StyleSheet } from 'react-native';
 import { Title } from 'react-native-paper';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import { useEffect, useState } from 'react/cjs/react.development';
 
 export default function AddressSelector(props) {
+    const [icon, setIcon] = useState("truck-outline");
+    const [text, setText] = useState("Select Address");
+    const [color, setColor] = useState("gray");
+
+    useEffect(() => {
+        if (props.item) {
+            switch (props.item.address_type) {
+                case "HOME":
+                    setIcon("home-variant");
+                    break;
+                case "BUSINESS":
+                    setIcon("home-city");
+                    break;
+                case "OTHER":
+                    setIcon("city-variant");
+                    break;
+                default:
+                    setIcon("city-variant");
+                    break;
+            }
+
+            setText(props.item.address);
+            setColor(colors.yellow);
+        }
+    })
+
     return (
         <View>
             <Title style={{ fontSize: 15, marginTop: 10 }}>Delivery Address</Title>
             <Pressable
                 onPress={() => {
-                    props.cardsRef.current?.close();
-                    props.addressRef.current?.expand();
+                    props.cardsRef.current?.dismiss();
+                    props.addressRef.current?.present();
                 }}
                 android_ripple={{ color: colors.lightgray, borderless: false }} style={styles.list_item}>
                 <View style={styles.list_item_left_icon} >
-                    <Icon name={"truck-outline"} color={"gray"} size={25} />
+                    <Icon name={icon} color={color} size={25} />
                 </View>
                 <View style={styles.list_right_item}>
-                    <Title style={styles.list_right_item_title}>
-                        Select Address
+                    <Title numberOfLines={1} style={styles.list_right_item_title}>
+                        {text}
                     </Title>
                     <Icon name="chevron-right" color={colors.black} size={28} />
                 </View>
@@ -55,6 +82,8 @@ const styles = StyleSheet.create({
         lineHeight: 16,
         fontWeight: '100',
         letterSpacing: 0.75,
+        maxWidth: "85%",
+        overflow: "hidden"
     },
     badge: {
         position: "absolute",

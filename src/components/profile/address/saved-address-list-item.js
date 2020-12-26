@@ -9,7 +9,6 @@ export default function SavedAddressListItem(props) {
     const [icon, setIcon] = useState("home-variant");
 
     useEffect(() => {
-        console.log(props.data.address_type)
         switch (props.data.address_type) {
             case "HOME":
                 setIcon("home-variant")

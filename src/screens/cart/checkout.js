@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
-import { Dimensions, StyleSheet, View } from 'react-native';
+import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
+import { Dimensions, StyleSheet, ScrollView, View } from 'react-native';
 import AppBar from '../../components/common/app-bar';
 import { CartContext } from '../../providers/CartContext';
 import AddressBottomSheet from '../../components/checkout/address-bottom-sheet';
@@ -8,16 +8,24 @@ import AddressSelector from '../../components/checkout/address-selector';
 import CardsSelector from '../../components/checkout/cards-selector';
 import { Button, Divider, Title } from 'react-native-paper';
 import apiFetch from '../../hooks/api-fetch';
-import EstimatedDeliveryTime from '../../components/checkout/est-delivery-time';
+import CheckoutRestaurant from '../../components/checkout/checkout-restaurant';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export default function CheckoutScreen(props) {
   const { orders, deleteOrder } = useContext(CartContext);
-  const [deliveryTime, setDeliveryTime] = useState(0);
+  const [restaurant, setRestaurant] = useState({});
+  const [totalCost, setTotalCost] = useState(0);
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [selectedCard, setSelectedCard] = useState(null);
+
+  const [productCount, setProductCount] = useState(0);
+  const [showOrderButton, setShowOrderButton] = useState(true);
   const cardsBottomSheetRef = useRef(null);
   const addressBottomSheetRef = useRef(null);
 
   useEffect(() => {
     getRestaurant();
+    calculateTotal();
   }, [])
 
   async function getRestaurant() {
@@ -31,30 +39,55 @@ export default function CheckoutScreen(props) {
 
     let data = await apiFetch(params)
 
-    setDeliveryTime(data.delivery_time)
+    setRestaurant(data)
+  }
+
+  function calculateTotal() {
+    let total = orders.reduce(function (prev, cur) {
+      return prev + (cur.cost * cur.count);
+    }, 0);
+    setTotalCost(total);
+    setProductCount(orders.length);
+  }
+
+  function selectAddress(item) {
+    setSelectedAddress(item);
+  }
+
+  function selectCard(item) {
+    setSelectedCard(item);
+  }
+
+  function completeOrder() {
+    console.log(orders);
+    console.log(selectedCard);
+    console.log(selectedAddress);
   }
 
   return (
-    <View style={{ flex: 1, backgroundColor: "white" }}>
-      <AppBar screenName={props.route.name} />
-      <View style={styles.container}>
-        <View>
-          <AddressSelector cardsRef={cardsBottomSheetRef} addressRef={addressBottomSheetRef} />
-          <CardsSelector cardsRef={cardsBottomSheetRef} addressRef={addressBottomSheetRef} />
+    <BottomSheetModalProvider>
+      <View style={{ flex: 1, backgroundColor: "white" }}>
+        <AppBar screenName={props.route.name} />
+        <View style={styles.container}>
+          <View>
+            <AddressSelector item={selectedAddress} cardsRef={cardsBottomSheetRef} addressRef={addressBottomSheetRef} />
+            <CardsSelector item={selectedCard} cardsRef={cardsBottomSheetRef} addressRef={addressBottomSheetRef} />
+            <CheckoutRestaurant productCount={productCount} totalCost={totalCost} restaurant={restaurant} />
+          </View>
+          <Button
+            compact={true}
+            mode="contained"
+            contentStyle={{ height: 50 }}
+            style={{ zIndex: 0 }}
+            color={colors.yellow}
+            onPress={completeOrder}>
+            Complete Order
+          </Button>
         </View>
-        <EstimatedDeliveryTime deliveryTime={deliveryTime} />
-        <Button
-          compact={true}
-          mode="contained"
-          contentStyle={{ height: 50 }}
-          color={colors.yellow}
-          onPress={() => { }}>
-          Complete Order
-        </Button>
-        <AddressBottomSheet ref={addressBottomSheetRef} />
-        <CardsBottomSheet ref={cardsBottomSheetRef} />
+        <AddressBottomSheet selectAddress={selectAddress} ref={addressBottomSheetRef} />
+        <CardsBottomSheet selectCard={selectCard} ref={cardsBottomSheetRef} />
       </View>
-    </View>
+    </BottomSheetModalProvider>
   );
 }
 
