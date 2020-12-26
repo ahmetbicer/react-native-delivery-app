@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import OrdersScreen from '../screens/profile/orders';
+import OrdersDetailsScreen from '../screens/profile/order-details';
 import DeliveryScreen from '../screens/profile/delivery';
 import ProfileScreen from '../screens/profile/profile';
 import PaymentScreen from '../screens/profile/payment';
@@ -21,6 +22,11 @@ export default function ProfileStackNavigator() {
         options={{ headerShown: false }}
         name="Orders"
         component={OrdersScreen}
+      />
+      <ProfileStack.Screen
+        options={{ headerShown: false }}
+        name="OrderDetails"
+        component={OrdersDetailsScreen}
       />
       <ProfileStack.Screen
         options={{ headerShown: false }}

@@ -14,6 +14,7 @@ export default function Orders(props) {
                     const { item } = item_;
                     return (
                         <OrdersListItem
+                            id={item.id}
                             order_no={item.order_number}
                             cost={item.total_cost}
                             date={item.date}

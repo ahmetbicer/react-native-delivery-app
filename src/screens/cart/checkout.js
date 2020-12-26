@@ -76,7 +76,7 @@ export default function CheckoutScreen(props) {
       auth: true
     }
     await apiFetch(params)
-    deleteOrder()
+    // deleteOrder()
     navigation.goBack()
   }
 

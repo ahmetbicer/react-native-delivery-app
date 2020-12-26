@@ -114,7 +114,8 @@ export default function AppBar(props) {
     props.screenName == 'Payment' ||
     props.screenName == 'Address' ||
     props.screenName == 'GetAddress' ||
-    props.screenName == 'Orders') {
+    props.screenName == 'Orders' ||
+    props.screenName == 'OrderDetails') {
     return (
       <Appbar.Header style={styles.bar}>
         <Appbar.Action
