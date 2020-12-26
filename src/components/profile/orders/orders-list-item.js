@@ -12,9 +12,9 @@ export default function OrdersListItem(props) {
             <View style={styles.list_right_item}>
                 <Title style={styles.list_right_item_subtitle}>
                     <Title style={styles.list_right_item_title}>
-                        {props.order_no}
+                        #{props.order_no}
                     </Title>
-                    {props.date}
+                    {" " + props.date.slice(0, 10)}
                 </Title>
                 <Title style={styles.list_right_item_title}>
                     {props.cost}$
@@ -24,7 +24,7 @@ export default function OrdersListItem(props) {
                 <View style={{ flexDirection: "row", alignItems: "center" }}>
                     <Icon name="moped" color={"gray"} size={21} />
                     <Title style={styles.list_right_item_subtitle}>
-                        {props.status}
+                        {" " + props.status}
                     </Title>
                 </View>
                 <Button
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     list_right_item_subtitle: {
         fontSize: 14,
-        lineHeight: 14,
+        lineHeight: 16,
         fontWeight: '100',
         letterSpacing: 0.75,
         color: "gray",

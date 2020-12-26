@@ -10,9 +10,11 @@ import { Button, Divider, Title } from 'react-native-paper';
 import apiFetch from '../../hooks/api-fetch';
 import CheckoutRestaurant from '../../components/checkout/checkout-restaurant';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
 
 export default function CheckoutScreen(props) {
   const { orders, deleteOrder } = useContext(CartContext);
+  const navigation = useNavigation();
 
   const [restaurant, setRestaurant] = useState({});
   const [totalCost, setTotalCost] = useState(0);
@@ -59,10 +61,23 @@ export default function CheckoutScreen(props) {
     setSelectedCard(item);
   }
 
-  function completeOrder() {
-    console.log(orders);
-    console.log(selectedCard);
-    console.log(selectedAddress);
+  async function completeOrder() {
+    const params = {
+      endpoint: "orders",
+      method: "POST",
+      body: {
+        date: new Date(),
+        total_cost: totalCost,
+        restaurant: restaurant.id,
+        payment: selectedCard.id,
+        address: selectedAddress.id,
+        orders: orders
+      },
+      auth: true
+    }
+    await apiFetch(params)
+    deleteOrder()
+    navigation.goBack()
   }
 
   return (

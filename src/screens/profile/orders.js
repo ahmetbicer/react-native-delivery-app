@@ -5,29 +5,35 @@ import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import AppBar from '../../components/common/app-bar';
 import Orders from '../../components/profile/orders/orders';
 import colors from '../../constants/colors';
+import useFetch from "../../hooks/use-fetch";
 
 export default function OrdersScreen(props) {
-  const [loading, setLoading] = useState(false)
+  const params = {
+    endpoint: "orders",
+    method: "get",
+    auth: true
+  }
+
+  const { status, data } = useFetch(params);
+
+  if (status == "loading") {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <ActivityIndicator color={colors.yellow} size={"large"} />
+      </View>
+    )
+  }
+
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      {loading ?
-        <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
-          <ActivityIndicator color={colors.yellow} size="large" />
-        </View>
-        :
-        <>
-          <AppBar screenName={props.route.name} />
-          <ScrollView refreshControl={
-            <RefreshControl />
-          } style={styles.container}>
-            <Title style={styles.title}>
-              My
+      <AppBar screenName={props.route.name} />
+      <View style={styles.container}>
+        <Title style={styles.title}>
+          My
               <Headline style={styles.subtitle}> Orders</Headline>
-            </Title>
-            <Orders />
-          </ScrollView>
-        </>
-      }
+        </Title>
+        <Orders data={data} />
+      </View>
     </View>
   );
 }
