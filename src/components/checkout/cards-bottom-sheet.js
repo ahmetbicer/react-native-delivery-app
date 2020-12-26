@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { StyleSheet, View, Text, Pressable } from 'react-native';
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetFlatList } from '@gorhom/bottom-sheet';
+import React, { useCallback, useMemo } from 'react';
+import { StyleSheet } from 'react-native';
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetFlatList, TouchableOpacity } from '@gorhom/bottom-sheet';
 import useFetch from '../../hooks/use-fetch';
 import { Title } from 'react-native-paper';
 import colors from '../../constants/colors';
@@ -18,9 +18,8 @@ const CardsBottomSheet = React.forwardRef((props, ref) => {
 
     const renderItem = useCallback(({ item }) => {
         return (
-            <Pressable
+            <TouchableOpacity
                 style={styles.list_item}
-                android_ripple={{ color: colors.lightgray, borderless: false }}
                 onPress={() => selectCard(item)}>
                 <Icon style={styles.list_item_left_icon} name={"credit-card"} color={"gray"} size={21} />
                 <Title style={styles.list_right_item_title}>
@@ -29,7 +28,7 @@ const CardsBottomSheet = React.forwardRef((props, ref) => {
                 <Title numberOfLines={1} style={styles.list_right_item_subtitle}>
                     {item.expiry}, {item.cvv}
                 </Title>
-            </Pressable>
+            </TouchableOpacity>
         )
     },
         []

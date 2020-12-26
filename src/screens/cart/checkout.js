@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback, useContext } from 'react';
-import { Dimensions, StyleSheet, ScrollView, View } from 'react-native';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import { StyleSheet, View } from 'react-native';
 import AppBar from '../../components/common/app-bar';
 import { CartContext } from '../../providers/CartContext';
 import AddressBottomSheet from '../../components/checkout/address-bottom-sheet';
@@ -13,13 +13,14 @@ import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 export default function CheckoutScreen(props) {
   const { orders, deleteOrder } = useContext(CartContext);
+
   const [restaurant, setRestaurant] = useState({});
   const [totalCost, setTotalCost] = useState(0);
+  const [productCount, setProductCount] = useState(0);
+
   const [selectedAddress, setSelectedAddress] = useState(null);
   const [selectedCard, setSelectedCard] = useState(null);
 
-  const [productCount, setProductCount] = useState(0);
-  const [showOrderButton, setShowOrderButton] = useState(true);
   const cardsBottomSheetRef = useRef(null);
   const addressBottomSheetRef = useRef(null);
 
@@ -96,7 +97,5 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
     justifyContent: "space-between"
-  },
-  contentContainer: {
   }
 })

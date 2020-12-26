@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Pressable, View, StyleSheet } from 'react-native';
 import { Title } from 'react-native-paper';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useEffect, useState } from 'react/cjs/react.development';
 
 export default function AddressSelector(props) {
     const [icon, setIcon] = useState("truck-outline");

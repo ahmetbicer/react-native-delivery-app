@@ -1,6 +1,6 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
-import { Pressable, StyleSheet } from 'react-native';
-import { BottomSheetModal, BottomSheetFlatList, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
+import React, { useCallback, useMemo } from 'react';
+import { StyleSheet } from 'react-native';
+import { BottomSheetModal, BottomSheetFlatList, BottomSheetBackdrop, TouchableOpacity } from '@gorhom/bottom-sheet';
 import useFetch from '../../hooks/use-fetch';
 import { Title } from 'react-native-paper';
 import colors from '../../constants/colors';
@@ -35,9 +35,8 @@ const AddressBottomSheet = React.forwardRef((props, ref) => {
         }
 
         return (
-            <Pressable
+            <TouchableOpacity
                 style={styles.list_item}
-                android_ripple={{ color: colors.lightgray, borderless: false }}
                 onPress={() => selectAddress(item)}>
                 <Icon style={styles.list_item_left_icon} name={icon} color={"gray"} size={21} />
                 <Title style={styles.list_right_item_title}>
@@ -46,7 +45,7 @@ const AddressBottomSheet = React.forwardRef((props, ref) => {
                 <Title numberOfLines={1} style={styles.list_right_item_subtitle}>
                     {item.address}
                 </Title>
-            </Pressable>
+            </TouchableOpacity>
         )
     }, []);
 
