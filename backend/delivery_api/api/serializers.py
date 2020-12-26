@@ -1,7 +1,7 @@
 from rest_framework import serializers 
 from django.contrib.auth.models import User
 from api.models import *
-
+from random import randint
 
 class ProfileSerializer(serializers.ModelSerializer):
 
@@ -76,3 +76,44 @@ class AddressSerializer(serializers.ModelSerializer):
 
         address.save()
         return address
+
+
+class OrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Order
+        fields = ('id', 'date', 'order_number', 'status', 'total_cost', 'restaurant', 'payment', 'address')
+        extra_kwargs = {"order_number": {"required": False, "allow_null": True},
+                        "status": {"required": False, "allow_null": True}, 
+                        "orders": {"required": False, "allow_null": True},}
+
+    def create(self, validated_data):
+        order = Order(
+            address=validated_data["address"],
+            restaurant=validated_data["restaurant"],
+            order_number=randint(100000, 999999),
+            date=validated_data["date"],
+            status="WAITING",
+            total_cost=validated_data["total_cost"],
+            customer=validated_data["customer"],
+            payment=validated_data["payment"]
+        )
+
+        order.save()
+        return order
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrderDetails
+        fields = ('id', 'quantity', 'cost', 'order', 'food')
+
+    def create(self, validated_data):
+        order_detail = OrderDetails(
+            cost=validated_data["cost"],
+            quantity=validated_data["quantity"],
+            order=validated_data["order"],
+            food=validated_data["food"]
+        )
+
+        order_detail.save()
+        return order_detail

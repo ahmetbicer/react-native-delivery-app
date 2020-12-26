@@ -39,3 +39,27 @@ class Address(models.Model):
     lon = models.FloatField()
     address_type = models.CharField(max_length=10, choices=(('HOME','HOME'),('BUSINESS','BUSINESS'),('OTHER','OTHER')))    
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+
+
+class Order(models.Model):
+    order_number = models.IntegerField()
+    date = models.DateTimeField()
+    status = models.CharField(max_length=20, choices=(
+        ('WAITING', 'WAITING'), 
+        ('CONFIRMED', 'CONFIRMED'), 
+        ('IN DELIVERY', 'IN DELIVERY'), 
+        ('DELIVERED', 'DELIVERED'))
+        )
+    total_cost = models.FloatField()
+    customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
+    payment = models.ForeignKey(Card, on_delete=models.DO_NOTHING)
+    address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
+
+
+class OrderDetails(models.Model):
+    quantity = models.IntegerField()
+    cost = models.FloatField()
+
+    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
+    food = models.ForeignKey(Food, on_delete=models.DO_NOTHING)
