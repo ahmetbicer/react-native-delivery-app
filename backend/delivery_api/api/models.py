@@ -59,7 +59,6 @@ class Order(models.Model):
 
 class OrderDetails(models.Model):
     quantity = models.IntegerField()
-    cost = models.FloatField()
 
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING)

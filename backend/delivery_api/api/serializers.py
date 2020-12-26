@@ -103,17 +103,21 @@ class OrderSerializer(serializers.ModelSerializer):
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):
+    order = OrderSerializer(read_only=True)
+    food = FoodSerializer(read_only=True)
     class Meta:
         model = OrderDetails
-        fields = ('id', 'quantity', 'cost', 'order', 'food')
+        fields = ('id', 'quantity', 'order', 'food')
 
     def create(self, validated_data):
-        order_detail = OrderDetails(
-            cost=validated_data["cost"],
-            quantity=validated_data["quantity"],
-            order=validated_data["order"],
-            food=validated_data["food"]
-        )
 
+        food_ = Food.objects.get(id=validated_data["food"])
+        order_ = Order.objects.get(id=validated_data["order"])
+
+        order_detail = OrderDetails(
+            quantity=validated_data["quantity"],
+            order=order_,
+            food=food_
+        )
         order_detail.save()
         return order_detail

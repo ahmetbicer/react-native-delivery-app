@@ -87,14 +87,25 @@ def orders(request):
         orders = request.data["orders"]
         if serializer.is_valid():
             order_ = serializer.save(customer=request.user)
-            
             for order in orders:
-                order_detail = {"cost": order["cost"], "quantity": order["count"], "order": order_.id, "food": order["id"]}
+                order_detail = {"quantity": order["count"]}
                 order_detail_serializer = OrderDetailSerializer(data=order_detail)
 
                 if order_detail_serializer.is_valid():
-                    order_detail_serializer.save()
-
+                    order_detail_serializer.save(order=order_.id, food=order["id"])
+                print(serializer.errors)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(["GET"])
+@permission_classes([])
+def get_order_details(request, pk):
+    try:
+        order_details = OrderDetails.objects.filter(order=pk)
+    except OrderDetails.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    serializer = OrderDetailSerializer(order_details, many=True)
+    return Response(serializer.data)
