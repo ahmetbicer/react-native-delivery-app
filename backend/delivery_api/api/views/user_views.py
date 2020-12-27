@@ -89,7 +89,7 @@ def delete_address(request, pk):
 def orders(request):
     if(request.method == "GET"):
         try:
-            orders = Order.objects.filter(customer=request.user)
+            orders = Order.objects.filter(customer=request.user).order_by('-id')
         except Order.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

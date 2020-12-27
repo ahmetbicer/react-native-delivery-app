@@ -3,11 +3,6 @@ from django.contrib.auth.models import User
 from api.models import *
 from random import randint
 
-class ProfileSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Profile
-        fields = ('location',)
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
