@@ -11,6 +11,7 @@ import useFetch from "../../hooks/use-fetch";
 import { useRoute } from '@react-navigation/native';
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import OrderStatus from '../../components/order-detail/order-status';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function OrderDetailsScreen(props) {
@@ -90,6 +91,7 @@ export default function OrderDetailsScreen(props) {
           Order
               <Headline style={styles.subtitle}> Detail</Headline>
         </Title>
+        <OrderStatus status={routeParams.status} />
         {routeParams.status == "IN DELIVERY" &&
           <MapboxGL.MapView
             zoomLevel={6}
@@ -122,6 +124,7 @@ export default function OrderDetailsScreen(props) {
             </MapboxGL.PointAnnotation>
           </MapboxGL.MapView>
         }
+        <Title style={{ fontSize: 15 }}>Orders</Title>
         <FlatList
           data={data}
           style={styles.food_container}
