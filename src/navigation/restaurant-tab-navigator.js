@@ -2,10 +2,9 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import HomeStackNavigator from './user/home-stack-navigator';
+import OrderStackNavigator from './restaurant/order-stack-navigator';
 import SearchStackNavigator from './user/search-stack-navigator';
-import ProfileStackNavigator from './user/profile-stack-navigator';
-import CartStackNavigator from './user/cart-stack-navigator';
+import ProfileStackNavigator from './restaurant/profile-stack-navigator';
 
 import colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -29,31 +28,22 @@ export default function RestaurantTabNavigator() {
                 },
             }}>
             <Tab.Screen
-                name="HomeStack"
+                name="OrderStack"
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="silverware-fork-knife" color={color} size={size} />
+                        <Icon name="moped" color={color} size={size} />
                     ),
                 }}
-                component={HomeStackNavigator}
+                component={OrderStackNavigator}
             />
             <Tab.Screen
-                name="SearchStack"
+                name="FoodStack"
                 options={{
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="magnify" color={color} size={size} />
                     ),
                 }}
                 component={SearchStackNavigator}
-            />
-            <Tab.Screen
-                name="CartStack"
-                options={{
-                    tabBarIcon: ({ color, size }) => (
-                        <Icon name="cart" color={color} size={size} />
-                    ),
-                }}
-                component={CartStackNavigator}
             />
             <Tab.Screen
                 name="ProfileStack"
