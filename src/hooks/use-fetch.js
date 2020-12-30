@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 const useFetch = (params) => {
     const [status, setStatus] = useState('idle');
     const [data, setData] = useState([]);
+    const [refetch, setRefetch] = useState(false)
+
     const url = "http://192.168.1.29:8080/api/";
 
     useEffect(() => {
@@ -43,9 +45,9 @@ const useFetch = (params) => {
         };
 
         fetchData();
-    }, []);
+    }, [refetch]);
 
-    return { status, data };
+    return { status, data, refetch, setRefetch };
 };
 
 export default useFetch;
