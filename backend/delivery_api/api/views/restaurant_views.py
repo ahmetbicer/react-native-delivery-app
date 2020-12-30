@@ -54,3 +54,17 @@ def search_restaurants(request, name):
 
     serializer = RestaurantSerializer(restaurants, many=True)
     return Response(serializer.data)
+
+
+@api_view(["GET"])
+@permission_classes([IsAuthenticated])
+def orders(request):
+    if(request.method == "GET"):
+        try:
+            restaurant = Restaurant.objects.get(user=request.user)
+            orders = Order.objects.filter(restaurant=restaurant).order_by('-id')
+        except Order.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = OrderSerializer(orders, many=True)
+        return Response(serializer.data)

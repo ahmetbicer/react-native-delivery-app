@@ -62,7 +62,6 @@ def address(request):
 @api_view(["GET"])
 @permission_classes([IsAuthenticated])
 def get_address(request, pk):
-    print("heyyyo")
     if(request.method == "GET"):
         try:
             address = Address.objects.get(id=pk)

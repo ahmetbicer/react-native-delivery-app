@@ -15,6 +15,7 @@ class Restaurant(models.Model):
     delivery_time = models.IntegerField()
     cost = models.CharField(max_length=3, choices=(('$','CHEAP'),('$$','MEDIUM'),('$$$','EXPENSIVE')))    
     address = models.CharField(max_length=150)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 
 class Food(models.Model):
     name = models.CharField(max_length=40)

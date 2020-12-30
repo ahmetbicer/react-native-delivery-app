@@ -19,4 +19,5 @@ urlpatterns = [
     path('address/<str:pk>', user_views.delete_address, name="delete-address"),
     path('orders', user_views.orders, name="orders"),
     path('order-details/<str:pk>', user_views.get_order_details, name="get-order-details"),
+    path('restaurant/orders', restaurant_views.orders, name="restaurant-orders"),
 ]
