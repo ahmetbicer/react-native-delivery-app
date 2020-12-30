@@ -26,7 +26,8 @@ const apiFetch = async (params) => {
     const response = await fetch(url + params.endpoint, {
         headers: headers,
         method: params.method,
-        ...(params.method == "POST" && { body: JSON.stringify(params.body) })
+        ...(params.method == "POST" && { body: JSON.stringify(params.body) }),
+        ...(params.method == "PUT" && { body: JSON.stringify(params.body) })
     })
 
     try {

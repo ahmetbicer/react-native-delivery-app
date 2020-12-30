@@ -6,6 +6,7 @@ import AppBar from '../../../components/common/app-bar';
 import Orders from '../../../components/profile/orders/orders';
 import colors from '../../../constants/colors';
 import useFetch from "../../../hooks/use-fetch";
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function OrdersScreen(props) {
   const params = {
@@ -14,7 +15,15 @@ export default function OrdersScreen(props) {
     auth: true
   }
 
-  const { status, data } = useFetch(params);
+  const { status, data, refetch, setRefetch } = useFetch(params);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      console.log("yepp")
+      console.log(setRefetch)
+      setRefetch(!refetch)
+    }, [])
+  );
 
   if (status == "loading") {
     return (

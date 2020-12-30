@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { ActivityIndicator, Headline, Title } from 'react-native-paper';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { ActivityIndicator, Headline, Title, Button } from 'react-native-paper';
 import AppBar from '../../../components/common/app-bar';
 import OrderDetailListItem from '../../../components/order-detail/order-detail-list-item';
 import colors from '../../../constants/colors';
@@ -18,18 +17,24 @@ export default function OrderDetailsScreen(props) {
   const route = useRoute()
   const routeParams = route.params;
 
+  const [orderStatus, setOrderStatus] = useState(routeParams.status);
+
+
   const params = {
     endpoint: `order-details/${routeParams.id}`,
     method: "get",
     auth: true
   }
 
-  const { status, data } = useFetch(params);
+  const { status, data, refetch, setRefetch } = useFetch(params);
   const [coordinates, setCoordinates] = useState([29.030472, 41.087084]);
 
   useEffect(() => {
-    if (routeParams.status == "IN DELIVERY") {
+    if (orderStatus == "IN DELIVERY") {
       getCustomerAddress();
+    }
+    if (data.length > 0) {
+      setOrderStatus(data[0]?.order.status)
     }
   }, [status])
 
@@ -44,9 +49,24 @@ export default function OrderDetailsScreen(props) {
       }
 
       const { lat, lon } = await apiFetch(params)
-      console.log(lat, lon)
       setCoordinates([lon, lat])
     }
+  }
+
+  async function changeOrderState(state) {
+    const params = {
+      endpoint: `restaurant/change-order-state`,
+      method: "PUT",
+      auth: true,
+      body: {
+        id: routeParams.id,
+        status: state
+      }
+    }
+
+    await apiFetch(params)
+
+    setRefetch(!refetch);
   }
 
   if (status == "loading") {
@@ -91,8 +111,26 @@ export default function OrderDetailsScreen(props) {
           Order
               <Headline style={styles.subtitle}> Detail</Headline>
         </Title>
-        <OrderStatus status={routeParams.status} />
-        {routeParams.status == "IN DELIVERY" &&
+        <OrderStatus status={orderStatus} />
+        {orderStatus == "WAITING" &&
+          <Button
+            compact={true}
+            mode="contained"
+            onPress={() => { changeOrderState("CONFIRMED") }}
+            color={colors.yellow}>
+            Confirm Order
+          </Button>
+        }
+        {orderStatus == "CONFIRMED" &&
+          <Button
+            compact={true}
+            mode="contained"
+            onPress={() => { changeOrderState("IN DELIVERY") }}
+            color={colors.yellow}>
+            Assign Driver
+          </Button>
+        }
+        {orderStatus == "IN DELIVERY" &&
           <MapboxGL.MapView
             zoomLevel={6}
             compassEnabled={true}
@@ -124,7 +162,7 @@ export default function OrderDetailsScreen(props) {
             </MapboxGL.PointAnnotation>
           </MapboxGL.MapView>
         }
-        <Title style={{ fontSize: 15 }}>Orders</Title>
+        <Title style={{ fontSize: 15, marginTop: 15 }}>Orders</Title>
         <FlatList
           data={data}
           style={styles.food_container}

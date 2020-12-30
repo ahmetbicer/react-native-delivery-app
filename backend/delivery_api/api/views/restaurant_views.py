@@ -68,3 +68,16 @@ def orders(request):
 
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
+
+
+@api_view(["PUT"])
+@permission_classes(([]))
+def change_order_state(request):
+        order_ = Order.objects.get(id=request.data["id"])
+        serializer = OrderSerializer(order_, data=request.data, partial=True)
+
+        if serializer.is_valid():
+            order_ = serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
