@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import OrdersScreen from '../screens/user/profile/orders';
-import OrdersDetailsScreen from '../screens/user/profile/order-details';
-import DeliveryScreen from '../screens/user/profile/delivery';
-import ProfileScreen from '../screens/user/profile/profile';
-import PaymentScreen from '../screens/user/profile/payment';
-import AddressScreen from '../screens/user/profile/address';
-import GetAddressScreen from '../screens/user/profile/get-address';
+import OrdersScreen from '../../screens/user/profile/orders';
+import OrdersDetailsScreen from '../../screens/user/profile/order-details';
+import DeliveryScreen from '../../screens/user/profile/delivery';
+import ProfileScreen from '../../screens/user/profile/profile';
+import PaymentScreen from '../../screens/user/profile/payment';
+import AddressScreen from '../../screens/user/profile/address';
+import GetAddressScreen from '../../screens/user/profile/get-address';
 
 const ProfileStack = createStackNavigator();
 

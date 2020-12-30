@@ -2,10 +2,10 @@
 import * as React from 'react';
 import { View } from 'react-native';
 
-import HomeStackNavigator from './home-stack-navigator';
-import SearchStackNavigator from './search-stack-navigator';
-import ProfileStackNavigator from './profile-stack-navigator';
-import CartStackNavigator from './cart-stack-navigator';
+import HomeStackNavigator from './user/home-stack-navigator';
+import SearchStackNavigator from './user/search-stack-navigator';
+import ProfileStackNavigator from './user/profile-stack-navigator';
+import CartStackNavigator from './user/cart-stack-navigator';
 
 import colors from '../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
