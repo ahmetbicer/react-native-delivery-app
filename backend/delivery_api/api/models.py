@@ -3,6 +3,10 @@ from django.contrib.auth.models import User
 class Categories(models.Model):
     name = models.CharField(max_length=40)
 
+class Profile(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user_type = models.CharField(max_length=12, choices=(('USER','USER'),('RESTAURANT','RESTAURANT'),('DRIVER','DRIVER')))
+
 class Restaurant(models.Model):
     name = models.CharField(max_length=40)
     image = models.CharField(max_length=300)

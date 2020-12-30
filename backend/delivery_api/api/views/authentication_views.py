@@ -32,9 +32,14 @@ def login(request):
             token = Token.objects.get(user=user)
         except Token.DoesNotExist:
             token = Token.objects.create(user=user)
+        
+        profile = Profile.objects.get(user=user)
+
         context["email"] = user.get_username()
         context["name"] = user.get_full_name()
         context["token"] = token.key
+        context["user_type"] = profile.user_type
+        
         return Response(context, status.HTTP_200_OK)
     else:
         context["error"] = "Wrong Credentials"
