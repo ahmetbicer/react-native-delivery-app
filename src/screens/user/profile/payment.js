@@ -3,10 +3,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import AppBar from '../../components/common/app-bar';
-import AddCard from '../../components/profile/payment/add-card';
-import Cards from '../../components/profile/payment/cards';
-import colors from '../../constants/colors';
+import AppBar from '../../../components/common/app-bar';
+import AddCard from '../../../components/profile/payment/add-card';
+import Cards from '../../../components/profile/payment/cards';
+import colors from '../../../constants/colors';
 
 export default function PaymentScreen(props) {
     const [loading, setLoading] = useState(false)

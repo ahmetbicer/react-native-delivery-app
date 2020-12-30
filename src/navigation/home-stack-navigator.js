@@ -3,9 +3,9 @@ import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import HomeScreen from '../screens/home/home';
-import RestaurantDetailScreen from '../screens/home/restaurant-detail';
-import FoodDetailScreen from '../screens/home/food-detail';
+import HomeScreen from '../screens/user/home/home';
+import RestaurantDetailScreen from '../screens/user/home/restaurant-detail';
+import FoodDetailScreen from '../screens/user/home/food-detail';
 
 const HomeStack = createStackNavigator();
 

@@ -1,14 +1,14 @@
 import * as React from 'react';
 import { useEffect } from 'react';
 import { PermissionsAndroid, StyleSheet, View } from 'react-native';
-import AppBar from '../../components/common/app-bar';
+import AppBar from '../../../components/common/app-bar';
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import { useState } from 'react';
-import colors from '../../constants/colors';
+import colors from '../../../constants/colors';
 import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import apiFetch from '../../hooks/api-fetch';
+import apiFetch from '../../../hooks/api-fetch';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function GetAddressScreen(props) {

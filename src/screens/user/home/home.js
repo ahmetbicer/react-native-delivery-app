@@ -3,9 +3,9 @@ import { StyleSheet, View } from 'react-native';
 import { Headline, Title } from 'react-native-paper';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Foods from '../../components/food/foods';
-import Restaurants from '../../components/restaurant/restaurants';
-import colors from '../../constants/colors';
+import Foods from '../../../components/food/foods';
+import Restaurants from '../../../components/restaurant/restaurants';
+import colors from '../../../constants/colors';
 
 const Tab = createMaterialTopTabNavigator();
 

@@ -18,7 +18,7 @@ export default function RegisterScreen(props) {
     if (password != password2) {
 
     }
-    let response = await fetch("http://10.0.2.2:8000/api/register", {
+    let response = await fetch("http://192.168.1.29:8080/api/register", {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

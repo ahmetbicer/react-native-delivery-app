@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { ActivityIndicator, Paragraph, Title } from 'react-native-paper';
-import FoodItem from '../../components/food/food-item';
-import FoodHeaderItem from '../../components/food/food-header-item';
-import colors from '../../constants/colors';
-import useFetch from '../../hooks/use-fetch';
+import FoodItem from '../../../components/food/food-item';
+import FoodHeaderItem from '../../../components/food/food-header-item';
+import colors from '../../../constants/colors';
+import useFetch from '../../../hooks/use-fetch';
 import { useRoute } from '@react-navigation/native';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';

@@ -2,10 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import AppBar from '../../components/common/app-bar';
-import AddAddress from '../../components/profile/address/add-address';
-import SavedAddresses from '../../components/profile/address/saved-addresses';
-import colors from '../../constants/colors';
+import AppBar from '../../../components/common/app-bar';
+import AddAddress from '../../../components/profile/address/add-address';
+import SavedAddresses from '../../../components/profile/address/saved-addresses';
+import colors from '../../../constants/colors';
 
 export default function AddressScreen(props) {
     const [loading, setLoading] = useState(false)

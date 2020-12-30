@@ -3,15 +3,15 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import AppBar from '../../components/common/app-bar';
-import OrderDetailListItem from '../../components/order-detail/order-detail-list-item';
-import colors from '../../constants/colors';
-import apiFetch from '../../hooks/api-fetch';
-import useFetch from "../../hooks/use-fetch";
+import AppBar from '../../../components/common/app-bar';
+import OrderDetailListItem from '../../../components/order-detail/order-detail-list-item';
+import colors from '../../../constants/colors';
+import apiFetch from '../../../hooks/api-fetch';
+import useFetch from "../../../hooks/use-fetch";
 import { useRoute } from '@react-navigation/native';
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import OrderStatus from '../../components/order-detail/order-status';
+import OrderStatus from '../../../components/order-detail/order-status';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function OrderDetailsScreen(props) {

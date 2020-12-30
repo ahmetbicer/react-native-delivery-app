@@ -1,7 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const apiFetch = async (params) => {
-    const url = "http://10.0.2.2:8000/api/";
+    const url = "http://192.168.1.29:8080/api/";
     if (!params) return;
 
     let headers = undefined;

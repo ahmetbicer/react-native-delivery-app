@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyleSheet, View, FlatList } from 'react-native';
 import { ActivityIndicator } from 'react-native-paper';
-import FoodItem from '../../components/food/food-item';
-import RestaurantHeaderItem from '../../components/restaurant/restaurant-header-item';
-import colors from '../../constants/colors';
-import useFetch from '../../hooks/use-fetch';
+import FoodItem from '../../../components/food/food-item';
+import RestaurantHeaderItem from '../../../components/restaurant/restaurant-header-item';
+import colors from '../../../constants/colors';
+import useFetch from '../../../hooks/use-fetch';
 import { useRoute } from '@react-navigation/native';
 
 export default function RestaurantDetailScreen() {

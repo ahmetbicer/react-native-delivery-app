@@ -2,10 +2,10 @@ import * as React from 'react';
 import { useState } from 'react';
 import { ScrollView, View, StyleSheet, RefreshControl } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import AppBar from '../../components/common/app-bar';
-import Orders from '../../components/profile/orders/orders';
-import colors from '../../constants/colors';
-import useFetch from "../../hooks/use-fetch";
+import AppBar from '../../../components/common/app-bar';
+import Orders from '../../../components/profile/orders/orders';
+import colors from '../../../constants/colors';
+import useFetch from "../../../hooks/use-fetch";
 
 export default function OrdersScreen(props) {
   const params = {

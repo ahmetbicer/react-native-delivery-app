@@ -3,10 +3,10 @@ import { StyleSheet, View, FlatList } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation } from '@react-navigation/native';
-import { CartContext } from '../../providers/CartContext';
-import CartListItem from '../../components/cart/cart-list-item';
-import CartBottomSheet from '../../components/cart/cart-bottom-sheet';
-import colors from '../../constants/colors';
+import { CartContext } from '../../../providers/CartContext';
+import CartListItem from '../../../components/cart/cart-list-item';
+import CartBottomSheet from '../../../components/cart/cart-bottom-sheet';
+import colors from '../../../constants/colors';
 
 export default function CartScreen(props) {
   const { orders, changeQuantity, removeFromCart } = useContext(CartContext);

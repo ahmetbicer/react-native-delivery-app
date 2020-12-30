@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
-import AppBar from '../../components/common/app-bar';
-import { CartContext } from '../../providers/CartContext';
-import AddressBottomSheet from '../../components/checkout/address-bottom-sheet';
-import CardsBottomSheet from '../../components/checkout/cards-bottom-sheet';
-import AddressSelector from '../../components/checkout/address-selector';
-import CardsSelector from '../../components/checkout/cards-selector';
+import AppBar from '../../../components/common/app-bar';
+import { CartContext } from '../../../providers/CartContext';
+import AddressBottomSheet from '../../../components/checkout/address-bottom-sheet';
+import CardsBottomSheet from '../../../components/checkout/cards-bottom-sheet';
+import AddressSelector from '../../../components/checkout/address-selector';
+import CardsSelector from '../../../components/checkout/cards-selector';
 import { Button, Divider, Title } from 'react-native-paper';
-import apiFetch from '../../hooks/api-fetch';
-import CheckoutRestaurant from '../../components/checkout/checkout-restaurant';
+import apiFetch from '../../../hooks/api-fetch';
+import CheckoutRestaurant from '../../../components/checkout/checkout-restaurant';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import { useNavigation } from '@react-navigation/native';
 

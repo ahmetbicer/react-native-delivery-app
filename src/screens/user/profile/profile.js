@@ -2,8 +2,8 @@ import * as React from 'react';
 import { useState } from 'react';
 import { View, StyleSheet, Image } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
-import colors from '../../constants/colors';
-import ProfileList from '../../components/profile/profile_list';
+import colors from '../../../constants/colors';
+import ProfileList from '../../../components/profile/profile_list';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 export default function ProfileScreen(props) {

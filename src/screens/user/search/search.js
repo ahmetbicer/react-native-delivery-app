@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Keyboard, LayoutAnimation, Platform, Pressable, StyleSheet, UIManager, View } from 'react-native';
 import { Divider, Headline, Searchbar, Text, Title } from 'react-native-paper';
-import colors from '../../constants/colors';
+import colors from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import apiFetch from '../../hooks/api-fetch';
-import RestaurantItem from '../../components/restaurant/restaurant-item';
-import FoodItem from '../../components/food/food-item';
+import apiFetch from '../../../hooks/api-fetch';
+import RestaurantItem from '../../../components/restaurant/restaurant-item';
+import FoodItem from '../../../components/food/food-item';
 import { FlatList } from 'react-native-gesture-handler';
 
 if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 const useFetch = (params) => {
     const [status, setStatus] = useState('idle');
     const [data, setData] = useState([]);
-    const url = "http://10.0.2.2:8000/api/";
+    const url = "http://192.168.1.29:8080/api/";
 
     useEffect(() => {
         if (!params) return;
