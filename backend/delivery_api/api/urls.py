@@ -1,6 +1,6 @@
 from django.urls import path
 from api import views
-from api.views import authentication_views, food_views, restaurant_views, user_views
+from api.views import authentication_views, food_views, restaurant_views, user_views, driver_views
 
 urlpatterns = [
     path('login', authentication_views.login , name="login"),
@@ -21,4 +21,5 @@ urlpatterns = [
     path('order-details/<str:pk>', user_views.get_order_details, name="get-order-details"),
     path('restaurant/orders', restaurant_views.orders, name="restaurant-orders"),
     path('restaurant/change-order-state', restaurant_views.change_order_state, name="change-order-state"),
+    path('drivers', driver_views.drivers, name="drivers"),
 ]

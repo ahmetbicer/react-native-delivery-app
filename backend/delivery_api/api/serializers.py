@@ -76,10 +76,11 @@ class AddressSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id', 'date', 'order_number', 'status', 'total_cost', 'restaurant', 'payment', 'address')
+        fields = ('id', 'date', 'order_number', 'status', 'total_cost', 'restaurant', 'payment', 'address', 'driver')
         extra_kwargs = {"order_number": {"required": False, "allow_null": True},
                         "status": {"required": False, "allow_null": True}, 
-                        "orders": {"required": False, "allow_null": True},}
+                        "orders": {"required": False, "allow_null": True},
+                        "driver": {"required": False, "allow_null": True}, }
 
     def create(self, validated_data):
         order = Order(
@@ -116,3 +117,9 @@ class OrderDetailSerializer(serializers.ModelSerializer):
         )
         order_detail.save()
         return order_detail
+
+class DriverSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    class Meta:
+        model = Driver
+        fields = ('id', 'vehicle_type', 'user')

@@ -40,6 +40,10 @@ class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
 
 
+class Driver(models.Model):
+    vehicle_type = models.CharField(max_length=12, choices=(('CAR','CAR'),('MOTORCYCLE','MOTORCYCLE')))        
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
 class Order(models.Model):
     order_number = models.IntegerField()
     date = models.DateTimeField()
@@ -54,6 +58,7 @@ class Order(models.Model):
     restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
     payment = models.ForeignKey(Card, on_delete=models.DO_NOTHING)
     address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
+    driver = models.ForeignKey(Driver, blank=True, null=True, on_delete=models.CASCADE)
 
 
 class OrderDetails(models.Model):

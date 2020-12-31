@@ -1,29 +1,20 @@
-import * as React from 'react';
-import { useState } from 'react';
-import { ScrollView, View, StyleSheet, RefreshControl } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import AppBar from '../../../components/common/app-bar';
 import Orders from '../../../components/profile/orders/orders';
 import colors from '../../../constants/colors';
 import useFetch from "../../../hooks/use-fetch";
-import { useFocusEffect } from '@react-navigation/native';
 
 export default function OrdersScreen(props) {
+
   const params = {
     endpoint: "restaurant/orders",
     method: "get",
     auth: true
   }
 
-  const { status, data, refetch, setRefetch } = useFetch(params);
-
-  useFocusEffect(
-    React.useCallback(() => {
-      console.log("yepp")
-      console.log(setRefetch)
-      setRefetch(!refetch)
-    }, [])
-  );
+  const { status, data } = useFetch(params);
 
   if (status == "loading") {
     return (
@@ -35,10 +26,9 @@ export default function OrdersScreen(props) {
 
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
-      <AppBar screenName={props.route.name} />
       <View style={styles.container}>
         <Title style={styles.title}>
-          My
+          Restaurant
               <Headline style={styles.subtitle}> Orders</Headline>
         </Title>
         <Orders data={data} />
