@@ -23,4 +23,5 @@ urlpatterns = [
     path('restaurant/orders', restaurant_views.orders, name="restaurant-orders"),
     path('restaurant/change-order-state', restaurant_views.change_order_state, name="change-order-state"),
     path('drivers', driver_views.drivers, name="drivers"),
+    path('driver/orders', driver_views.orders, name="driver-orders"),
 ]

@@ -9,7 +9,7 @@ import colors from '../constants/colors';
 import AuthStackNavigator from '../navigation/auth-stack-navigator';
 import UserTabNavigator from '../navigation/user-tab-navigator';
 import RestaurantTabNavigator from '../navigation/restaurant-tab-navigator';
-
+import DriverTabNavigator from '../navigation/driver-tab-navigator';
 
 export default function Routes() {
     const { user, type, setAuthenticatedUser } = useContext(AuthContext);
@@ -45,7 +45,7 @@ export default function Routes() {
             {type == undefined && <AuthStackNavigator />}
             {type == "USER" && <UserTabNavigator />}
             {type == "RESTAURANT" && <RestaurantTabNavigator />}
-            {type == "DRIVER" && <UserTabNavigator />}
+            {type == "DRIVER" && <DriverTabNavigator />}
         </NavigationContainer>
     );
 }
