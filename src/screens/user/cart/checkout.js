@@ -37,7 +37,7 @@ export default function CheckoutScreen(props) {
     const params = {
       endpoint: `restaurants/${order_.restaurant}`,
       method: "get",
-      auth: false
+      auth: true
     }
 
     let data = await apiFetch(params)

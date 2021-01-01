@@ -19,6 +19,7 @@ urlpatterns = [
     path('address/<str:pk>', user_views.delete_address, name="delete-address"),
     path('orders', user_views.orders, name="orders"),
     path('order-details/<str:pk>', user_views.get_order_details, name="get-order-details"),
+    path('restaurant/foods', restaurant_views.foods, name="restaurant-foods"),
     path('restaurant/orders', restaurant_views.orders, name="restaurant-orders"),
     path('restaurant/change-order-state', restaurant_views.change_order_state, name="change-order-state"),
     path('drivers', driver_views.drivers, name="drivers"),

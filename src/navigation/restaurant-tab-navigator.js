@@ -3,7 +3,7 @@ import * as React from 'react';
 import { View } from 'react-native';
 
 import OrderStackNavigator from './restaurant/order-stack-navigator';
-import SearchStackNavigator from './user/search-stack-navigator';
+import FoodStackNavigator from './restaurant/food-stack-navigator';
 import ProfileStackNavigator from './restaurant/profile-stack-navigator';
 
 import colors from '../constants/colors';
@@ -40,10 +40,10 @@ export default function RestaurantTabNavigator() {
                 name="FoodStack"
                 options={{
                     tabBarIcon: ({ color, size }) => (
-                        <Icon name="magnify" color={color} size={size} />
+                        <Icon name="silverware-fork-knife" color={color} size={size} />
                     ),
                 }}
-                component={SearchStackNavigator}
+                component={FoodStackNavigator}
             />
             <Tab.Screen
                 name="ProfileStack"
@@ -51,7 +51,6 @@ export default function RestaurantTabNavigator() {
                     tabBarIcon: ({ color, size }) => (
                         <View>
                             <Icon name="account" color={color} size={size} />
-                            {/* <View style={styles.badge}></View> */}
                         </View>
                     ),
                 }}

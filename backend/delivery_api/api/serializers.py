@@ -36,7 +36,21 @@ class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
         fields = ('id', 'name', 'image', 'description', 'star', 'calories', 'cost', 'restaurant')
+        extra_kwargs = {"restaurant": {"required": False, "allow_null": True}}
+        
+    def create(self, validated_data):
+        food = Food(
+            name=validated_data["name"],
+            image=validated_data["image"],
+            description=validated_data["description"],
+            star=validated_data["star"],
+            calories=validated_data["calories"],
+            cost=validated_data["cost"],
+            restaurant=validated_data["restaurant"]
+        )
 
+        food.save()
+        return food
 
 class CardSerializer(serializers.ModelSerializer):
     class Meta:

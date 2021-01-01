@@ -9,7 +9,7 @@ export default function Restaurants() {
   const params = {
     endpoint: "restaurants",
     method: "GET",
-    auth: false
+    auth: true
   }
 
   const { status, data } = useFetch(params);

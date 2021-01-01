@@ -14,7 +14,7 @@ export default function RestaurantDetailScreen() {
   const params = {
     endpoint: `restaurants/${item.id}/foods`,
     method: "GET",
-    auth: false
+    auth: true
   }
 
   const { status, data } = useFetch(params);

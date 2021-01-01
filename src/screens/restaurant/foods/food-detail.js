@@ -1,10 +1,8 @@
 import React from 'react';
-import { StyleSheet, View, FlatList } from 'react-native';
-import { ActivityIndicator, Paragraph, Title } from 'react-native-paper';
-import FoodItem from '../../../components/food/food-item';
-import FoodHeaderItem from '../../../components/food/food-header-item';
+import { StyleSheet, View } from 'react-native';
+import { Paragraph, Title } from 'react-native-paper';
+import RestaurantFoodHeaderItem from '../../../components/food/restaurant-food-header-item';
 import colors from '../../../constants/colors';
-import useFetch from '../../../hooks/use-fetch';
 import { useRoute } from '@react-navigation/native';
 
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
@@ -36,7 +34,7 @@ export default function FoodDetailScreen() {
 
   return (
     <View style={styles.container}>
-      <FoodHeaderItem item={item} />
+      <RestaurantFoodHeaderItem item={item} />
       <View style={styles.bottom_container}>
         <View style={{ flex: 1, flexDirection: "row" }}>
           <View style={styles.container_one}>
