@@ -66,3 +66,8 @@ class OrderDetails(models.Model):
 
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
     food = models.ForeignKey(Food, on_delete=models.DO_NOTHING)
+
+class GPSLocation(models.Model):
+    latitude = models.FloatField()
+    longitude = models.FloatField()
+    order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)

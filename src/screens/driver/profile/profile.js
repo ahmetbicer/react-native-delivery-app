@@ -4,7 +4,7 @@ import { View, StyleSheet, Image } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import colors from '../../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import RestaurantProfileList from '../../../components/profile/restaurant-profile-list';
+import DriverProfileList from '../../../components/profile/driver-profile-list';
 
 export default function ProfileScreen(props) {
     const [loading, setLoading] = useState(false);
@@ -21,7 +21,7 @@ export default function ProfileScreen(props) {
                         My
                         <Headline style={styles.subtitle}> Profile</Headline>
                     </Title>
-                    <RestaurantProfileList />
+                    <DriverProfileList />
                     <View style={styles.attribution}>
                         <Title style={styles.attribution_title}>Made with </Title>
                         <Icon name={"heart"} color={colors.red} size={18} />

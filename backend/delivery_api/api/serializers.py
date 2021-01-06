@@ -137,3 +137,9 @@ class DriverSerializer(serializers.ModelSerializer):
     class Meta:
         model = Driver
         fields = ('id', 'vehicle_type', 'user')
+
+
+class GPSLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = GPSLocation
+        fields = ('id', 'latitude', 'longitude', 'order')

@@ -31,3 +31,26 @@ def orders(request):
 
         serializer = OrderSerializer(orders, many=True)
         return Response(serializer.data)
+
+
+@api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
+def gps_location(request, pk=1):
+    if(request.method == "GET"):
+        try:
+            location = GPSLocation.objects.filter(order=pk).order_by('-id')[0]
+        except GPSLocation.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = GPSLocationSerializer(location)
+        return Response(serializer.data)
+
+    elif(request.method == "POST"):
+        serializer = GPSLocationSerializer(data=request.data)
+
+        if serializer.is_valid():
+            # driver_ = Driver.objects.get(user=request.user)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -14,6 +14,7 @@ import colors from '../../../constants/colors';
 import apiFetch from '../../../hooks/api-fetch';
 import useFetch from "../../../hooks/use-fetch";
 import OrderStatus from '../../../components/order-detail/order-status';
+import useInterval from '../../../hooks/use-interval';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 
@@ -59,6 +60,10 @@ export default function OrderDetailsScreen(props) {
     }
   }, [status])
 
+  useInterval(() => {
+    sendLocation()
+  }, 60000)
+
   async function getCustomerLatLon() {
     if (data.length > 0) {
       let address_pk = data[0]?.order.address;
@@ -92,6 +97,21 @@ export default function OrderDetailsScreen(props) {
 
   async function onUserLocationUpdate(loc) {
     setCurrentCoordinates([loc.coords.longitude, loc.coords.latitude])
+  }
+
+  async function sendLocation() {
+    const params = {
+      endpoint: `location`,
+      method: "POST",
+      auth: true,
+      body: {
+        latitude: currentCoordinates[1],
+        longitude: currentCoordinates[0],
+        order: routeParams.id
+      }
+    }
+
+    await apiFetch(params)
   }
 
   if (status == "loading") {

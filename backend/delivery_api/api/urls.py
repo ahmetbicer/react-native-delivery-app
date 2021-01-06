@@ -24,4 +24,6 @@ urlpatterns = [
     path('restaurant/change-order-state', restaurant_views.change_order_state, name="change-order-state"),
     path('drivers', driver_views.drivers, name="drivers"),
     path('driver/orders', driver_views.orders, name="driver-orders"),
+    path('location', driver_views.gps_location, name="get-gps-location"),
+    path('location/<str:pk>', driver_views.gps_location, name="add-gps-location"),
 ]
