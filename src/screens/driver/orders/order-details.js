@@ -100,18 +100,20 @@ export default function OrderDetailsScreen(props) {
   }
 
   async function sendLocation() {
-    const params = {
-      endpoint: `location`,
-      method: "POST",
-      auth: true,
-      body: {
-        latitude: currentCoordinates[1],
-        longitude: currentCoordinates[0],
-        order: routeParams.id
+    if (orderStatus == "IN DELIVERY") {
+      const params = {
+        endpoint: `location`,
+        method: "POST",
+        auth: true,
+        body: {
+          latitude: currentCoordinates[1],
+          longitude: currentCoordinates[0],
+          order: routeParams.id
+        }
       }
-    }
 
-    await apiFetch(params)
+      await apiFetch(params)
+    }
   }
 
   if (status == "loading") {
