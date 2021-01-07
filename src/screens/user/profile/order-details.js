@@ -1,8 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
-import { ActivityIndicator, Headline, Title } from 'react-native-paper';
+import { View, StyleSheet, FlatList } from 'react-native';
+import { ActivityIndicator, Headline, Title, Button } from 'react-native-paper';
 import AppBar from '../../../components/common/app-bar';
 import OrderDetailListItem from '../../../components/order-detail/order-detail-list-item';
 import colors from '../../../constants/colors';
@@ -12,6 +11,8 @@ import { useRoute } from '@react-navigation/native';
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import OrderStatus from '../../../components/order-detail/order-status';
+import useInterval from '../../../hooks/use-interval';
+import { Rating } from 'react-native-ratings';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function OrderDetailsScreen(props) {
@@ -26,12 +27,38 @@ export default function OrderDetailsScreen(props) {
 
   const { status, data } = useFetch(params);
   const [coordinates, setCoordinates] = useState([29.030472, 41.087084]);
+  const [driverCoordinates, setDriverCoordinates] = useState([36.268405, 41.2331]);
 
   useEffect(() => {
     if (routeParams.status == "IN DELIVERY") {
       getCustomerAddress();
     }
   }, [status])
+
+  useInterval(() => {
+    getLocation()
+  }, 60000)
+
+  async function getLocation() {
+    if (data.length > 0) {
+      let order_pk = data[0].order.id;
+
+      const params = {
+        endpoint: `location/${order_pk}`,
+        method: "get",
+        auth: true
+      }
+
+      try {
+
+        const { latitude, longitude } = await apiFetch(params)
+        setDriverCoordinates([longitude, latitude])
+
+      } catch (error) {
+        console.log(error)
+      }
+    }
+  }
 
   async function getCustomerAddress() {
     if (data.length > 0) {
@@ -44,9 +71,13 @@ export default function OrderDetailsScreen(props) {
       }
 
       const { lat, lon } = await apiFetch(params)
-      console.log(lat, lon)
+
       setCoordinates([lon, lat])
     }
+  }
+
+  async function giveRating() {
+    console.log("rate")
   }
 
   if (status == "loading") {
@@ -66,8 +97,8 @@ export default function OrderDetailsScreen(props) {
         geometry: {
           type: 'LineString',
           coordinates: [
-            coordinates, //point A "current" ~ From
-            [36.268405, 41.2331], //Point B ~ to
+            coordinates,
+            driverCoordinates,
           ],
         },
         style: {
@@ -92,6 +123,59 @@ export default function OrderDetailsScreen(props) {
               <Headline style={styles.subtitle}> Detail</Headline>
         </Title>
         <OrderStatus status={routeParams.status} />
+
+        {routeParams.status == "DELIVERED" &&
+          <View style={{ flex: 1 }}>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Icon name="store" size={25} />
+                <Title style={{ marginLeft: 5 }}>Restaurant</Title>
+              </View>
+              <Rating
+                type={"custom"}
+                ratingColor={colors.yellow}
+                startingValue={5}
+                imageSize={20}
+                style={{ paddingVertical: 10 }}
+              />
+            </View>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Icon name="hamburger" size={25} />
+                <Title style={{ marginLeft: 5 }}>Food</Title>
+              </View>
+              <Rating
+                type={"custom"}
+                ratingColor={colors.yellow}
+                startingValue={5}
+                imageSize={20}
+                style={{ paddingVertical: 10 }}
+              />
+            </View>
+            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Icon name="moped" size={25} />
+                <Title style={{ marginLeft: 5 }}>Driver</Title>
+              </View>
+              <Rating
+                type={"custom"}
+                ratingColor={colors.yellow}
+                startingValue={5}
+                imageSize={20}
+                style={{ paddingVertical: 10 }}
+              />
+            </View>
+            <Button
+              compact={true}
+              mode="contained"
+              onPress={giveRating}
+              style={{ marginTop: 20 }}
+              color={colors.yellow}>
+              Rate
+            </Button>
+          </View>
+        }
+
         {routeParams.status == "IN DELIVERY" &&
           <MapboxGL.MapView
             zoomLevel={6}
@@ -119,7 +203,7 @@ export default function OrderDetailsScreen(props) {
             <MapboxGL.PointAnnotation id="house" coordinate={coordinates} >
               <Icon name="home" size={25} color={colors.black} />
             </MapboxGL.PointAnnotation>
-            <MapboxGL.PointAnnotation id="driver" coordinate={[36.268405, 41.2331]} >
+            <MapboxGL.PointAnnotation id="driver" coordinate={driverCoordinates} >
               <Icon name="moped" size={25} color={colors.black} />
             </MapboxGL.PointAnnotation>
           </MapboxGL.MapView>

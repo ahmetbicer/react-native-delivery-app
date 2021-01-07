@@ -20,7 +20,6 @@ export default function Routes() {
         async function checkUser() {
             let data = await AsyncStorage.getItem("user");
             if (data) {
-                console.log(data)
                 await setAuthenticatedUser(data)
                 setLoading(false)
             }
