@@ -1,18 +1,14 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
 import { Appbar, Headline, Title } from 'react-native-paper';
 import { useNavigation } from '@react-navigation/native';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Pressable } from 'react-native';
 import colors from '../../constants/colors';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-import { useContext } from 'react';
 import { CartContext } from '../../providers/CartContext';
 
 export default function AppBar(props) {
   const navigation = useNavigation();
   const { deleteOrder } = useContext(CartContext);
-
-  const _handleMore = () => console.log('Shown more');
 
   if (props.screenName == 'Checkout') {
     return (

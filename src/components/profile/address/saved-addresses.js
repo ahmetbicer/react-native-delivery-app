@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+import { View, FlatList } from 'react-native';
 import { ActivityIndicator, Title } from 'react-native-paper';
 import useFetch from '../../../hooks/use-fetch';
 import SavedAddressListItem from './saved-address-list-item';

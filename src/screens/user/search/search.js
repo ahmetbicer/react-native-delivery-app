@@ -8,10 +8,6 @@ import RestaurantItem from '../../../components/restaurant/restaurant-item';
 import FoodItem from '../../../components/food/food-item';
 import { FlatList } from 'react-native-gesture-handler';
 
-if (Platform.OS === "android" && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
-
 export default function SearchScreen(props) {
   const [searchText, setSearchText] = useState("");
   const [showAutoComplete, setShowAutoComplete] = useState(false);
@@ -19,7 +15,6 @@ export default function SearchScreen(props) {
   const [restaurantSearchResults, setRestaurantSearchResults] = useState([]);
   const [showFoodSearchResults, setShowFoodSearchResults] = useState(false);
   const [foodSearchResults, setFoodSearchResults] = useState([]);
-  const [isKeyboardShowing, setIsKeyboardShowing] = useState(false);
 
   function search(value) {
     if (value.length > 0) {
@@ -65,32 +60,16 @@ export default function SearchScreen(props) {
     Keyboard.dismiss();
   }
 
-  function searchFocus() {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setIsKeyboardShowing(true)
-  }
-
-  function searchBlur() {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-    setIsKeyboardShowing(false)
-  }
-
   return (
     <View style={{ flex: 1, backgroundColor: colors.white }}>
       <View style={styles.container}>
-        {!isKeyboardShowing &&
-          <>
-            <Title style={styles.title}>Search</Title>
-            <Headline style={styles.subtitle}>For Best Foods</Headline>
-          </>
-        }
+        <Title style={styles.title}>Search</Title>
+        <Headline style={styles.subtitle}>For Best Foods</Headline>
         <Searchbar
           style={{ marginTop: 20 }}
           placeholder="Search"
           value={searchText}
           onChangeText={search}
-          onFocus={searchFocus}
-          onBlur={searchBlur}
           theme={{ colors: { primary: colors.gray } }}
         />
         {showAutoComplete &&
@@ -176,8 +155,8 @@ const styles = StyleSheet.create({
     flex: 3,
     marginTop: 15,
     backgroundColor: colors.lightgray,
-    borderTopColor: "gray",
-    borderTopWidth: 1
+    borderTopColor: colors.yellow,
+    borderTopWidth: 2
   },
   list: {
     paddingTop: 15,

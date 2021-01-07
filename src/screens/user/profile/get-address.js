@@ -9,6 +9,7 @@ import { Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import apiFetch from '../../../hooks/api-fetch';
+import useToast from '../../../hooks/use-toast';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function GetAddressScreen(props) {
@@ -59,6 +60,14 @@ export default function GetAddressScreen(props) {
             }
 
             await apiFetch(params)
+
+            useToast({
+                type: "success",
+                text1: "Address saved.",
+                text2: "Thanks!"
+            })
+
+            navigation.navigate("Profile")
         }
     }
 

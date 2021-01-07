@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import { StyleSheet, View } from 'react-native';
+import { Button } from 'react-native-paper';
 import AppBar from '../../../components/common/app-bar';
 import { CartContext } from '../../../providers/CartContext';
 import AddressBottomSheet from '../../../components/checkout/address-bottom-sheet';
 import CardsBottomSheet from '../../../components/checkout/cards-bottom-sheet';
 import AddressSelector from '../../../components/checkout/address-selector';
 import CardsSelector from '../../../components/checkout/cards-selector';
-import { Button, Divider, Title } from 'react-native-paper';
 import apiFetch from '../../../hooks/api-fetch';
 import CheckoutRestaurant from '../../../components/checkout/checkout-restaurant';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import { useNavigation } from '@react-navigation/native';
+import { StackActions, useNavigation } from '@react-navigation/native';
+import useToast from '../../../hooks/use-toast';
 
 export default function CheckoutScreen(props) {
   const { orders, deleteOrder } = useContext(CartContext);
@@ -77,7 +78,19 @@ export default function CheckoutScreen(props) {
     }
     await apiFetch(params)
     // deleteOrder()
-    navigation.goBack()
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Cart' }],
+    });
+
+    navigation.navigate("ProfileStack", { screen: "Orders" });
+
+    useToast({
+      type: "success",
+      text1: "Order Placed.",
+      text2: "Thanks!"
+    })
   }
 
   return (

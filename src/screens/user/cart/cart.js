@@ -53,9 +53,7 @@ export default function CartScreen(props) {
   }
 
   function goToCheckout() {
-    navigation.navigate("Checkout")
-    // setData([])
-    // setShowCartBottomSheet(false)
+    navigation.navigate("Checkout");
   }
 
   return (

@@ -24,8 +24,8 @@ export default function AddressScreen(props) {
                             My
                             <Headline style={styles.subtitle}> Addresses</Headline>
                         </Title>
-                        <SavedAddresses setLoading={setLoading} />
                         <AddAddress />
+                        <SavedAddresses setLoading={setLoading} />
                     </View>
                 </>
             }
