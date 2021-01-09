@@ -56,8 +56,8 @@ class Order(models.Model):
     total_cost = models.FloatField()
     customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
-    payment = models.ForeignKey(Card, on_delete=models.DO_NOTHING)
-    address = models.ForeignKey(Address, on_delete=models.DO_NOTHING)
+    payment = models.ForeignKey(Card, null=True, on_delete=models.SET_NULL)
+    address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)
     driver = models.ForeignKey(Driver, blank=True, null=True, on_delete=models.CASCADE)
 
 
