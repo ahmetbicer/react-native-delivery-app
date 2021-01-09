@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
         marginRight: 5
     },
     list_right_item_subtitle: {
-        flex: 3,
+        flex: 2,
         fontSize: 14,
         lineHeight: 14,
         fontWeight: '100',

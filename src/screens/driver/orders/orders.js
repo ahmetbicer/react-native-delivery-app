@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import Orders from '../../../components/profile/orders/orders';
@@ -13,8 +13,14 @@ export default function OrdersScreen() {
     auth: true
   }
 
-  const { status, data } = useFetch(params);
+  const { status, data, refetch, setRefetch } = useFetch(params);
+  const [refreshing, setRefreshing] = useState(false);
 
+  async function onRefresh() {
+    setRefreshing(true);
+    setRefetch(!refetch);
+    setRefreshing(false);
+  }
   if (status == "loading") {
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -30,7 +36,7 @@ export default function OrdersScreen() {
           Driver
               <Headline style={styles.subtitle}> Orders</Headline>
         </Title>
-        <Orders data={data} />
+        <Orders refreshing={refreshing} onRefresh={onRefresh} data={data} />
       </View>
     </View>
   );

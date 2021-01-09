@@ -1,6 +1,7 @@
 import React from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Title, Button } from 'react-native-paper';
+import { useState } from 'react/cjs/react.development';
 import colors from '../../constants/colors';
 import useFetch from '../../hooks/use-fetch';
 import RestaurantFoodItem from './restaurant-food-item';
@@ -13,7 +14,14 @@ export default function RestaurantFoods(props) {
     auth: true
   }
 
-  const { status, data } = useFetch(params);
+  const { status, data, refetch, setRefetch } = useFetch(params);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function onRefresh() {
+    setRefreshing(true);
+    setRefetch(!refetch);
+    setRefreshing(false);
+  }
 
   if (status == "loading") {
     return (
@@ -38,6 +46,9 @@ export default function RestaurantFoods(props) {
       <FlatList
         data={data}
         showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
         style={styles.list_container}
         keyExtractor={item => item.id.toString()}
         renderItem={item => (

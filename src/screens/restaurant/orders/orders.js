@@ -14,7 +14,14 @@ export default function OrdersScreen(props) {
     auth: true
   }
 
-  const { status, data } = useFetch(params);
+  const { status, data, refetch, setRefetch } = useFetch(params);
+  const [refreshing, setRefreshing] = useState(false);
+
+  async function onRefresh() {
+    setRefreshing(true);
+    setRefetch(!refetch);
+    setRefreshing(false);
+  }
 
   if (status == "loading") {
     return (
@@ -31,7 +38,7 @@ export default function OrdersScreen(props) {
           Restaurant
               <Headline style={styles.subtitle}> Orders</Headline>
         </Title>
-        <Orders data={data} />
+        <Orders refreshing={refreshing} onRefresh={onRefresh} data={data} />
       </View>
     </View>
   );
