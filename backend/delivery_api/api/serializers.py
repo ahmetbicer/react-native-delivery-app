@@ -16,6 +16,10 @@ class UserSerializer(serializers.ModelSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+
+        profile = Profile(user=user, user_type="USER")
+        profile.save()
+
         return user
 
 
