@@ -13,11 +13,16 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import OrderStatus from '../../../components/order-detail/order-status';
 import useInterval from '../../../hooks/use-interval';
 import { Rating } from 'react-native-ratings';
+import Logger from '@react-native-mapbox-gl/maps/javascript/utils/Logger';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function OrderDetailsScreen(props) {
   const route = useRoute()
   const routeParams = route.params;
+
+  Logger.setLogCallback((log) => {
+    return false;
+  });
 
   const params = {
     endpoint: `order-details/${routeParams.id}`,
@@ -26,18 +31,21 @@ export default function OrderDetailsScreen(props) {
   }
 
   const { status, data } = useFetch(params);
-  const [coordinates, setCoordinates] = useState([29.030472, 41.087084]);
-  const [driverCoordinates, setDriverCoordinates] = useState([36.268405, 41.2331]);
+  const [coordinates, setCoordinates] = useState([36.268405, 41.2331]);
+  const [driverCoordinates, setDriverCoordinates] = useState([-122.1021321, 37.4173526]);
 
   useEffect(() => {
     if (routeParams.status == "IN DELIVERY") {
       getCustomerAddress();
+      getLocation();
     }
   }, [status])
 
   useInterval(() => {
-    getLocation()
-  }, 60000)
+    if (routeParams.status == "IN DELIVERY") {
+      getLocation()
+    }
+  }, 20000)
 
   async function getLocation() {
     if (data.length > 0) {
@@ -50,10 +58,11 @@ export default function OrderDetailsScreen(props) {
       }
 
       try {
-
-        const { latitude, longitude } = await apiFetch(params)
-        setDriverCoordinates([longitude, latitude])
-
+        const data = await apiFetch(params)
+        if (data) {
+          const { latitude, longitude } = data;
+          setDriverCoordinates([longitude, latitude])
+        }
       } catch (error) {
         console.log(error)
       }
@@ -187,9 +196,9 @@ export default function OrderDetailsScreen(props) {
           >
             <MapboxGL.Camera
               defaultSettings={{
-                centerCoordinate: [36.248405, 41.3331],
+                centerCoordinate: [-122.0821321, 37.4173526],
               }}
-              zoomLevel={8}
+              zoomLevel={12}
             />
             <MapboxGL.ShapeSource id="line1" shape={route_}>
               <MapboxGL.LineLayer

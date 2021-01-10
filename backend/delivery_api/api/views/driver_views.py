@@ -38,7 +38,11 @@ def orders(request):
 def gps_location(request, pk=1):
     if(request.method == "GET"):
         try:
-            location = GPSLocation.objects.filter(order=pk).order_by('-id')[0]
+            if GPSLocation.objects.filter(order=pk).exists():
+                location = GPSLocation.objects.filter(order=pk).order_by('-id')[0]  
+            else:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
         except GPSLocation.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -49,8 +53,7 @@ def gps_location(request, pk=1):
         serializer = GPSLocationSerializer(data=request.data)
 
         if serializer.is_valid():
-            # driver_ = Driver.objects.get(user=request.user)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        print(serializer.errors)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

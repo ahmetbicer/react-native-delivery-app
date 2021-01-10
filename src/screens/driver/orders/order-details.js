@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import { View, StyleSheet, PermissionsAndroid, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList } from 'react-native';
 import { ActivityIndicator, Title, Headline } from 'react-native-paper';
 import MapboxGL from "@react-native-mapbox-gl/maps";
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -9,11 +9,12 @@ import BottomSheet, { BottomSheetModalProvider, BottomSheetBackdrop, BottomSheet
 
 import AppBar from '../../../components/common/app-bar';
 import OrderDetailListItem from '../../../components/order-detail/order-detail-list-item';
+import OrderStatus from '../../../components/order-detail/order-status';
 
 import colors from '../../../constants/colors';
+
 import apiFetch from '../../../hooks/api-fetch';
 import useFetch from "../../../hooks/use-fetch";
-import OrderStatus from '../../../components/order-detail/order-status';
 import useInterval from '../../../hooks/use-interval';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
@@ -21,10 +22,9 @@ MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2
 export default function OrderDetailsScreen(props) {
   const route = useRoute()
   const routeParams = route.params;
-
   const [orderStatus, setOrderStatus] = useState(routeParams.status);
   const [coordinates, setCoordinates] = useState([29.030472, 41.087084]);
-  const [currentCoordinates, setCurrentCoordinates] = useState([29.030472, 41.087084]);
+  const [currentCoordinates, setCurrentCoordinates] = useState([-122.0821321, 37.4173526]);
 
   const driversBottomSheetRef = useRef(null);
   const snapPoints = useMemo(() => ['1%', '50%'], []);
@@ -38,34 +38,23 @@ export default function OrderDetailsScreen(props) {
   const { status, data, refetch, setRefetch } = useFetch(params);
 
   useEffect(() => {
-    PermissionsAndroid.requestMultiple(
-      [PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-      PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION],
-      {
-        title: 'Give Location Permission',
-        message: 'App needs location permission to find your position.'
-      }
-    ).then(granted => {
-      console.log(granted);
-    }).catch(err => {
-      console.warn(err);
-    });
-  }, [])
-
-  useEffect(() => {
-    getCustomerLatLon();
-
-    if (data.length > 0) {
-      setOrderStatus(data[0]?.order.status)
+    console.log(orderStatus)
+    if (orderStatus == "IN DELIVERY") {
+      getCustomerLatLon();
+      sendLocation()
     }
-  }, [status])
+  }, [orderStatus, status])
 
   useInterval(() => {
-    sendLocation()
-  }, 60000)
+    if (orderStatus == "IN DELIVERY") {
+      sendLocation()
+    }
+  }, 10000)
+
 
   async function getCustomerLatLon() {
     if (data.length > 0) {
+      console.log("burda mı")
       let address_pk = data[0]?.order.address;
 
       const params = {
@@ -93,6 +82,7 @@ export default function OrderDetailsScreen(props) {
     await apiFetch(params)
 
     setRefetch(!refetch);
+    setOrderStatus(state);
   }
 
   async function onUserLocationUpdate(loc) {
@@ -185,7 +175,7 @@ export default function OrderDetailsScreen(props) {
               style={styles.map_container}
               styleURL={"mapbox://styles/ahmetb/ckgm0ug5b0ium19mqep82qlka"}
             >
-              <MapboxGL.Camera followUserLocation={true} followUserMode="normal" />
+              <MapboxGL.Camera followUserLocation={true} followUserMode="normal" centerCoordinate={currentCoordinates} />
               <MapboxGL.ShapeSource id="line1" shape={route_}>
                 <MapboxGL.LineLayer
                   id="linelayer1"
@@ -195,9 +185,7 @@ export default function OrderDetailsScreen(props) {
                   }}
                 />
               </MapboxGL.ShapeSource>
-              <MapboxGL.UserLocation
-                onUpdate={onUserLocationUpdate}
-              />
+              <MapboxGL.UserLocation onUpdate={onUserLocationUpdate} />
               <MapboxGL.PointAnnotation id="house" coordinate={coordinates} >
                 <Icon name="home" size={25} color={colors.black} />
               </MapboxGL.PointAnnotation>

@@ -10,10 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@gorhom/bottom-sheet": "^3.0.1",
+    "@gorhom/bottom-sheet": "^3.1.0",
     "@react-native-async-storage/async-storage": "^1.13.2",
     "@react-native-community/masked-view": "^0.1.10",
-    "@react-native-mapbox-gl/maps": "^8.1.0-rc10",
+    "@react-native-mapbox-gl/maps": "^8.1.0",
     "@react-navigation/bottom-tabs": "^5.11.2",
     "@react-navigation/material-top-tabs": "^5.3.10",
     "@react-navigation/native": "^5.8.10",
@@ -23,7 +23,7 @@
     "react-native": "^0.63.4",
     "react-native-gesture-handler": "^1.9.0",
     "react-native-masked-text": "^1.13.0",
-    "react-native-paper": "^4.5.0",
+    "react-native-paper": "^4.6.0",
     "react-native-ratings": "^7.3.0",
     "react-native-reanimated": "^2.0.0-rc.1",
     "react-native-safe-area-context": "^3.1.9",

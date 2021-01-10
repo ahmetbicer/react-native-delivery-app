@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { ActivityIndicator, Headline, Title } from 'react-native-paper';
 import Orders from '../../../components/profile/orders/orders';
 import colors from '../../../constants/colors';
 import useFetch from "../../../hooks/use-fetch";
+import MapboxGL from "@react-native-mapbox-gl/maps";
 
 export default function OrdersScreen() {
 
@@ -15,6 +16,13 @@ export default function OrdersScreen() {
 
   const { status, data, refetch, setRefetch } = useFetch(params);
   const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    const task = async () => {
+      await MapboxGL.requestAndroidLocationPermissions()
+    }
+    task()
+  }, [])
 
   async function onRefresh() {
     setRefreshing(true);
