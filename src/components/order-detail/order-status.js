@@ -14,6 +14,8 @@ export default function OrderStatus(props) {
                 <Icon name="truck-delivery-outline" size={25} color={colors.gray} />
                 <Icon name="arrow-right" size={25} color={colors.gray} />
                 <Icon name="map-marker-check-outline" size={25} color={colors.gray} />
+                <Icon name="arrow-right" size={25} color={colors.gray} />
+                <Icon name="star-outline" size={25} color={colors.gray} />
             </View>
         );
     }
@@ -27,6 +29,8 @@ export default function OrderStatus(props) {
                 <Icon name="truck-delivery-outline" size={25} color={colors.gray} />
                 <Icon name="arrow-right" size={25} color={colors.gray} />
                 <Icon name="map-marker-check-outline" size={25} color={colors.gray} />
+                <Icon name="arrow-right" size={25} color={colors.gray} />
+                <Icon name="star-outline" size={25} color={colors.gray} />
             </View>
         );
     }
@@ -40,10 +44,12 @@ export default function OrderStatus(props) {
                 <Icon name="truck-delivery-outline" size={25} color={colors.black} />
                 <Icon name="arrow-right" size={25} color={colors.gray} />
                 <Icon name="map-marker-check-outline" size={25} color={colors.gray} />
+                <Icon name="arrow-right" size={25} color={colors.gray} />
+                <Icon name="star-outline" size={25} color={colors.gray} />
             </View>
         );
     }
-    else if (props.status == "DELIVERED" || props.status == "RATED") {
+    else if (props.status == "DELIVERED") {
         return (
             <View style={styles.container}>
                 <Icon name="timer-sand" size={25} color={colors.black} />
@@ -53,6 +59,23 @@ export default function OrderStatus(props) {
                 <Icon name="truck-delivery-outline" size={25} color={colors.black} />
                 <Icon name="arrow-right" size={25} color={colors.black} />
                 <Icon name="map-marker-check-outline" size={25} color={colors.black} />
+                <Icon name="arrow-right" size={25} color={colors.gray} />
+                <Icon name="star-outline" size={25} color={colors.gray} />
+            </View>
+        );
+    }
+    else if (props.status == "RATED") {
+        return (
+            <View style={styles.container}>
+                <Icon name="timer-sand" size={25} color={colors.black} />
+                <Icon name="arrow-right" size={25} color={colors.black} />
+                <Icon name="check" size={25} color={colors.black} />
+                <Icon name="arrow-right" size={25} color={colors.black} />
+                <Icon name="truck-delivery-outline" size={25} color={colors.black} />
+                <Icon name="arrow-right" size={25} color={colors.black} />
+                <Icon name="map-marker-check-outline" size={25} color={colors.black} />
+                <Icon name="arrow-right" size={25} color={colors.black} />
+                <Icon name="star-outline" size={25} color={colors.black} />
             </View>
         );
     }
