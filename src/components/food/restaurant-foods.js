@@ -1,7 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { ActivityIndicator, Title, Button } from 'react-native-paper';
-import { useState } from 'react/cjs/react.development';
 import colors from '../../constants/colors';
 import useFetch from '../../hooks/use-fetch';
 import RestaurantFoodItem from './restaurant-food-item';

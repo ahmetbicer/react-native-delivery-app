@@ -14,6 +14,7 @@ import OrderStatus from '../../../components/order-detail/order-status';
 import useInterval from '../../../hooks/use-interval';
 import { Rating } from 'react-native-ratings';
 import Logger from '@react-native-mapbox-gl/maps/javascript/utils/Logger';
+import useToast from '../../../hooks/use-toast';
 
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function OrderDetailsScreen(props) {
@@ -104,7 +105,12 @@ export default function OrderDetailsScreen(props) {
 
     routeParams.status = "RATED"
     setRefetch(!refetch)
-    console.log(routeParams)
+
+    useToast({
+      type: "success",
+      text1: "Order Rated.",
+      text2: "Thanks 👋",
+    })
   }
 
   if (status == "loading") {
