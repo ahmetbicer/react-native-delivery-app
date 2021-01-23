@@ -94,11 +94,12 @@ class AddressSerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
-        fields = ('id', 'date', 'order_number', 'status', 'total_cost', 'restaurant', 'payment', 'address', 'driver')
+        fields = ('id', 'date', 'order_number', 'status', 'is_rated', 'total_cost', 'restaurant', 'payment', 'address', 'driver')
         extra_kwargs = {"order_number": {"required": False, "allow_null": True},
                         "status": {"required": False, "allow_null": True}, 
                         "orders": {"required": False, "allow_null": True},
-                        "driver": {"required": False, "allow_null": True}, }
+                        "driver": {"required": False, "allow_null": True},
+                        "is_rated": {"required": False, "allow_null": True}}
 
     def create(self, validated_data):
         order = Order(
@@ -107,6 +108,7 @@ class OrderSerializer(serializers.ModelSerializer):
             order_number=randint(100000, 999999),
             date=validated_data["date"],
             status="WAITING",
+            is_rated=False,
             total_cost=validated_data["total_cost"],
             customer=validated_data["customer"],
             payment=validated_data["payment"]
@@ -147,3 +149,21 @@ class GPSLocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = GPSLocation
         fields = ('id', 'latitude', 'longitude', 'order')
+
+
+class RatingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rating
+        fields = ('id','restaurant_star', 'driver_star', 'order', 'user')
+
+    def create(self, validated_data):
+        rating = Rating(
+            restaurant_star=validated_data["restaurant_star"],
+            driver_star=validated_data["driver_star"],
+            order=validated_data["order"],
+            user=validated_data["user"]
+        )
+
+        rating.save()
+        return rating

@@ -122,3 +122,21 @@ def get_order_details(request, pk):
 
     serializer = OrderDetailSerializer(order_details, many=True)
     return Response(serializer.data)
+
+
+@api_view(["GET", "POST"])
+@permission_classes([IsAuthenticated])
+def set_rating(request):
+    serializer = RatingSerializer(data=request.data)
+    if serializer.is_valid():
+        serializer.save(user=request.user)
+
+        order_ = Order.objects.get(id=request.data["order"])
+        serializer_ = OrderSerializer(order_, data={"is_rated": True}, partial=True)
+
+        if serializer_.is_valid():
+            order_ = serializer_.save()
+
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

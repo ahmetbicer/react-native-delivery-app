@@ -54,7 +54,6 @@ export default function OrderDetailsScreen(props) {
 
   async function getCustomerLatLon() {
     if (data.length > 0) {
-      console.log("burda mı")
       let address_pk = data[0]?.order.address;
 
       const params = {

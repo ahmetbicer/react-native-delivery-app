@@ -21,7 +21,8 @@ export default function Orders(props) {
                             order_no={item.order_number}
                             cost={item.total_cost}
                             date={item.date}
-                            status={item.status} />
+                            status={item.status}
+                            is_rated={item.is_rated} />
                     )
 
                 }}

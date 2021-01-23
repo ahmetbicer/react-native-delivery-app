@@ -34,6 +34,11 @@ export default function OrderDetailsScreen(props) {
   const [coordinates, setCoordinates] = useState([36.268405, 41.2331]);
   const [driverCoordinates, setDriverCoordinates] = useState([-122.1021321, 37.4173526]);
 
+  const [driverRating, setDriverRating] = useState(5);
+  const [restaurantRating, setRestaurantRating] = useState(5);
+
+  const [hideRating, setHideRating] = useState(routeParams.is_rated);
+
   useEffect(() => {
     if (routeParams.status == "IN DELIVERY") {
       getCustomerAddress();
@@ -86,7 +91,20 @@ export default function OrderDetailsScreen(props) {
   }
 
   async function giveRating() {
-    console.log("rate")
+    const params = {
+      endpoint: `rating`,
+      method: "POST",
+      auth: true,
+      body: {
+        restaurant_star: restaurantRating,
+        driver_star: driverRating,
+        order: data[0]?.order.id,
+      }
+    }
+
+    await apiFetch(params)
+
+    setHideRating(true);
   }
 
   if (status == "loading") {
@@ -133,7 +151,7 @@ export default function OrderDetailsScreen(props) {
         </Title>
         <OrderStatus status={routeParams.status} />
 
-        {routeParams.status == "DELIVERED" &&
+        {(routeParams.status == "DELIVERED" && !hideRating) &&
           <View style={{ flex: 1 }}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>
@@ -144,19 +162,7 @@ export default function OrderDetailsScreen(props) {
                 type={"custom"}
                 ratingColor={colors.yellow}
                 startingValue={5}
-                imageSize={20}
-                style={{ paddingVertical: 10 }}
-              />
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Icon name="hamburger" size={25} />
-                <Title style={{ marginLeft: 5 }}>Food</Title>
-              </View>
-              <Rating
-                type={"custom"}
-                ratingColor={colors.yellow}
-                startingValue={5}
+                onFinishRating={(rating) => setRestaurantRating(rating)}
                 imageSize={20}
                 style={{ paddingVertical: 10 }}
               />
@@ -170,6 +176,7 @@ export default function OrderDetailsScreen(props) {
                 type={"custom"}
                 ratingColor={colors.yellow}
                 startingValue={5}
+                onFinishRating={(rating) => setDriverRating(rating)}
                 imageSize={20}
                 style={{ paddingVertical: 10 }}
               />

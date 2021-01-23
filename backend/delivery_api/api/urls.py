@@ -26,4 +26,5 @@ urlpatterns = [
     path('driver/orders', driver_views.orders, name="driver-orders"),
     path('location', driver_views.gps_location, name="get-gps-location"),
     path('location/<str:pk>', driver_views.gps_location, name="add-gps-location"),
+    path('rating', user_views.set_rating, name="set-rating"),
 ]

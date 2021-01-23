@@ -54,6 +54,7 @@ class Order(models.Model):
         ('DELIVERED', 'DELIVERED'))
         )
     total_cost = models.FloatField()
+    is_rated = models.BooleanField()
     customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
     payment = models.ForeignKey(Card, null=True, on_delete=models.SET_NULL)
@@ -71,3 +72,11 @@ class GPSLocation(models.Model):
     latitude = models.FloatField()
     longitude = models.FloatField()
     order = models.ForeignKey(Order, on_delete=models.DO_NOTHING)
+
+
+class Rating(models.Model):
+    restaurant_star = models.FloatField()
+    driver_star = models.FloatField()
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
+
