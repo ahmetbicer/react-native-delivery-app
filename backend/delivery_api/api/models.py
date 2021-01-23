@@ -30,14 +30,14 @@ class Card(models.Model):
     number = models.CharField(max_length=16)
     expiry = models.CharField(max_length=5)
     cvv = models.CharField(max_length=3)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.DO_NOTHING)
 
 class Address(models.Model):
     address = models.CharField(max_length=100)
     lat = models.FloatField()
     lon = models.FloatField()
     address_type = models.CharField(max_length=10, choices=(('HOME','HOME'),('BUSINESS','BUSINESS'),('OTHER','OTHER')))    
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.DO_NOTHING)
 
 
 class Driver(models.Model):
@@ -55,7 +55,7 @@ class Order(models.Model):
         ('RATED', 'RATED'))
         )
     total_cost = models.FloatField()
-    customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    customer = models.ForeignKey(User, blank=True, null=True, on_delete=models.DO_NOTHING)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
     payment = models.ForeignKey(Card, null=True, on_delete=models.SET_NULL)
     address = models.ForeignKey(Address, null=True, on_delete=models.SET_NULL)

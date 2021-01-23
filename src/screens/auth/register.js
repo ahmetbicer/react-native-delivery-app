@@ -4,6 +4,7 @@ import { ActivityIndicator, Button, TextInput, Title } from 'react-native-paper'
 import colors from '../../constants/colors';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
+import useToast from '../../hooks/use-toast';
 
 export default function RegisterScreen(props) {
   const [name, setName] = useState("");
@@ -16,8 +17,14 @@ export default function RegisterScreen(props) {
 
   async function register() {
     if (password != password2) {
-
+      useToast({
+        type: "error",
+        text1: "Passwords needs to be same.",
+        text2: "Please enter the same passwords."
+      })
+      return;
     }
+
     let response = await fetch("http://192.168.1.29:8080/api/register", {
       headers: {
         'Accept': 'application/json',
@@ -33,6 +40,11 @@ export default function RegisterScreen(props) {
     let data = await response.json();
 
     if (response.status == 201) {
+      useToast({
+        type: "success",
+        text1: "Registered Successfully.",
+        text2: "Login to start ordering food 👋",
+      })
       navigation.goBack();
     }
     else {
