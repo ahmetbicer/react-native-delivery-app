@@ -18,9 +18,13 @@ export default function CartScreen(props) {
 
   useEffect(() => {
     navigation.addListener("focus", () => {
-      if (orders.length != 0) {
+      if (orders?.length != 0) {
         setData([...orders]);
         setShowCartBottomSheet(true);
+      }
+      else {
+        setData([]);
+        setShowCartBottomSheet(false);
       }
       setLoading(false)
     })

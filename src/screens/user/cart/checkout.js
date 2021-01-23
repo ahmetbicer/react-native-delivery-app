@@ -77,14 +77,15 @@ export default function CheckoutScreen(props) {
       auth: true
     }
     await apiFetch(params)
-    // deleteOrder()
+    deleteOrder();
 
     navigation.reset({
       index: 0,
-      routes: [{ name: 'Cart' }],
+      routes: [
+        { name: 'Cart' },
+        { name: 'OrderSuccessful' }
+      ],
     });
-
-    navigation.navigate("ProfileStack", { screen: "Orders" });
 
     useToast({
       type: "success",

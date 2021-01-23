@@ -49,6 +49,7 @@ export default function UserTabNavigator() {
             <Tab.Screen
                 name="CartStack"
                 options={{
+                    unmountOnBlur: true,
                     tabBarIcon: ({ color, size }) => (
                         <Icon name="cart" color={color} size={size} />
                     ),
