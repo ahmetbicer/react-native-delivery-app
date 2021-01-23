@@ -18,7 +18,7 @@ import Logger from '@react-native-mapbox-gl/maps/javascript/utils/Logger';
 MapboxGL.setAccessToken("pk.eyJ1IjoiYWhtZXRiIiwiYSI6ImNrY2FwaDZrdTFncnkyeXA4eDU2YTEwamsifQ._64KIEotv79vcA9KDjMMLw");
 export default function OrderDetailsScreen(props) {
   const route = useRoute()
-  const routeParams = route.params;
+  let routeParams = route.params;
 
   Logger.setLogCallback((log) => {
     return false;
@@ -30,14 +30,12 @@ export default function OrderDetailsScreen(props) {
     auth: true
   }
 
-  const { status, data } = useFetch(params);
+  const { status, data, refetch, setRefetch } = useFetch(params);
   const [coordinates, setCoordinates] = useState([36.268405, 41.2331]);
   const [driverCoordinates, setDriverCoordinates] = useState([-122.1021321, 37.4173526]);
 
   const [driverRating, setDriverRating] = useState(5);
   const [restaurantRating, setRestaurantRating] = useState(5);
-
-  const [hideRating, setHideRating] = useState(routeParams.is_rated);
 
   useEffect(() => {
     if (routeParams.status == "IN DELIVERY") {
@@ -104,7 +102,9 @@ export default function OrderDetailsScreen(props) {
 
     await apiFetch(params)
 
-    setHideRating(true);
+    routeParams.status = "RATED"
+    setRefetch(!refetch)
+    console.log(routeParams)
   }
 
   if (status == "loading") {
@@ -151,7 +151,7 @@ export default function OrderDetailsScreen(props) {
         </Title>
         <OrderStatus status={routeParams.status} />
 
-        {(routeParams.status == "DELIVERED" && !hideRating) &&
+        {routeParams.status == "DELIVERED" &&
           <View style={{ flex: 1 }}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
               <View style={{ flexDirection: "row", alignItems: "center" }}>

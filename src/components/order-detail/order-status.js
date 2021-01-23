@@ -43,7 +43,7 @@ export default function OrderStatus(props) {
             </View>
         );
     }
-    else if (props.status == "DELIVERED") {
+    else if (props.status == "DELIVERED" || props.status == "RATED") {
         return (
             <View style={styles.container}>
                 <Icon name="timer-sand" size={25} color={colors.black} />

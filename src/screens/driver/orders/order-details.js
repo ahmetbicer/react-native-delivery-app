@@ -38,7 +38,6 @@ export default function OrderDetailsScreen(props) {
   const { status, data, refetch, setRefetch } = useFetch(params);
 
   useEffect(() => {
-    console.log(orderStatus)
     if (orderStatus == "IN DELIVERY") {
       getCustomerLatLon();
       sendLocation()

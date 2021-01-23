@@ -51,10 +51,10 @@ class Order(models.Model):
         ('WAITING', 'WAITING'), 
         ('CONFIRMED', 'CONFIRMED'), 
         ('IN DELIVERY', 'IN DELIVERY'), 
-        ('DELIVERED', 'DELIVERED'))
+        ('DELIVERED', 'DELIVERED'),
+        ('RATED', 'RATED'))
         )
     total_cost = models.FloatField()
-    is_rated = models.BooleanField()
     customer = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     restaurant = models.ForeignKey(Restaurant, on_delete=models.DO_NOTHING)
     payment = models.ForeignKey(Card, null=True, on_delete=models.SET_NULL)

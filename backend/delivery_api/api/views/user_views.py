@@ -132,7 +132,7 @@ def set_rating(request):
         serializer.save(user=request.user)
 
         order_ = Order.objects.get(id=request.data["order"])
-        serializer_ = OrderSerializer(order_, data={"is_rated": True}, partial=True)
+        serializer_ = OrderSerializer(order_, data={"status": "RATED"}, partial=True)
 
         if serializer_.is_valid():
             order_ = serializer_.save()
