@@ -38,7 +38,14 @@ export default function OrdersScreen(props) {
           Restaurant
               <Headline style={styles.subtitle}> Orders</Headline>
         </Title>
-        <Orders refreshing={refreshing} onRefresh={onRefresh} data={data} />
+        {data.length != 0 &&
+          <Orders refreshing={refreshing} onRefresh={onRefresh} data={data} />
+        }
+        {data.length == 0 &&
+          <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+            <Title style={{ color: colors.gray }}>No Orders Yet.</Title>
+          </View>
+        }
       </View>
     </View>
   );

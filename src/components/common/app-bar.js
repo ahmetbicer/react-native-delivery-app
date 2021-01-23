@@ -45,18 +45,6 @@ export default function AppBar(props) {
           }}
         />
         <Appbar.Content color={colors.white} />
-        <Appbar.Action
-          icon="heart"
-          onPress={() => props.setFavorite(!props.favorite)}
-          size={18}
-          color={props.favorite ? colors.red : colors.white}
-          style={{
-            width: 40,
-            height: 40,
-            backgroundColor: 'rgba(220, 220, 220, 0.3)',
-            borderRadius: 15
-          }}
-        />
       </Appbar.Header>
     );
   }
@@ -111,7 +99,10 @@ export default function AppBar(props) {
     props.screenName == 'Address' ||
     props.screenName == 'GetAddress' ||
     props.screenName == 'Orders' ||
-    props.screenName == 'OrderDetails') {
+    props.screenName == 'OrderDetails' ||
+    props.screenName == 'Register' ||
+    props.screenName == 'OrderSuccessful'
+  ) {
     return (
       <Appbar.Header style={styles.bar}>
         <Appbar.Action

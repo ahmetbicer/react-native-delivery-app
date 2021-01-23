@@ -5,6 +5,7 @@ import colors from '../../constants/colors';
 import LottieView from 'lottie-react-native';
 import { useNavigation } from '@react-navigation/native';
 import useToast from '../../hooks/use-toast';
+import AppBar from '../../components/common/app-bar'
 
 export default function RegisterScreen(props) {
   const [name, setName] = useState("");
@@ -68,6 +69,7 @@ export default function RegisterScreen(props) {
 
   return (
     <View style={styles.container}>
+      <AppBar screenName={props.route.name} />
       <View style={styles.lottie_container}>
         <LottieView
           source={require('../../assets/lottie/register2.json')}
@@ -130,7 +132,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.white,
-    padding: 20,
   },
   lottie_container: {
     flex: 2,
@@ -143,6 +144,7 @@ const styles = StyleSheet.create({
   },
   login: {
     flex: 3,
+    padding: 20
   },
   password_container: {
     flexDirection: "row",

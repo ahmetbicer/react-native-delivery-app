@@ -21,7 +21,7 @@ export default function RestaurantHeaderItem(props) {
       style={styles.item}>
       <View>
         <AppBar favorite={favorite} setFavorite={setFavorite} screenName={route.name} />
-        <View style={{ marginHorizontal: 10 }}>
+        <View style={{ marginHorizontal: 10, marginTop: 10 }}>
           <Paragraph numberOfLines={1} style={{ fontSize: 14, color: "lightgray", maxWidth: '75%', overflow: 'hidden' }}>
             {item.address}
           </Paragraph>
@@ -47,7 +47,6 @@ export default function RestaurantHeaderItem(props) {
 const styles = StyleSheet.create({
   item: {
     flex: 1,
-    // height: 215,
   },
   time_metadata: {
     backgroundColor: 'white',
