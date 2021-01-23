@@ -4,6 +4,7 @@ import { BottomSheetModal, BottomSheetView, TouchableOpacity, BottomSheetBackdro
 import { Title, TextInput } from 'react-native-paper';
 import colors from '../../constants/colors';
 import apiFetch from '../../hooks/api-fetch';
+import useToast from '../../hooks/use-toast';
 
 const AddFoodBottomSheet = React.forwardRef((props, ref) => {
     const [name, setName] = useState("");
@@ -15,7 +16,19 @@ const AddFoodBottomSheet = React.forwardRef((props, ref) => {
     const snapPoints = useMemo(() => ['75%'], []);
 
     async function addFood() {
-
+        if (name == "" ||
+            url == "" ||
+            description == "" ||
+            calories == "" ||
+            cost == ""
+        ) {
+            useToast({
+                type: "error",
+                text1: "Empty Fields",
+                text2: "Please fill all fields to add food. 👋",
+            })
+            return;
+        }
         const params = {
             endpoint: `foods`,
             method: "POST",
@@ -32,7 +45,19 @@ const AddFoodBottomSheet = React.forwardRef((props, ref) => {
 
         await apiFetch(params)
 
+        useToast({
+            type: "success",
+            text1: "New food added",
+            text2: "Refresh to see 👋",
+        })
+
         ref.current?.close()
+
+        setName("")
+        setUrl("")
+        setDescription("")
+        setCalories("")
+        setCost("")
     }
 
     return (

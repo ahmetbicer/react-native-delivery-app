@@ -143,7 +143,7 @@ export default function OrderDetailsScreen(props) {
       <View style={{ flex: 1, backgroundColor: colors.white }}>
         <AppBar screenName={props.route.name} />
         <View style={styles.container}>
-          {orderStatus == "DELIVERED" &&
+          {(orderStatus == "DELIVERED" || orderStatus == "RATED") &&
             <>
               <Title style={styles.title}>
                 Order
