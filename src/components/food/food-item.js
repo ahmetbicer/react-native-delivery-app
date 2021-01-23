@@ -21,10 +21,6 @@ export default function FoodItem(props) {
         <Image source={{ uri: item.image }} style={styles.image_row_image} />
       </View>
       <View style={styles.metadata_container}>
-        <View style={styles.metadata_rate_container}>
-          <Icon name="star" color={colors.yellow} size={18} />
-          <Title style={styles.metadata_rate_title}>{item.star} (1,862)</Title>
-        </View>
         <View style={styles.metadata_time_container}>
           <Title style={styles.metadata_time_title}>{item.calories} cal.</Title>
         </View>

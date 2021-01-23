@@ -39,7 +39,7 @@ class RestaurantSerializer(serializers.ModelSerializer):
 class FoodSerializer(serializers.ModelSerializer):
     class Meta:
         model = Food
-        fields = ('id', 'name', 'image', 'description', 'star', 'calories', 'cost', 'restaurant')
+        fields = ('id', 'name', 'image', 'description', 'calories', 'cost', 'restaurant')
         extra_kwargs = {"restaurant": {"required": False, "allow_null": True}}
         
     def create(self, validated_data):
@@ -47,7 +47,6 @@ class FoodSerializer(serializers.ModelSerializer):
             name=validated_data["name"],
             image=validated_data["image"],
             description=validated_data["description"],
-            star=validated_data["star"],
             calories=validated_data["calories"],
             cost=validated_data["cost"],
             restaurant=validated_data["restaurant"]
@@ -153,12 +152,11 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('id','restaurant_star', 'driver_star', 'order', 'user')
+        fields = ('id','restaurant_star', 'order', 'user')
 
     def create(self, validated_data):
         rating = Rating(
             restaurant_star=validated_data["restaurant_star"],
-            driver_star=validated_data["driver_star"],
             order=validated_data["order"],
             user=validated_data["user"]
         )

@@ -21,7 +21,6 @@ class Food(models.Model):
     name = models.CharField(max_length=40)
     image = models.CharField(max_length=300)
     description = models.CharField(max_length=300)
-    star = models.FloatField()
     calories = models.IntegerField()
     cost = models.FloatField()    
     restaurant = models.ForeignKey(Restaurant,on_delete=models.CASCADE)
@@ -76,7 +75,6 @@ class GPSLocation(models.Model):
 
 class Rating(models.Model):
     restaurant_star = models.FloatField()
-    driver_star = models.FloatField()
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 

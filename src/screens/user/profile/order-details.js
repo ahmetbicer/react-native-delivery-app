@@ -35,7 +35,6 @@ export default function OrderDetailsScreen(props) {
   const [coordinates, setCoordinates] = useState([36.268405, 41.2331]);
   const [driverCoordinates, setDriverCoordinates] = useState([-122.1021321, 37.4173526]);
 
-  const [driverRating, setDriverRating] = useState(5);
   const [restaurantRating, setRestaurantRating] = useState(5);
 
   useEffect(() => {
@@ -96,7 +95,6 @@ export default function OrderDetailsScreen(props) {
       auth: true,
       body: {
         restaurant_star: restaurantRating,
-        driver_star: driverRating,
         order: data[0]?.order.id,
       }
     }
@@ -158,31 +156,14 @@ export default function OrderDetailsScreen(props) {
         <OrderStatus status={routeParams.status} />
 
         {routeParams.status == "DELIVERED" &&
-          <View style={{ flex: 1 }}>
+          <View style={{ marginBottom: 15 }}>
             <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Icon name="store" size={25} />
-                <Title style={{ marginLeft: 5 }}>Restaurant</Title>
-              </View>
+              <Title style={{ marginLeft: 5 }}>Rate your experience</Title>
               <Rating
                 type={"custom"}
                 ratingColor={colors.yellow}
                 startingValue={5}
                 onFinishRating={(rating) => setRestaurantRating(rating)}
-                imageSize={20}
-                style={{ paddingVertical: 10 }}
-              />
-            </View>
-            <View style={{ flexDirection: "row", alignItems: "center", justifyContent: "space-between" }}>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Icon name="moped" size={25} />
-                <Title style={{ marginLeft: 5 }}>Driver</Title>
-              </View>
-              <Rating
-                type={"custom"}
-                ratingColor={colors.yellow}
-                startingValue={5}
-                onFinishRating={(rating) => setDriverRating(rating)}
                 imageSize={20}
                 style={{ paddingVertical: 10 }}
               />

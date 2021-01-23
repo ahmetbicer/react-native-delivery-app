@@ -14,15 +14,8 @@ function Overview(props) {
       <Paragraph>
         {props.item.description}
       </Paragraph>
-    </View>
-  )
-}
-
-function Reviews(props) {
-  return (
-    <View style={{ flex: 1, backgroundColor: colors.white, justifyContent: "center", alignItems: "center" }}>
       <Paragraph>
-        {props.item.star}
+        {props.item.calories} Calories
       </Paragraph>
     </View>
   )
@@ -61,9 +54,6 @@ export default function FoodDetailScreen() {
             }}>
             <Tab.Screen name={"Overview"} key={"Overview"}>
               {() => <Overview item={item} />}
-            </Tab.Screen>
-            <Tab.Screen name={"Reviews"} key={"Reviews"}>
-              {() => <Reviews item={item} />}
             </Tab.Screen>
           </Tab.Navigator>
         </View>
