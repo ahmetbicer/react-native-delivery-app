@@ -5,8 +5,6 @@ import ProfileListItem from './profile_list_item';
 export default function RestaurantProfileList(props) {
     return (
         <View style={styles.list_container}>
-            <ProfileListItem icon="map-marker" title={"Address"} page={"Address"} />
-            <ProfileListItem icon="credit-card-outline" title={"Payment"} page={"Payment"} />
             <ProfileListItem icon="logout" title={"Logout"} logout />
         </View>
     );
