@@ -48,7 +48,7 @@ export default function OrderDetailsScreen(props) {
     if (routeParams.status == "IN DELIVERY") {
       getLocation()
     }
-  }, 20000)
+  }, 5000)
 
   async function getLocation() {
     if (data.length > 0) {

@@ -48,7 +48,7 @@ export default function OrderDetailsScreen(props) {
     if (orderStatus == "IN DELIVERY") {
       sendLocation()
     }
-  }, 10000)
+  }, 5000)
 
 
   async function getCustomerLatLon() {
