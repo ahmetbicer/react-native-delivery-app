@@ -31,7 +31,7 @@ export default function RestaurantHeaderItem(props) {
           <View style={styles.metadata}>
             <View style={styles.rate}>
               <Icon name="star" color={colors.yellow} size={18} />
-              <Title style={styles.rate_title}>{item.star}</Title>
+              <Title style={styles.rate_title}>{item.star} Star</Title>
             </View>
             <View style={[styles.rate, { marginLeft: 15 }]}>
               <Icon name="clock" color={colors.gray} size={18} />

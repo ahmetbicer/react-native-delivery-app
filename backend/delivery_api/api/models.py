@@ -76,5 +76,6 @@ class GPSLocation(models.Model):
 class Rating(models.Model):
     restaurant_star = models.FloatField()
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
+    restaurant = models.ForeignKey(Restaurant, blank=True, null=True, on_delete=models.CASCADE)
     user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
 

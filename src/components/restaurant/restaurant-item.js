@@ -35,7 +35,7 @@ export default function RestaurantItem(props) {
       <View style={styles.metadata_container}>
         <View style={styles.metadata_rate_container}>
           <Icon name="star" color={colors.yellow} size={18} />
-          <Title style={styles.metadata_rate_title}>{item.star} (1,862)</Title>
+          <Title style={styles.metadata_rate_title}>{item.star} Star</Title>
         </View>
         <View style={styles.metadata_time_container}>
           <Icon name="clock" color={colors.gray} size={18} />

@@ -152,12 +152,13 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ('id','restaurant_star', 'order', 'user')
+        fields = ('id','restaurant_star', 'order', 'restaurant', 'user')
 
     def create(self, validated_data):
         rating = Rating(
             restaurant_star=validated_data["restaurant_star"],
             order=validated_data["order"],
+            restaurant=validated_data["restaurant"],
             user=validated_data["user"]
         )
 

@@ -29,7 +29,7 @@ export default function OrderSuccessfulScreen(props) {
             style={{ marginTop: 10 }}
             color={colors.yellow}
             onPress={() => {
-              navigation.navigate("ProfileStack", { screen: "Orders" });
+              navigation.navigate("ProfileStack", { screen: "Profile" });
             }}>
             Go to Orders
           </Button>

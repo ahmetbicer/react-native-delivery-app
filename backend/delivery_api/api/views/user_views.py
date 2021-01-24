@@ -137,6 +137,16 @@ def set_rating(request):
         if serializer_.is_valid():
             order_ = serializer_.save()
 
+        restaurant_ = Restaurant.objects.get(id=request.data["restaurant"])
+        ratings = Rating.objects.filter(restaurant=restaurant_)
+
+        if(len(ratings) != 0):
+            star_ = round(sum(ratings.values_list('restaurant_star', flat=True)) / len(ratings), 2)
+
+            restaurant_serializer = RestaurantSerializer(restaurant_, data={"star": star_}, partial=True)
+            if restaurant_serializer.is_valid():
+                restaurant_serializer.save()
+
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

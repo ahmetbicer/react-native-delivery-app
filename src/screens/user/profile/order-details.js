@@ -96,6 +96,7 @@ export default function OrderDetailsScreen(props) {
       body: {
         restaurant_star: restaurantRating,
         order: data[0]?.order.id,
+        restaurant: data[0].order.restaurant
       }
     }
 
